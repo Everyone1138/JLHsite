@@ -27,9 +27,9 @@
     },
     "homepage": "https://github.com/Everyone1138/JLHSite#readme",
     "dependencies": {
-        "cors": "^2.8.5",
-        "dotenv": "^17.0.0",
-        "express": "^5.1.0",
-        "nodemailer": "^7.0.4"
+        "express": "^4",
+        "nodemailer": "^6",
+        "cors": "^2",
+        "dotenv": "^16"
     }
 }
