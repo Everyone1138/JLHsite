@@ -1,16 +1,16 @@
 {
-    "name": "newjlhsite",
+    "name": "jlhsite",
     "version": "1.0.0",
     "type": "module",
     "description": "Game Development Company: Jupiter LightHouse",
-    "main": "public/index.html",
+    "main": "index.html",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "start": "node server.js"
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/Everyone1138/NewJLHSite.git"
+        "url": "git+https://github.com/Everyone1138/JLHSite.git"
     },
     "keywords": [
         "game",
@@ -23,9 +23,9 @@
     "author": "\"javascript\",",
     "license": "ISC",
     "bugs": {
-        "url": "https://github.com/Everyone1138/NewJLHSite/issues"
+        "url": "https://github.com/Everyone1138/JLHSite/issues"
     },
-    "homepage": "https://github.com/Everyone1138/NewJLHSite#readme",
+    "homepage": "https://github.com/Everyone1138/JLHSite#readme",
     "dependencies": {
         "cors": "^2.8.5",
         "dotenv": "^17.0.0",
