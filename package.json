@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "type": "module",
     "description": "Game Development Company: Jupiter LightHouse",
-    "main": "index.html",
+    "main": "public/index.html",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "start": "node server.js"
@@ -20,7 +20,7 @@
         "html5",
         "retro"
     ],
-    "author": "\"javascript\",",
+    "author": "Santi",
     "license": "ISC",
     "bugs": {
         "url": "https://github.com/Everyone1138/JLHSite/issues"
