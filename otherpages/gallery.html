@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jupiter LightHouse | Game Gallery</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
+        .pixel-font {
+            font-family: 'Press Start 2P', cursive;
+        }
+        
+        .retro-font {
+            font-family: 'VT323', monospace;
+        }
+        
+        .pixel-border {
+            border: 4px solid #000;
+            position: relative;
+            box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.2);
+        }
+        
+        .pixel-border::before {
+            content: "";
+            position: absolute;
+            top: -8px;
+            left: -8px;
+            right: -8px;
+            bottom: -8px;
+            border: 2px solid #fff;
+            z-index: -1;
+        }
+        
+        .btn-pixel {
+            position: relative;
+            border: 4px solid #000;
+            background: #ff3366;
+            color: white;
+            padding: 12px 24px;
+            font-family: 'Press Start 2P', cursive;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.1s;
+            box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+        
+        .btn-pixel:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0 #000;
+        }
+        
+        .btn-pixel:active {
+            transform: translate(0, 0);
+            box-shadow: 2px 2px 0 #000;
+        }
+        
+        .btn-pixel::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(-100%);
+            transition: 0.3s;
+        }
+        
+        .btn-pixel:hover::after {
+            transform: translateX(100%);
+        }
+        /* CRT screen effect */
+        
+        .crt-effect::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            background-size: 100% 2px, 3px 100%;
+            pointer-events: none;
+            z-index: 10;
+        }
+        /* Floating pixels */
+        
+        .floating-pixels {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .floating-pixel {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background-color: rgba(255, 51, 102, 0.5);
+            border-radius: 50%;
+            animation: float 15s linear infinite;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(20px);
+                opacity: 0;
+            }
+        }
+        /* Game cards */
+        
+        .game-card {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            background-size: cover;
+            background-position: center;
+            height: 300px;
+        }
+        
+        .game-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(255, 51, 102, 0.4);
+        }
+        
+        .game-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.7) 100%);
+            z-index: 1;
+        }
+        
+        .game-card:hover::before {
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.8) 100%);
+        }
+        
+        .game-card-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 20px;
+            z-index: 2;
+        }
+        
+        .game-tag {
+            display: inline-block;
+            padding: 4px 8px;
+            margin-right: 8px;
+            margin-bottom: 8px;
+            background-color: rgba(255, 51, 102, 0.8);
+            color: white;
+            font-size: 0.8rem;
+            border-radius: 4px;
+        }
+        /* Pixel cursor */
+        
+        body {
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><rect x="4" y="4" width="8" height="8" fill="%23ff3366"/><rect x="2" y="2" width="12" height="12" fill="none" stroke="%23000" stroke-width="2"/></svg>'), auto;
+        }
+        
+        a,
+        button {
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><rect x="4" y="4" width="8" height="8" fill="%23ff3366"/><rect x="2" y="2" width="12" height="12" fill="none" stroke="%23000" stroke-width="2"/></svg>'), auto;
+        }
+        /* Modal */
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 100;
+            overflow-y: auto;
+        }
+        
+        .modal-content {
+            background-color: #1a1a1a;
+            margin: 5% auto;
+            padding: 30px;
+            width: 80%;
+            max-width: 900px;
+            position: relative;
+            border: 6px solid #000;
+            box-shadow: 0 0 0 3px #fff;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            color: #fff;
+            font-size: 28px;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        
+        .close-modal:hover {
+            color: #ff3366;
+        }
+        /* Filter buttons */
+        
+        .filter-btn {
+            background-color: #333;
+            color: white;
+            border: 2px solid #000;
+            padding: 8px 16px;
+            margin: 0 5px 10px 0;
+            font-family: 'VT323', monospace;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+        }
+        
+        .filter-btn:hover,
+        .filter-btn.active {
+            background-color: #ff3366;
+            color: white;
+            transform: translateY(-2px);
+        }
+        /* Screenshot gallery */
+        
+        .screenshot {
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .screenshot:hover {
+            transform: scale(1.03);
+            box-shadow: 0 5px 15px rgba(255, 51, 102, 0.5);
+        }
+    </style>
+</head>
+
+<body class="bg-gray-900 text-white crt-effect">
+    <!-- Floating Pixels Background -->
+    <div class="floating-pixels" id="floatingPixels"></div>
+
+    <!-- Header with Right Slide-In Menu Toggle -->
+    <header class="bg-black py-4 px-6 border-b-4 border-purple-600 sticky top-0 z-30">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center">
+                <a href="index.html" class="flex items-center">
+                    <div class="w-15 h-15 bg-purple-600 rounded-full flex items-center justify-center mr-4 hover:animate-spin" onclick="playSound('select')">
+                        <img src="images/jup1.png" alt="Gamepad" class="w-[80px] sm:w-[80px] md:w-[130px] lg:w-[100px] object-contain rounded-full border-4 border-purple-500">
+
+                    </div>
+                    <h1 class="pixel-font text-2xl md:text-3xl text-purple-400 hover:text-pink-400 transition-colors">Jupiter LightHouse</h1>
+                </a>
+            </div>
+            <!-- <nav class="hidden md:block">
+                <ul class="flex space-x-8 retro-font text-xl">
+                    <li><a href="index.html" class="hover:text-purple-400 transition hover:underline hover:underline-offset-4">Home</a></li>
+                    <li><a href="games.html" class="text-purple-400 transition underline underline-offset-4">Games</a></li>
+                    <li><a href="team.html" class="hover:text-purple-400 transition hover:underline hover:underline-offset-4">Team</a></li>
+                    <li><a href="about.html" class="hover:text-purple-400 transition hover:underline hover:underline-offset-4">About</a></li>
+                    <li><a href="contact.html" class="hover:text-purple-400 transition hover:underline hover:underline-offset-4">Contact</a></li>
+                </ul>
+            </nav> -->
+            <button class="text-2xl btn-retro pixel-border p-2 bg-purple-600 hover:bg-pink-600 transition" onclick="toggleRightMenu()">
+        <i class="fas fa-bars text-white"></i>
+      </button>
+        </div>
+    </header>
+
+    <!-- Right Slide-In Menu -->
+    <div id="right-menu" class="fixed top-0 right-0 h-full w-64 bg-black text-white z-50 transform translate-x-full transition-transform duration-300 shadow-lg border-l-4 border-purple-600 pixel-border">
+        <div class="flex justify-between items-center p-4 border-b border-purple-600">
+            <h2 class="pixel-font text-xl text-purple-400">MENU</h2>
+            <button onclick="toggleRightMenu()" class="text-white text-2xl btn-retro hover:text-pink-400 transition">
+        <i class="fas fa-times"></i>
+      </button>
+        </div>
+        <ul class="p-6 space-y-6 retro-font text-xl">
+            <li><a href="index.html" class="block text-white hover:text-pink-400 hover:scale-105 transition-all duration-200" onclick="toggleRightMenu()">Home</a></li>
+            <li><a href="games.html" class="block text-pink-400 hover:text-pink-400 hover:scale-105 transition-all duration-200" onclick="toggleRightMenu()">Games</a></li>
+            <li><a href="aboutus.html" class="block text-white hover:text-pink-400 hover:scale-105 transition-all duration-200" onclick="toggleRightMenu()">About Us</a></li>
+            <li><a href="contactus.html" class="block text-white hover:text-pink-400 hover:scale-105 transition-all duration-200" onclick="toggleRightMenu()">Contact</a></li>
+        </ul>
+    </div>
+
+    <!-- Place this at the end of your <script> tag -->
+    <script>
+        function toggleRightMenu() {
+            const menu = document.getElementById('right-menu');
+            menu.classList.toggle('translate-x-0');
+            menu.classList.toggle('translate-x-full');
+            playSound('select');
+        }
+
+        // Auto-close right menu if clicking outside
+        document.addEventListener('click', function(event) {
+            const menu = document.getElementById('right-menu');
+            const toggleButton = document.querySelector('button[onclick="toggleRightMenu()"]');
+            const isMenuOpen = menu.classList.contains('translate-x-0');
+            const clickedInsideMenu = menu.contains(event.target);
+            const clickedToggleButton = toggleButton.contains(event.target);
+
+            if (isMenuOpen && !clickedInsideMenu && !clickedToggleButton) {
+                toggleRightMenu();
+            }
+        });
+    </script>
+
+    <!-- Hero Section -->
+    <section class="relative bg-gradient-to-b from-gray-900 to-purple-900 py-20">
+        <div class="container mx-auto px-6 text-center">
+            <h1 class="pixel-font text-4xl md:text-6xl mb-6 text-purple-400">GAME GALLERY</h1>
+            <p class="retro-font text-xl md:text-2xl max-w-3xl mx-auto">
+                Explore our collection of pixel-perfect games. Each one crafted with love and 8-bit nostalgia.
+            </p>
+        </div>
+    </section>
+
+    <!-- Game Filters -->
+    <section class="py-10 bg-gray-800">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-8">
+                <h2 class="pixel-font text-2xl mb-4 text-purple-400">FILTER GAMES</h2>
+                <div class="flex flex-wrap justify-center">
+                    <button class="filter-btn active" data-filter="all">ALL</button>
+                    <button class="filter-btn" data-filter="action">ACTION</button>
+                    <button class="filter-btn" data-filter="adventure">ADVENTURE</button>
+                    <button class="filter-btn" data-filter="rpg">RPG</button>
+                    <button class="filter-btn" data-filter="puzzle">PUZZLE</button>
+                    <button class="filter-btn" data-filter="platformer">PLATFORMER</button>
+                    <button class="filter-btn" data-filter="new">NEW RELEASES</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Games Grid -->
+    <section class="py-12 bg-black">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Game 1 -->
+                <div class="game-card pixel-border rounded-lg" data-category="action platformer new" style="background-image: url('https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80')">
+                    <div class="game-card-content">
+                        <div>
+                            <span class="game-tag">ACTION</span>
+                            <span class="game-tag">PLATFORMER</span>
+                            <span class="game-tag">NEW</span>
+                        </div>
+                        <h3 class="pixel-font text-xl mb-2">NINJA QUEST</h3>
+                        <p class="retro-font text-lg mb-4">Slice through enemies in this fast-paced platformer</p>
+                        <button class="btn-pixel retro-font game-details" data-game="1">
+                            VIEW DETAILS <i class="fas fa-arrow-right ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Game 2 -->
+                <div class="game-card pixel-border rounded-lg" data-category="rpg adventure" style="background-image: url('https://images.unsplash.com/photo-1560253023-3ec5d502959f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80')">
+                    <div class="game-card-content">
+                        <div>
+                            <span class="game-tag">RPG</span>
+                            <span class="game-tag">ADVENTURE</span>
+                        </div>
+                        <h3 class="pixel-font text-xl mb-2">CHRONO PIXELS</h3>
+                        <p class="retro-font text-lg mb-4">An epic time-traveling adventure</p>
+                        <button class="btn-pixel retro-font game-details" data-game="2">
+                            VIEW DETAILS <i class="fas fa-arrow-right ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Game 3 -->
+                <div class="game-card pixel-border rounded-lg" data-category="puzzle" style="background-image: url('https://images.unsplash.com/photo-1585238342024-78d80f7c1b8e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80')">
+                    <div class="game-card-content">
+                        <div>
+                            <span class="game-tag">PUZZLE</span>
+                        </div>
+                        <h3 class="pixel-font text-xl mb-2">BLOCK MATRIX</h3>
+                        <p class="retro-font text-lg mb-4">Match colors and solve the mystery</p>
+                        <button class="btn-pixel retro-font game-details" data-game="3">
+                            VIEW DETAILS <i class="fas fa-arrow-right ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Game 4 -->
+                <div class="game-card pixel-border rounded-lg" data-category="action adventure new" style="background-image: url('https://images.unsplash.com/photo-1547036967-23d11aacaee0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80')">
+                    <div class="game-card-content">
+                        <div>
+                            <span class="game-tag">ACTION</span>
+                            <span class="game-tag">ADVENTURE</span>
+                            <span class="game-tag">NEW</span>
+                        </div>
+                        <h3 class="pixel-font text-xl mb-2">SPACE RANGERS</h3>
+                        <p class="retro-font text-lg mb-4">Defend the galaxy from alien invaders</p>
+                        <button class="btn-pixel retro-font game-details" data-game="4">
+                            VIEW DETAILS <i class="fas fa-arrow-right ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Game 5 -->
+                <div class="game-card pixel-border rounded-lg" data-category="rpg" style="background-image: url('https://images.unsplash.com/photo-1511512578047-dba367496ab6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80')">
+                    <div class="game-card-content">
+                        <div>
+                            <span class="game-tag">RPG</span>
+                        </div>
+                        <h3 class="pixel-font text-xl mb-2">DRAGON REALM</h3>
+                        <p class="retro-font text-lg mb-4">Build your legend in a world of magic</p>
+                        <button class="btn-pixel retro-font game-details" data-game="5">
+                            VIEW DETAILS <i class="fas fa-arrow-right ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Game 6 -->
+                <div class="game-card pixel-border rounded-lg" data-category="platformer" style="background-image: url('https://images.unsplash.com/photo-1551103782-8ab07afd45c1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80')">
+                    <div class="game-card-content">
+                        <div>
+                            <span class="game-tag">PLATFORMER</span>
+                        </div>
+                        <h3 class="pixel-font text-xl mb-2">JUMPY SQUIRREL</h3>
+                        <p class="retro-font text-lg mb-4">Collect acorns in this high-flying adventure</p>
+                        <button class="btn-pixel retro-font game-details" data-game="6">
+                            VIEW DETAILS <i class="fas fa-arrow-right ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Coming Soon Section -->
+    <section class="py-16 bg-gray-800">
+        <div class="container mx-auto px-6">
+            <h2 class="pixel-font text-3xl mb-12 text-center text-purple-400">COMING SOON</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Coming Soon 1 -->
+                <div class="bg-gray-900 p-8 rounded-lg pixel-border flex items-center">
+                    <div class="w-24 h-24 bg-purple-600 rounded-full flex items-center justify-center mr-6">
+                        <i class="fas fa-question text-3xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="pixel-font text-xl mb-2">MYSTERY PROJECT X</h3>
+                        <p class="retro-font text-lg">Something amazing is coming soon...</p>
+                    </div>
+                </div>
+
+                <!-- Coming Soon 2 -->
+                <div class="bg-gray-900 p-8 rounded-lg pixel-border flex items-center">
+                    <div class="w-24 h-24 bg-blue-600 rounded-full flex items-center justify-center mr-6">
+                        <i class="fas fa-robot text-3xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="pixel-font text-xl mb-2">ROBOT REBELLION</h3>
+                        <p class="retro-font text-lg">Fight against the machine uprising</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="py-16 bg-gradient-to-r from-purple-900 to-blue-900">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="pixel-font text-3xl md:text-4xl mb-6 text-white">GET UPDATES</h2>
+            <p class="retro-font text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
+                Be the first to know about new releases, updates, and special offers.
+            </p>
+            <form class="max-w-md mx-auto flex flex-col sm:flex-row gap-4">
+                <input type="email" placeholder="Your email address" class="flex-grow pixel-input retro-font px-4 py-3">
+                <button type="submit" class="btn-pixel bg-white text-purple-900 retro-font">
+                    SUBSCRIBE <i class="fas fa-envelope-open-text ml-2"></i>
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black py-8">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <div class="flex items-center">
+                        <div class="w-15 h-15 bg-purple-600 rounded-full flex items-center justify-center mr-4 hover:animate-spin" onclick="playSound('select')">
+                            <img src="images/jup1.png" alt="Gamepad" class="w-[80px] sm:w-[80px] md:w-[130px] lg:w-[100px] object-contain rounded-full border-4 border-purple-500">
+
+                        </div>
+                        <h2 class="pixel-font text-xl">Jupiter LightHouse</h2>
+                    </div>
+                </div>
+
+                <div class="flex space-x-6 mb-6 md:mb-0">
+                    <a href="#" class="text-2xl hover:text-blue-400 transition"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-2xl hover:text-blue-400 transition"><i class="fab fa-facebook"></i></a>
+                    <a href="#" class="text-2xl hover:text-blue-400 transition"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-2xl hover:text-blue-400 transition"><i class="fab fa-discord"></i></a>
+                    <a href="#" class="text-2xl hover:text-blue-400 transition"><i class="fab fa-youtube"></i></a>
+                </div>
+
+                <div class="retro-font text-sm">
+                    <p>&copy; 2023 Jupiter LightHouse Games. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Game Details Modal -->
+    <div id="gameModal" class="modal">
+        <div class="modal-content retro-font">
+            <span class="close-modal">&times;</span>
+            <div id="modalContent">
+                <!-- Content will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Audio elements -->
+    <audio id="hoverSound" src="https://assets.mixkit.co/sfx/preview/mixkit-arcade-game-jump-coin-216.mp3"></audio>
+    <audio id="selectSound" src="https://assets.mixkit.co/sfx/preview/mixkit-select-click-1109.mp3"></audio>
+    <audio id="confirmSound" src="https://assets.mixkit.co/sfx/preview/mixkit-quick-jump-arcade-game-239.mp3"></audio>
+
+    <script>
+        // Initialize floating pixels background
+        function createFloatingPixels() {
+            const container = document.getElementById('floatingPixels');
+            const colors = ['#ff3366', '#00ff99', '#3399ff', '#ffcc00', '#9966ff'];
+
+            for (let i = 0; i < 50; i++) {
+                const pixel = document.createElement('div');
+                pixel.className = 'floating-pixel';
+                pixel.style.left = Math.random() * 100 + '%';
+                pixel.style.top = Math.random() * 100 + '%';
+                pixel.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                pixel.style.animationDuration = (Math.random() * 10 + 5) + 's';
+                pixel.style.animationDelay = (Math.random() * 5) + 's';
+                pixel.style.opacity = Math.random() * 0.7 + 0.3;
+                pixel.style.width = (Math.random() * 8 + 4) + 'px';
+                pixel.style.height = pixel.style.width;
+                container.appendChild(pixel);
+            }
+        }
+
+        // Sound effects
+        function playSound(type) {
+            let sound;
+            switch (type) {
+                case 'hover':
+                    sound = document.getElementById('hoverSound');
+                    break;
+                case 'select':
+                    sound = document.getElementById('selectSound');
+                    break;
+                case 'confirm':
+                    sound = document.getElementById('confirmSound');
+                    break;
+            }
+
+            sound.currentTime = 0;
+            sound.play();
+        }
+
+        // Filter games
+        function setupGameFilters() {
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const gameCards = document.querySelectorAll('.game-card');
+
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    playSound('select');
+
+                    // Update active button
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+
+                    const filter = this.dataset.filter;
+
+                    // Filter games
+                    gameCards.forEach(card => {
+                        if (filter === 'all' || card.dataset.category.includes(filter)) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        }
+
+        // Game details modal
+        function setupGameModals() {
+            const modal = document.getElementById('gameModal');
+            const modalContent = document.getElementById('modalContent');
+            const closeBtn = document.querySelector('.close-modal');
+            const gameBtns = document.querySelectorAll('.game-details');
+
+            // Game data
+            const games = {
+                1: {
+                    title: "NINJA QUEST",
+                    description: "Slice through enemies in this fast-paced platformer with fluid combat mechanics and challenging levels. Master the art of the ninja as you traverse through beautifully crafted pixel environments.",
+                    tags: ["ACTION", "PLATFORMER", "NEW"],
+                    screenshots: [
+                        "https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+                        "https://images.unsplash.com/photo-1547036967-23d11aacaee0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80",
+                        "https://images.unsplash.com/photo-1551103782-8ab07afd45c1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                    ],
+                    release: "June 2023",
+                    platforms: ["PC", "Switch", "PlayStation", "Xbox"],
+                    page: ["games.html"]
+                },
+                2: {
+                    title: "CHRONO PIXELS",
+                    description: "An epic time-traveling adventure where your choices shape the future. Explore different eras, meet historical figures, and unravel the mysteries of time itself in this pixel-perfect RPG.",
+                    tags: ["RPG", "ADVENTURE"],
+                    screenshots: [
+                        "https://images.unsplash.com/photo-1560253023-3ec5d502959f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+                        "https://images.unsplash.com/photo-1511512578047-dba367496ab6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80",
+                        "https://images.unsplash.com/photo-1585238342024-78d80f7c1b8e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80"
+                    ],
+                    release: "March 2023",
+                    platforms: ["PC", "Switch"]
+                },
+                3: {
+                    title: "BLOCK MATRIX",
+                    description: "Match colors and solve the mystery in this mind-bending puzzle game. With over 100 levels of increasing difficulty, Block Matrix will challenge your pattern recognition and problem-solving skills.",
+                    tags: ["PUZZLE"],
+                    screenshots: [
+                        "https://images.unsplash.com/photo-1585238342024-78d80f7c1b8e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80",
+                        "https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+                        "https://images.unsplash.com/photo-1560253023-3ec5d502959f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                    ],
+                    release: "January 2023",
+                    platforms: ["PC", "Mobile"]
+                }
+            };
+
+            // Open modal
+            gameBtns.forEach(btn => {
+                        btn.addEventListener('click', function() {
+                                    playSound('confirm');
+                                    const gameId = this.dataset.game;
+                                    const game = games[gameId];
+
+                                    // Build modal content
+                                    let content = `
+                        <div class="pixel-font text-3xl mb-6 text-purple-400">${game.title}</div>
+                        <div class="mb-6">
+                            ${game.tags.map(tag => `<span class="game-tag">${tag}</span>`).join('')}
+                        </div>
+                        <p class="text-lg mb-6">${game.description}</p>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                            <div>
+                                <h3 class="pixel-font text-xl mb-4">DETAILS</h3>
+                                <p><strong>Release Date:</strong> ${game.release}</p>
+                                <p><strong>Platforms:</strong> ${game.platforms.join(', ')}</p>
+                            </div>
+                            <div>
+                                <h3 class="pixel-font text-xl mb-4">FEATURES</h3>
+                                <ul class="list-disc pl-5">
+                                    <li>Beautiful pixel art graphics</li>
+                                    <li>Engaging storyline</li>
+                                    <li>Multiple difficulty levels</li>
+                                    <li>Original chiptune soundtrack</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <h3 class="pixel-font text-xl mb-4">SCREENSHOTS</h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+                            ${game.screenshots.map(img => `
+                                <div class="screenshot pixel-border">
+                                    <img src="${img}" alt="${game.title} screenshot" class="w-full h-auto">
+                                </div>
+                            `).join('')}
+                        </div>
+                        
+                        <div class="text-center">
+                            <button onclick="window.location.href='${game.page}'" class="btn-pixel bg-purple-600 retro-font">
+                                MORE INFO <i class="fas fa-shopping-cart ml-2"></i>
+                            </button>
+                        </div>
+                        
+                    `;
+                    
+                    modalContent.innerHTML = content;
+                    modal.style.display = "block";
+                    
+                    // Add click event to screenshots
+                    document.querySelectorAll('.screenshot').forEach(screenshot => {
+                        screenshot.addEventListener('click', function() {
+                            // You could implement a lightbox here
+                            playSound('select');
+                        });
+                    });
+                });
+            });
+            
+            // Close modal
+            closeBtn.addEventListener('click', function() {
+                playSound('select');
+                modal.style.display = "none";
+            });
+            
+            // Close when clicking outside
+            window.addEventListener('click', function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            });
+        }
+
+        // Initialize on load
+        window.addEventListener('load', function() {
+            createFloatingPixels();
+            setupGameFilters();
+            setupGameModals();
+            
+            // Add hover effects to buttons and cards
+            const buttons = document.querySelectorAll('button');
+            buttons.forEach(button => {
+                button.addEventListener('mouseenter', () => playSound('hover'));
+            });
+            
+            const cards = document.querySelectorAll('.game-card');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', () => playSound('hover'));
+            });
+        });
+    </script>
+</body>
+
+</html>

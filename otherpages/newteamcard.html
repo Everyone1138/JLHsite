@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Team | Jupiter LightHouse Games</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
+        .pixel-font {
+            font-family: 'Press Start 2P', cursive;
+        }
+        
+        .retro-font {
+            font-family: 'VT323', monospace;
+        }
+        
+        .pixel-border {
+            border: 4px solid #000;
+            position: relative;
+            box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.2);
+        }
+        
+        .pixel-border::before {
+            content: "";
+            position: absolute;
+            top: -8px;
+            left: -8px;
+            right: -8px;
+            bottom: -8px;
+            border: 2px solid #fff;
+            z-index: -1;
+        }
+        
+        .btn-pixel {
+            position: relative;
+            border: 4px solid #000;
+            background: #ff3366;
+            color: white;
+            padding: 12px 24px;
+            font-family: 'Press Start 2P', cursive;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.1s;
+            box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+        
+        .btn-pixel:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0 #000;
+        }
+        
+        .btn-pixel:active {
+            transform: translate(0, 0);
+            box-shadow: 2px 2px 0 #000;
+        }
+        
+        .btn-pixel::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(-100%);
+            transition: 0.3s;
+        }
+        
+        .btn-pixel:hover::after {
+            transform: translateX(100%);
+        }
+        /* Pixel art cursor */
+        
+        body {
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><rect x="4" y="4" width="8" height="8" fill="%23ff3366"/><rect x="2" y="2" width="12" height="12" fill="none" stroke="%23000" stroke-width="2"/></svg>'), auto;
+        }
+        
+        a,
+        button {
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><rect x="4" y="4" width="8" height="8" fill="%23ff3366"/><rect x="2" y="2" width="12" height="12" fill="none" stroke="%23000" stroke-width="2"/></svg>'), auto;
+        }
+        /* 8-bit animation */
+        
+        @keyframes pixel-bounce {
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+        
+        .pixel-bounce {
+            animation: pixel-bounce 2s infinite;
+        }
+        /* CRT screen effect */
+        
+        .crt-effect::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            background-size: 100% 2px, 3px 100%;
+            pointer-events: none;
+            z-index: 10;
+        }
+        /* Team member cards */
+        
+        .team-card {
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .team-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .team-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .team-card:hover::before {
+            left: 100%;
+        }
+        /* Pixel avatar effect */
+        
+        .pixel-avatar {
+            image-rendering: pixelated;
+            transition: transform 0.3s ease;
+        }
+        
+        .team-card:hover .pixel-avatar {
+            transform: scale(1.05) rotate(-5deg);
+        }
+        /* Retro progress bar */
+        
+        .retro-progress {
+            height: 20px;
+            background-color: #333;
+            border: 3px solid #000;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .retro-progress-fill {
+            height: 100%;
+            background-color: #ff3366;
+            position: relative;
+            transition: width 0.5s ease;
+        }
+        
+        .retro-progress-fill::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to right, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0.3) 100%);
+            animation: progress-shine 2s infinite;
+        }
+        
+        @keyframes progress-shine {
+            0% {
+                transform: translateX(-100%);
+            }
+            100% {
+                transform: translateX(100%);
+            }
+        }
+        /* Skill meter animation */
+        
+        @keyframes fill-meter {
+            from {
+                width: 0%;
+            }
+            to {
+                width: var(--skill-level);
+            }
+        }
+        
+        .skill-meter {
+            animation: fill-meter 1.5s ease-out forwards;
+        }
+        /* Floating pixels */
+        
+        .floating-pixels {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .floating-pixel {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background-color: rgba(255, 51, 102, 0.5);
+            border-radius: 50%;
+            animation: float 15s linear infinite;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(20px);
+                opacity: 0;
+            }
+        }
+        /* Gameboy notification */
+        
+        .gameboy-notification {
+            position: fixed;
+            bottom: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #fff;
+            color: #000;
+            border: 4px solid #000;
+            padding: 10px 20px;
+            font-family: 'VT323', monospace;
+            font-size: 1.5rem;
+            z-index: 1000;
+            transition: bottom 0.5s ease;
+            box-shadow: 0 0 0 4px #fff, 0 0 0 8px #000;
+        }
+        /* Glitch effect */
+        
+        .glitch {
+            position: relative;
+        }
+        
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.8;
+        }
+        
+        .glitch::before {
+            color: #0ff;
+            z-index: -1;
+            animation: glitch-effect 3s infinite;
+        }
+        
+        .glitch::after {
+            color: #f0f;
+            z-index: -2;
+            animation: glitch-effect 2s infinite reverse;
+        }
+        
+        @keyframes glitch-effect {
+            0% {
+                transform: translate(0);
+            }
+            20% {
+                transform: translate(-3px, 3px);
+            }
+            40% {
+                transform: translate(-3px, -3px);
+            }
+            60% {
+                transform: translate(3px, 3px);
+            }
+            80% {
+                transform: translate(3px, -3px);
+            }
+            100% {
+                transform: translate(0);
+            }
+        }
+        /* Pixel character */
+        
+        .pixel-character {
+            width: 32px;
+            height: 32px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect x="8" y="4" width="16" height="8" fill="%23ff3366"/><rect x="4" y="12" width="24" height="12" fill="%23ff3366"/><rect x="8" y="24" width="4" height="8" fill="%23ff3366"/><rect x="20" y="24" width="4" height="8" fill="%23ff3366"/><rect x="12" y="8" width="2" height="2" fill="%23000"/><rect x="18" y="8" width="2" height="2" fill="%23000"/><rect x="14" y="12" width="4" height="2" fill="%23000"/></svg>') no-repeat;
+            image-rendering: pixelated;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-900 text-white crt-effect">
+    <!-- Floating Pixels Background -->
+    <div class="floating-pixels" id="floatingPixels"></div>
+
+    <!-- Gameboy notification -->
+    <div id="notification" class="gameboy-notification">
+        Meet the Jupiter LightHouse Team!
+    </div>
+
+    <!-- Header -->
+    <header class="bg-black py-4 px-6 border-b-4 border-purple-600 sticky top-0 z-30">
+        <div class="container mx-auto flex justify-between items-center gap-4">
+            <div class="flex items-center">
+                <div class="w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center mr-4 hover:animate-spin" onclick="playSound('select')">
+                    <i class="fas fa-gamepad text-2xl"></i>
+                </div>
+                <h1 class="pixel-font text-2xl md:text-3xl text-purple-400 hover:text-pink-400 transition-colors glitch" data-text="Jupiter LightHouse">Jupiter LightHouse</h1>
+            </div>
+            <nav class="hidden md:block ml-auto lg:mr-4">
+                <ul class="flex space-x-6 retro-font text-xl">
+                    <li><a href="index.html" class="hover:text-purple-400 transition hover:underline hover:underline-offset-4" onclick="playSound('select')">Home</a></li>
+                    <li><a href="games.html" class="hover:text-purple-400 transition hover:underline hover:underline-offset-4" onclick="playSound('select')">Games</a></li>
+                    <li><a href="team.html" class="hover:text-purple-400 transition hover:underline hover:underline-offset-4" onclick="playSound('select')">Team</a></li>
+                    <li><a href="contact.html" class="hover:text-purple-400 transition hover:underline hover:underline-offset-4" onclick="playSound('select')">Contact</a></li>
+                </ul>
+            </nav>
+
+            <!-- Always-visible pixel hamburger -->
+            <button class="text-2xl btn-retro pixel-border p-2 bg-purple-600 hover:bg-pink-600 transition" onclick="toggleRightMenu()">
+                <i class="fas fa-bars text-white"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Right Slide-In Menu -->
+    <div id="right-menu" class="fixed top-0 right-0 h-full w-64 bg-black text-white z-50 transform translate-x-full transition-transform duration-300 shadow-lg border-l-4 border-purple-600 pixel-border">
+        <div class="flex justify-between items-center p-4 border-b border-purple-600">
+            <h2 class="pixel-font text-xl text-purple-400">MENU</h2>
+            <button onclick="toggleRightMenu()" class="text-white text-2xl btn-retro hover:text-pink-400 transition">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <ul class="p-6 space-y-6 retro-font text-xl">
+            <li><a href="index.html" class="block text-white hover:text-pink-400 hover:scale-105 transition-all duration-200" onclick="toggleRightMenu(); playSound('select')">Home</a></li>
+            <li><a href="games.html" class="block text-white hover:text-pink-400 hover:scale-105 transition-all duration-200" onclick="toggleRightMenu(); playSound('select')">Games</a></li>
+            <li><a href="team.html" class="block text-white hover:text-pink-400 hover:scale-105 transition-all duration-200" onclick="toggleRightMenu(); playSound('select')">Team</a></li>
+            <li><a href="contact.html" class="block text-white hover:text-pink-400 hover:scale-105 transition-all duration-200" onclick="toggleRightMenu(); playSound('select')">Contact</a></li>
+        </ul>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="relative py-20 bg-gradient-to-b from-gray-900 to-purple-900">
+        <div class="container mx-auto px-6 text-center">
+            <h1 class="pixel-font text-4xl md:text-6xl mb-6 text-purple-400 pixel-bounce">OUR TEAM</h1>
+            <p class="retro-font text-xl md:text-2xl max-w-3xl mx-auto">
+                The pixel wizards behind Jupiter LightHouse Games. We eat, sleep, and breathe 32-bit gaming.
+            </p>
+        </div>
+
+        <!-- 8-bit character decoration -->
+        <div class="absolute bottom-10 left-10 w-16 h-16 hidden md:block">
+            <div class="pixel-character"></div>
+        </div>
+        <div class="absolute top-20 right-10 w-16 h-16 hidden md:block">
+            <div class="pixel-character"></div>
+        </div>
+    </section>
+
+    <!-- Founders Section -->
+    <section class="py-16 bg-gray-800">
+        <div class="container mx-auto px-6">
+            <h2 class="pixel-font text-3xl mb-12 text-center text-purple-400">FOUNDERS</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <!-- Founder 1 -->
+                <div class="team-card bg-gray-900 rounded-lg overflow-hidden pixel-border" onmouseenter="playSound('hover')">
+                    <div class="relative">
+                        <img src="https://placehold.co/600x400/black/purple?text=Pixel+Master" alt="Pixel Master" class="w-full h-64 object-cover pixel-avatar">
+                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-4">
+                            <h3 class="pixel-font text-xl">MAX "PIXEL" THUNDER</h3>
+                            <p class="retro-font text-purple-400">CEO & Lead Designer</p>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <p class="retro-font text-gray-300 mb-4">
+                            Started coding on a Commodore 64 at age 8. Has an encyclopedic knowledge of every 32-bit game ever made. Can draw perfect sprites freehand.
+                        </p>
+                        <div class="mb-4">
+                            <h4 class="retro-font text-lg mb-2">SPECIALTIES:</h4>
+                            <div class="space-y-2">
+                                <div>
+                                    <p class="retro-font">Pixel Art <span class="float-right">100%</span></p>
+                                    <div class="retro-progress">
+                                        <div class="retro-progress-fill skill-meter" style="--skill-level: 100%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p class="retro-font">Game Design <span class="float-right">95%</span></p>
+                                    <div class="retro-progress">
+                                        <div class="retro-progress-fill skill-meter" style="--skill-level: 95%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p class="retro-font">Coffee Consumption <span class="float-right">200%</span></p>
+                                    <div class="retro-progress">
+                                        <div class="retro-progress-fill skill-meter" style="--skill-level: 100%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex space-x-4">
+                            <a href="#" class="text-purple-400 hover:text-pink-400 text-xl" onclick="playSound('select')"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="text-purple-400 hover:text-pink-400 text-xl" onclick="playSound('select')"><i class="fab fa-github"></i></a>
+                            <a href="#" class="text-purple-400 hover:text-pink-400 text-xl" onclick="playSound('select')"><i class="fas fa-gamepad"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Founder 2 -->
+                <div class="team-card bg-gray-900 rounded-lg overflow-hidden pixel-border" onmouseenter="playSound('hover')">
+                    <div class="relative">
+                        <img src="https://placehold.co/600x400/black/blue?text=Code+Wizard" alt="Code Wizard" class="w-full h-64 object-cover pixel-avatar">
+                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-4">
+                            <h3 class="pixel-font text-xl">SAM "BYTE" STRIKER</h3>
+                            <p class="retro-font text-blue-400">CTO & Lead Developer</p>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <p class="retro-font text-gray-300 mb-4">
+                            Can optimize code to run on a toaster. Wrote his first game engine at 12. Dreams in assembly language. Believes 32-bit is the pinnacle of gaming.
+                        </p>
+                        <div class="mb-4">
+                            <h4 class="retro-font text-lg mb-2">SPECIALTIES:</h4>
+                            <div class="space-y-2">
+                                <div>
+                                    <p class="retro-font">Low-Level Programming <span class="float-right">100%</span></p>
+                                    <div class="retro-progress">
+                                        <div class="retro-progress-fill skill-meter" style="--skill-level: 100%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p class="retro-font">Engine Optimization <span class="float-right">98%</span></p>
+                                    <div class="retro-progress">
+                                        <div class="retro-progress-fill skill-meter" style="--skill-level: 98%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p class="retro-font">Debugging <span class="float-right">110%</span></p>
+                                    <div class="retro-progress">
+                                        <div class="retro-progress-fill skill-meter" style="--skill-level: 100%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex space-x-4">
+                            <a href="#" class="text-blue-400 hover:text-blue-300 text-xl" onclick="playSound('select')"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="text-blue-400 hover:text-blue-300 text-xl" onclick="playSound('select')"><i class="fab fa-github"></i></a>
+                            <a href="#" class="text-blue-400 hover:text-blue-300 text-xl" onclick="playSound('select')"><i class="fas fa-terminal"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team Member 7 -->
+                <div class="team-card bg-gray-900 rounded-lg overflow-hidden pixel-border" onmouseenter="playSound('hover')">
+                    <div class="relative">
+                        <img src="https://placehold.co/600x400/black/indigo?text=Engineer" alt="Engineer" class="w-full h-48 object-cover pixel-avatar">
+                        <div class="absolute top-2 right-2 bg-indigo-600 px-2 py-1 retro-font text-sm">TECH</div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="pixel-font text-lg">JORDAN "GIGA" HERTZ</h3>
+                        <p class="retro-font text-indigo-400 mb-2">Systems Engineer</p>
+                        <p class="retro-font text-gray-300 text-sm">
+                            Makes hardware sing. Can optimize a game to run on a potato. Our resident tech wizard.
+                        </p>
+                        <div class="mt-4">
+                            <p class="retro-font text-xs">FAVORITE TOOL:</p>
+                            <p class="retro-font text-indigo-400">Oscilloscope</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team Member 8 -->
+                <div class="team-card bg-gray-900 rounded-lg overflow-hidden pixel-border" onmouseenter="playSound('hover')">
+                    <div class="relative">
+                        <img src="https://placehold.co/600x400/black/cyan?text=Animator" alt="Animator" class="w-full h-48 object-cover pixel-avatar">
+                        <div class="absolute top-2 right-2 bg-cyan-600 px-2 py-1 retro-font text-sm">FRAMES</div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="pixel-font text-lg">CASEY "FLIP" BOOK</h3>
+                        <p class="retro-font text-cyan-400 mb-2">Lead Animator</p>
+                        <p class="retro-font text-gray-300 text-sm">
+                            Brings pixels to life with just 3 frames. Master of squash and stretch. Makes everything bounce.
+                        </p>
+                        <div class="mt-4">
+                            <p class="retro-font text-xs">FAVORITE TOOL:</p>
+                            <p class="retro-font text-cyan-400">Flipbook</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team Member 9 -->
+                <div class="team-card bg-gray-900 rounded-lg overflow-hidden pixel-border" onmouseenter="playSound('hover')">
+                    <div class="relative">
+                        <img src="https://placehold.co/600x400/black/lime?text=Producer" alt="Producer" class="w-full h-48 object-cover pixel-avatar">
+                        <div class="absolute top-2 right-2 bg-lime-600 px-2 py-1 retro-font text-sm">BOSS</div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="pixel-font text-lg">TAYLOR "SCHEDULE" CLOCK</h3>
+                        <p class="retro-font text-lime-400 mb-2">Producer</p>
+                        <p class="retro-font text-gray-300 text-sm">
+                            Keeps us all on track. Makes sure pizza arrives on time. The glue that holds us together.
+                        </p>
+                        <div class="mt-4">
+                            <p class="retro-font text-xs">FAVORITE TOOL:</p>
+                            <p class="retro-font text-lime-400">Spreadsheet</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="py-16 bg-black">
+        <div class="container mx-auto px-6">
+            <h2 class="pixel-font text-3xl mb-12 text-center text-purple-400">THE PIXEL SQUAD</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Team Member 1 -->
+                <div class="team-card bg-gray-900 rounded-lg overflow-hidden pixel-border" onmouseenter="playSound('hover')">
+                    <div class="relative">
+                        <img src="https://placehold.co/600x400/black/green?text=Sound+Maestro" alt="Sound Maestro" class="w-full h-48 object-cover pixel-avatar">
+                        <div class="absolute top-2 right-2 bg-green-600 px-2 py-1 retro-font text-sm">CHIPTUNE</div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="pixel-font text-lg">LENA "BEEP" WAVEFORM</h3>
+                        <p class="retro-font text-green-400 mb-2">Audio Director</p>
+                        <p class="retro-font text-gray-300 text-sm">
+                            Can make a Sega Genesis sound chip cry with joy. Composes music using only square waves and nostalgia.
+                        </p>
+                        <div class="mt-4">
+                            <p class="retro-font text-xs">FAVORITE TOOL:</p>
+                            <p class="retro-font text-green-400">Tracker Software</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team Member 2 -->
+                <div class="team-card bg-gray-900 rounded-lg overflow-hidden pixel-border" onmouseenter="playSound('hover')">
+                    <div class="relative">
+                        <img src="https://placehold.co/600x400/black/pink?text=Level+Designer" alt="Level Designer" class="w-full h-48 object-cover pixel-avatar">
+                        <div class="absolute top-2 right-2 bg-pink-600 px-2 py-1 retro-font text-sm">PLATFORMER</div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="pixel-font text-lg">JAMIE "JUMP" SPRING</h3>
+                        <p class="retro-font text-pink-400 mb-2">Level Designer</p>
+                        <p class="retro-font text-gray-300 text-sm">
+                            Designs platformer levels with perfect flow. Can calculate jump arcs in her head. Secretly a speedrunner.
+                        </p>
+                        <div class="mt-4">
+                            <p class="retro-font text-xs">FAVORITE TOOL:</p>
+                            <p class="retro-font text-pink-400">Grid Paper</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team Member 3 -->
+                <div class="team-card bg-gray-900 rounded-lg overflow-hidden pixel-border" onmouseenter="playSound('hover')">
+                    <div class="relative">
+                        <img src="https://placehold.co/600x400/black/yellow?text=Storyteller" alt="Storyteller" class="w-full h-48 object-cover pixel-avatar">
+                        <div class="absolute top-2 right-2 bg-yellow-600 px-2 py-1 retro-font text-sm">LORE</div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="pixel-font text-lg">ALEX "TEXT" SCROLL</h3>
+                        <p class="retro-font text-yellow-400 mb-2">Narrative Designer</p>
+                        <p class="retro-font text-gray-300 text-sm">
+                            Writes stories that fit in 8KB of text. Knows how to make "..." meaningful. Master of the 4-line dialogue box.
+                        </p>
+                        <div class="mt-4">
+                            <p class="retro-font text-xs">FAVORITE TOOL:</p>
+                            <p class="retro-font text-yellow-400">Typewriter</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team Member 4 -->
+                <div class="team-card bg-gray-900 rounded-lg overflow-hidden pixel-border" onmouseenter="playSound('hover')">
+                    <div class="relative">
+                        <img src="https://placehold.co/600x400/black/red?text=QA+Tester" alt="QA Tester" class="w-full h-48 object-cover pixel-avatar">
+                        <div class="absolute top-2 right-2 bg-red-600 px-2 py-1 retro-font text-sm">BUG HUNTER</div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="pixel-font text-lg">CHRIS "CRASH" DEBUG</h3>
+                        <p class="retro-font text-red-400 mb-2">QA Lead</p>
+                        <p class="retro-font text-gray-300 text-sm">
+                            Can break any game in under 5 minutes. Finds glitches that shouldn't be possible. Our secret weapon.
+                        </p>
+                        <div class="mt-4">
+                            <p class="retro-font text-xs">FAVORITE TOOL:</p>
+                            <p class="retro-font text-red-400">Controller</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team Member 5 -->
+                <div class="team-card bg-gray-900 rounded-lg overflow-hidden pixel-border" onmouseenter="playSound('hover')">
+                    <div class="relative">
+                        <img src="https://placehold.co/600x400/black/teal?text=Pixel+Artist" alt="Pixel Artist" class="w-full h-48 object-cover pixel-avatar">
+                        <div class="absolute top-2 right-2 bg-teal-600 px-2 py-1 retro-font text-sm">SPRITES</div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="pixel-font text-lg">MIA "DOT" PIXEL</h3>
+                        <p class="retro-font text-teal-400 mb-2">Pixel Artist</p>
+                        <p class="retro-font text-gray-300 text-sm">
+                            Creates masterpieces with 16 colors or less. Knows every dithering pattern by heart. Dreams in palettes.
+                        </p>
+                        <div class="mt-4">
+                            <p class="retro-font text-xs">FAVORITE TOOL:</p>
+                            <p class="retro-font text-teal-400">Graph Paper</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team Member 6 -->
+                <div class="team-card bg-gray-900 rounded-lg overflow-hidden pixel-border" onmouseenter="playSound('hover')">
+                    <div class="relative">
+                        <img src="https://placehold.co/600x400/black/orange?text=Community" alt="Community Manager" class="w-full h-48 object-cover pixel-avatar">
+                        <div class="absolute top-2 right-2 bg-orange-600 px-2 py-1 retro-font text-sm">HYPE</div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="pixel-font text-lg">TAYLOR "TWEET" SOCIAL</h3>
+                        <p class="retro-font text-orange-400 mb-2">Community Manager</p>
+                        <p class="retro-font text-gray-300 text-sm">
+                            Turns developer jargon into memes. Knows every retro gaming meme. Our bridge to the pixel-loving world.
+                        </p>
+                        <div class="mt-4">
+                            <p class="retro-font text-xs">FAVORITE TOOL:</p>
+                            <p class="retro-font text-orange-400">Hashtags</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Join Us Section -->
+    <section class="py-16 bg-purple-900">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="pixel-font text-3xl md:text-4xl mb-8 text-white">WANT TO JOIN OUR QUEST?</h2>
+            <p class="retro-font text-xl mb-8 max-w-2xl mx-auto">
+                We're always looking for fellow 32-bit enthusiasts who share our passion for pixel-perfect gaming.
+            </p>
+            <div class="max-w-md mx-auto bg-black p-6 pixel-border">
+                <h3 class="pixel-font text-xl mb-4 text-purple-400">OPEN POSITIONS</h3>
+                <ul class="retro-font text-lg space-y-2 mb-6">
+                    <li class="hover:text-pink-400 transition cursor-pointer" onclick="playSound('select')">Pixel Artist</li>
+                    <li class="hover:text-pink-400 transition cursor-pointer" onclick="playSound('select')">Gameplay Programmer</li>
+                    <li class="hover:text-pink-400 transition cursor-pointer" onclick="playSound('select')">Sound Designer</li>
+                </ul>
+                <button class="btn-pixel retro-font" onclick="playSound('confirm')">APPLY NOW</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black py-8">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 bg-purple-600 rounded-full flex items-center justify-center mr-3 hover:animate-spin" onclick="playSound('select')">
+                            <i class="fas fa-gamepad"></i>
+                        </div>
+                        <h2 class="pixel-font text-xl">Jupiter LightHouse</h2>
+                    </div>
+                </div>
+
+                <div class="flex space-x-6 mb-6 md:mb-0">
+                    <a href="#" class="text-2xl hover:text-purple-400 transition hover:scale-125" onclick="playSound('select')"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-2xl hover:text-purple-400 transition hover:scale-125" onclick="playSound('select')"><i class="fab fa-facebook"></i></a>
+                    <a href="#" class="text-2xl hover:text-purple-400 transition hover:scale-125" onclick="playSound('select')"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-2xl hover:text-purple-400 transition hover:scale-125" onclick="playSound('select')"><i class="fab fa-discord"></i></a>
+                    <a href="#" class="text-2xl hover:text-purple-400 transition hover:scale-125" onclick="playSound('select')"><i class="fab fa-youtube"></i></a>
+                </div>
+
+                <div class="retro-font text-sm">
+                    <p>&copy; 2023 Jupiter LightHouse Games. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Audio elements -->
+    <audio id="hoverSound" src="https://assets.mixkit.co/sfx/preview/mixkit-arcade-game-jump-coin-216.mp3"></audio>
+    <audio id="selectSound" src="https://assets.mixkit.co/sfx/preview/mixkit-select-click-1109.mp3"></audio>
+    <audio id="confirmSound" src="https://assets.mixkit.co/sfx/preview/mixkit-quick-jump-arcade-game-239.mp3"></audio>
+
+    <script>
+        // Toggle function
+        function toggleRightMenu() {
+            const menu = document.getElementById('right-menu');
+            const isOpen = menu.classList.contains('translate-x-0');
+
+            if (isOpen) {
+                menu.classList.remove('translate-x-0');
+                menu.classList.add('translate-x-full');
+            } else {
+                menu.classList.remove('translate-x-full');
+                menu.classList.add('translate-x-0');
+            }
+            playSound('select');
+        }
+
+        // Create floating pixels background
+        function createFloatingPixels() {
+            const container = document.getElementById('floatingPixels');
+            const colors = ['#ff3366', '#00ff99', '#3399ff', '#ffcc00', '#9966ff'];
+
+            for (let i = 0; i < 50; i++) {
+                const pixel = document.createElement('div');
+                pixel.className = 'floating-pixel';
+                pixel.style.left = Math.random() * 100 + '%';
+                pixel.style.top = Math.random() * 100 + '%';
+                pixel.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                pixel.style.animationDuration = (Math.random() * 10 + 5) + 's';
+                pixel.style.animationDelay = (Math.random() * 5) + 's';
+                pixel.style.opacity = Math.random() * 0.7 + 0.3;
+                pixel.style.width = (Math.random() * 8 + 4) + 'px';
+                pixel.style.height = pixel.style.width;
+                container.appendChild(pixel);
+            }
+        }
+
+        // Show notification
+        function showNotification() {
+            const notification = document.getElementById('notification');
+            notification.style.bottom = '20px';
+
+            setTimeout(function() {
+                notification.style.bottom = '-100px';
+            }, 3000);
+        }
+
+        // Sound effects
+        function playSound(type) {
+            let sound;
+            switch (type) {
+                case 'hover':
+                    sound = document.getElementById('hoverSound');
+                    break;
+                case 'select':
+                    sound = document.getElementById('selectSound');
+                    break;
+                case 'confirm':
+                    sound = document.getElementById('confirmSound');
+                    break;
+            }
+
+            sound.currentTime = 0;
+            sound.play();
+        }
+
+        // Initialize
+        window.addEventListener('load', function() {
+            createFloatingPixels();
+            setTimeout(showNotification, 1000);
+        });
+    </script>
+</body>
+
+</html>

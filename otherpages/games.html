@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jupiter LightHouse | Retro Racer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
+        .pixel-font {
+            font-family: 'Press Start 2P', cursive;
+        }
+        
+        .retro-font {
+            font-family: 'VT323', monospace;
+        }
+        
+        .pixel-border {
+            border: 4px solid #000;
+            position: relative;
+            box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.2);
+        }
+        
+        .pixel-border::before {
+            content: "";
+            position: absolute;
+            top: -8px;
+            left: -8px;
+            right: -8px;
+            bottom: -8px;
+            border: 2px solid #fff;
+            z-index: -1;
+        }
+        
+        .btn-pixel {
+            position: relative;
+            border: 4px solid #000;
+            background: #ff3366;
+            color: white;
+            padding: 12px 24px;
+            font-family: 'Press Start 2P', cursive;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.1s;
+            box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+        
+        .btn-pixel:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0 #000;
+        }
+        
+        .btn-pixel:active {
+            transform: translate(0, 0);
+            box-shadow: 2px 2px 0 #000;
+        }
+        
+        .btn-pixel::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(-100%);
+            transition: 0.3s;
+        }
+        
+        .btn-pixel:hover::after {
+            transform: translateX(100%);
+        }
+        /* CRT screen effect */
+        
+        .crt-effect::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            background-size: 100% 2px, 3px 100%;
+            pointer-events: none;
+            z-index: 10;
+        }
+        /* Game cartridge tilt effect */
+        
+        .cartridge-tilt {
+            transition: transform 0.3s ease;
+        }
+        
+        .cartridge-tilt:hover {
+            transform: rotate(5deg) scale(1.05);
+        }
+        /* Retro progress bar */
+        
+        .retro-progress {
+            height: 20px;
+            background-color: #333;
+            border: 3px solid #000;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .retro-progress-fill {
+            height: 100%;
+            background-color: #ff3366;
+            position: relative;
+            transition: width 0.5s ease;
+        }
+        
+        .retro-progress-fill::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient( to right, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0.3) 100%);
+            animation: progress-shine 2s infinite;
+        }
+        
+        @keyframes progress-shine {
+            0% {
+                transform: translateX(-100%);
+            }
+            100% {
+                transform: translateX(100%);
+            }
+        }
+        /* Game rating stars */
+        
+        .rating-star {
+            color: #ffcc00;
+            text-shadow: 2px 2px 0 #000, -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000;
+        }
+        /* Screenshot gallery */
+        
+        .screenshot {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .screenshot:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255, 51, 102, 0.7);
+        }
+        /* System requirements */
+        
+        .req-item {
+            border-left: 4px solid #ff3366;
+            padding-left: 12px;
+            margin-bottom: 12px;
+        }
+        /* Achievement badges */
+        
+        .achievement-badge {
+            width: 80px;
+            height: 80px;
+            background: #333;
+            border: 4px solid #000;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .achievement-badge::before {
+            content: "";
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: conic-gradient(#ff3366, #3399ff, #ff3366);
+            z-index: -1;
+            animation: rotate 4s linear infinite;
+        }
+        
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        /* Floating pixels */
+        
+        .floating-pixels {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .floating-pixel {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background-color: rgba(255, 51, 102, 0.5);
+            border-radius: 50%;
+            animation: float 15s linear infinite;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(20px);
+                opacity: 0;
+            }
+        }
+        /* Game trailer overlay */
+        
+        .trailer-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        
+        .trailer-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        /* Easter egg character */
+        
+        .pixel-character {
+            width: 32px;
+            height: 32px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect x="8" y="4" width="16" height="8" fill="%23ff3366"/><rect x="4" y="12" width="24" height="12" fill="%23ff3366"/><rect x="8" y="24" width="4" height="8" fill="%23ff3366"/><rect x="20" y="24" width="4" height="8" fill="%23ff3366"/><rect x="12" y="8" width="2" height="2" fill="%23000"/><rect x="18" y="8" width="2" height="2" fill="%23000"/><rect x="14" y="12" width="4" height="2" fill="%23000"/></svg>') no-repeat;
+            image-rendering: pixelated;
+        }
+        /* Pixel cursor */
+        
+        body {
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><rect x="4" y="4" width="8" height="8" fill="%23ff3366"/><rect x="2" y="2" width="12" height="12" fill="none" stroke="%23000" stroke-width="2"/></svg>'), auto;
+        }
+        
+        a,
+        button {
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><rect x="4" y="4" width="8" height="8" fill="%23ff3366"/><rect x="2" y="2" width="12" height="12" fill="none" stroke="%23000" stroke-width="2"/></svg>'), auto;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-900 text-white crt-effect">
+    <!-- Floating Pixels Background -->
+    <div class="floating-pixels" id="floatingPixels"></div>
+
+    <!-- Game Trailer Overlay -->
+    <div class="trailer-overlay" id="trailerOverlay">
+        <div class="relative w-full max-w-4xl">
+            <button class="absolute -top-12 right-0 text-4xl text-white hover:text-purple-400 transition" onclick="closeTrailer()">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="aspect-w-16 aspect-h-9">
+                <iframe id="trailerVideo" class="w-full h-full" src="" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="bg-black py-4 px-6 border-b-4 border-purple-600 sticky top-0 z-30">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center">
+                <a href="index.html" class="flex items-center">
+                    <div class="w-15 h-15 bg-purple-600 rounded-full flex items-center justify-center mr-4 hover:animate-spin" onclick="playSound('select')">
+                        <img src="images/jup1.png" alt="Gamepad" class="w-[80px] sm:w-[80px] md:w-[130px] lg:w-[100px] object-contain rounded-full border-4 border-purple-500">
+
+                    </div>
+                    <h1 class="pixel-font text-2xl md:text-3xl text-purple-400 hover:text-pink-400 transition-colors">Jupiter LightHouse</h1>
+                </a>
+            </div>
+            <nav class="hidden md:block">
+                <ul class="flex space-x-8 retro-font text-xl">
+                    <li><a href="index.html" class="hover:text-purple-400 transition hover:underline hover:underline-offset-4">Home</a></li>
+                    <li><a href="games.html" class="hover:text-purple-400 transition hover:underline hover:underline-offset-4">Games</a></li>
+                    <li><a href="about.html" class="hover:text-purple-400 transition hover:underline hover:underline-offset-4">About</a></li>
+                    <li><a href="contact.html" class="hover:text-purple-400 transition hover:underline hover:underline-offset-4">Contact</a></li>
+                </ul>
+            </nav>
+            <button class="md:hidden text-2xl">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Game Hero Section -->
+    <section class="relative bg-gradient-to-b from-gray-900 to-blue-900 py-16">
+        <div class="container mx-auto px-6 flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 mb-10 md:mb-0">
+                <div class="flex items-center mb-4">
+                    <span class="bg-blue-600 text-white retro-font px-3 py-1 mr-4">RACING</span>
+                    <div class="flex">
+                        <i class="fas fa-star rating-star mx-1"></i>
+                        <i class="fas fa-star rating-star mx-1"></i>
+                        <i class="fas fa-star rating-star mx-1"></i>
+                        <i class="fas fa-star rating-star mx-1"></i>
+                        <i class="fas fa-star-half-alt rating-star mx-1"></i>
+                    </div>
+                </div>
+                <h2 class="pixel-font text-4xl md:text-6xl mb-6 text-blue-400">RETRO RACER</h2>
+                <p class="retro-font text-xl md:text-2xl mb-8">Experience the golden age of arcade racing with modern polish. Burn rubber across 32-bit inspired tracks with split-screen multiplayer support.</p>
+                <div class="flex flex-wrap gap-4 mb-8">
+                    <button class="btn-pixel bg-blue-600 retro-font" onclick="playSound('confirm')">BUY NOW $19.99</button>
+                    <button class="btn-pixel bg-purple-600 retro-font" onclick="playTrailer('https://www.youtube.com/embed/dQw4w9WgXcQ')">WATCH TRAILER</button>
+                    <button class="btn-pixel bg-green-600 retro-font" onclick="addToWishlist()">WISHLIST</button>
+                </div>
+                <div class="flex items-center retro-font text-xl">
+                    <i class="fas fa-tags mr-2 text-blue-400"></i>
+                    <span class="mr-4">-50%</span>
+                    <i class="fas fa-calendar-alt mr-2 text-blue-400"></i>
+                    <span>Released: 06/15/2023</span>
+                </div>
+            </div>
+            <div class="md:w-1/2 flex justify-center">
+                <div class="pixel-border w-64 h-64 md:w-80 md:h-80 bg-gray-800 flex items-center justify-center hover:animate-pulse cartridge-tilt">
+                    <img src="https://placehold.co/400x400/blue/white?text=Retro+Racer" alt="Retro Racer" class="w-full h-full object-cover">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Game Details Section -->
+    <section class="py-16 bg-gray-800">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col lg:flex-row gap-12">
+                <!-- Main Content -->
+                <div class="lg:w-2/3">
+                    <!-- About Game -->
+                    <div class="mb-16">
+                        <h3 class="pixel-font text-3xl mb-6 text-blue-400">ABOUT THIS GAME</h3>
+                        <p class="retro-font text-xl mb-6">Retro Racer is a love letter to the golden age of arcade racing games, rebuilt from the ground up with modern technology while staying true to its 32-bit roots.</p>
+                        <p class="retro-font text-xl mb-6">Choose from 12 classic cars, each with unique handling characteristics, and race across 8 beautifully pixelated tracks inspired by 90s arcade classics.</p>
+                        <p class="retro-font text-xl mb-6">Features include:</p>
+                        <ul class="retro-font text-xl space-y-2 mb-6">
+                            <li class="flex items-center"><i class="fas fa-check-circle text-blue-400 mr-2"></i> 4-player split-screen multiplayer</li>
+                            <li class="flex items-center"><i class="fas fa-check-circle text-blue-400 mr-2"></i> 12 unlockable vehicles</li>
+                            <li class="flex items-center"><i class="fas fa-check-circle text-blue-400 mr-2"></i> 8 challenging race tracks</li>
+                            <li class="flex items-center"><i class="fas fa-check-circle text-blue-400 mr-2"></i> Original chiptune soundtrack</li>
+                            <li class="flex items-center"><i class="fas fa-check-circle text-blue-400 mr-2"></i> Time attack and championship modes</li>
+                        </ul>
+                    </div>
+
+                    <!-- Screenshots -->
+                    <div class="mb-16">
+                        <h3 class="pixel-font text-3xl mb-6 text-blue-400">SCREENSHOTS</h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                            <div class="screenshot pixel-border" onclick="openScreenshot('https://placehold.co/600x400/blue/white?text=Retro+Racer+1')">
+                                <img src="https://placehold.co/600x400/blue/white?text=Retro+Racer+1" alt="Screenshot 1" class="w-full h-auto">
+                            </div>
+                            <div class="screenshot pixel-border" onclick="openScreenshot('https://placehold.co/600x400/blue/white?text=Retro+Racer+2')">
+                                <img src="https://placehold.co/600x400/blue/white?text=Retro+Racer+2" alt="Screenshot 2" class="w-full h-auto">
+                            </div>
+                            <div class="screenshot pixel-border" onclick="openScreenshot('https://placehold.co/600x400/blue/white?text=Retro+Racer+3')">
+                                <img src="https://placehold.co/600x400/blue/white?text=Retro+Racer+3" alt="Screenshot 3" class="w-full h-auto">
+                            </div>
+                            <div class="screenshot pixel-border" onclick="openScreenshot('https://placehold.co/600x400/blue/white?text=Retro+Racer+4')">
+                                <img src="https://placehold.co/600x400/blue/white?text=Retro+Racer+4" alt="Screenshot 4" class="w-full h-auto">
+                            </div>
+                            <div class="screenshot pixel-border" onclick="openScreenshot('https://placehold.co/600x400/blue/white?text=Retro+Racer+5')">
+                                <img src="https://placehold.co/600x400/blue/white?text=Retro+Racer+5" alt="Screenshot 5" class="w-full h-auto">
+                            </div>
+                            <div class="screenshot pixel-border" onclick="openScreenshot('https://placehold.co/600x400/blue/white?text=Retro+Racer+6')">
+                                <img src="https://placehold.co/600x400/blue/white?text=Retro+Racer+6" alt="Screenshot 6" class="w-full h-auto">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- System Requirements -->
+                    <div class="mb-16">
+                        <h3 class="pixel-font text-3xl mb-6 text-blue-400">SYSTEM REQUIREMENTS</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div>
+                                <h4 class="retro-font text-2xl mb-4 text-blue-400">MINIMUM</h4>
+                                <div class="req-item">
+                                    <p class="retro-font text-lg"><span class="font-bold">OS:</span> Windows 7/8/10 (64-bit)</p>
+                                </div>
+                                <div class="req-item">
+                                    <p class="retro-font text-lg"><span class="font-bold">Processor:</span> Intel Core i3-2100 or equivalent</p>
+                                </div>
+                                <div class="req-item">
+                                    <p class="retro-font text-lg"><span class="font-bold">Memory:</span> 4 GB RAM</p>
+                                </div>
+                                <div class="req-item">
+                                    <p class="retro-font text-lg"><span class="font-bold">Graphics:</span> NVIDIA GTX 650 or equivalent</p>
+                                </div>
+                                <div class="req-item">
+                                    <p class="retro-font text-lg"><span class="font-bold">Storage:</span> 2 GB available space</p>
+                                </div>
+                            </div>
+                            <div>
+                                <h4 class="retro-font text-2xl mb-4 text-blue-400">RECOMMENDED</h4>
+                                <div class="req-item">
+                                    <p class="retro-font text-lg"><span class="font-bold">OS:</span> Windows 10 (64-bit)</p>
+                                </div>
+                                <div class="req-item">
+                                    <p class="retro-font text-lg"><span class="font-bold">Processor:</span> Intel Core i5-4670K or equivalent</p>
+                                </div>
+                                <div class="req-item">
+                                    <p class="retro-font text-lg"><span class="font-bold">Memory:</span> 8 GB RAM</p>
+                                </div>
+                                <div class="req-item">
+                                    <p class="retro-font text-lg"><span class="font-bold">Graphics:</span> NVIDIA GTX 970 or equivalent</p>
+                                </div>
+                                <div class="req-item">
+                                    <p class="retro-font text-lg"><span class="font-bold">Storage:</span> 2 GB available space</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="lg:w-1/3">
+                    <!-- Purchase Box -->
+                    <div class="p-6 bg-gray-900 rounded-lg mb-8 pixel-border">
+                        <div class="flex justify-between items-center mb-6">
+                            <span class="retro-font text-2xl line-through text-gray-400">$39.99</span>
+                            <span class="pixel-font text-3xl text-blue-400">$19.99</span>
+                        </div>
+                        <div class="retro-progress mb-6">
+                            <div class="retro-progress-fill" style="width: 75%"></div>
+                        </div>
+                        <p class="retro-font text-lg mb-6">Special offer ends in 2 days!</p>
+                        <button class="btn-pixel bg-blue-600 w-full retro-font mb-4" onclick="playSound('confirm')">BUY NOW</button>
+                        <button class="btn-pixel bg-purple-600 w-full retro-font mb-4" onclick="addToCart()">ADD TO CART</button>
+                        <button class="btn-pixel bg-green-600 w-full retro-font" onclick="addToWishlist()">WISHLIST</button>
+                    </div>
+
+                    <!-- Achievements -->
+                    <div class="p-6 bg-gray-900 rounded-lg mb-8 pixel-border">
+                        <h4 class="pixel-font text-xl mb-4 text-blue-400">ACHIEVEMENTS</h4>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="text-center">
+                                <div class="achievement-badge mx-auto mb-2">
+                                    <i class="fas fa-trophy text-2xl text-yellow-400"></i>
+                                </div>
+                                <p class="retro-font">Speed Demon</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="achievement-badge mx-auto mb-2">
+                                    <i class="fas fa-flag-checkered text-2xl text-blue-400"></i>
+                                </div>
+                                <p class="retro-font">First Finish</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="achievement-badge mx-auto mb-2">
+                                    <i class="fas fa-ghost text-2xl text-purple-400"></i>
+                                </div>
+                                <p class="retro-font">Ghost Rider</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="achievement-badge mx-auto mb-2">
+                                    <i class="fas fa-medal text-2xl text-red-400"></i>
+                                </div>
+                                <p class="retro-font">Champion</p>
+                            </div>
+                        </div>
+                        <button class="btn-pixel bg-gray-700 w-full retro-font mt-4" onclick="viewAllAchievements()">VIEW ALL (24)</button>
+                    </div>
+
+                    <!-- Similar Games -->
+                    <div class="p-6 bg-gray-900 rounded-lg pixel-border">
+                        <h4 class="pixel-font text-xl mb-4 text-blue-400">SIMILAR GAMES</h4>
+                        <div class="space-y-4">
+                            <div class="flex items-center hover:bg-gray-800 p-2 rounded transition cursor-pointer" onclick="window.location.href='game-pixel-adventure.html'">
+                                <img src="https://placehold.co/80x80/purple/white?text=Pixel+Adv" alt="Pixel Adventure" class="w-16 h-16 object-cover mr-4 pixel-border">
+                                <div>
+                                    <h5 class="retro-font text-lg">Pixel Adventure</h5>
+                                    <div class="flex">
+                                        <i class="fas fa-star rating-star text-xs mx-0.5"></i>
+                                        <i class="fas fa-star rating-star text-xs mx-0.5"></i>
+                                        <i class="fas fa-star rating-star text-xs mx-0.5"></i>
+                                        <i class="fas fa-star rating-star text-xs mx-0.5"></i>
+                                        <i class="fas fa-star rating-star text-xs mx-0.5"></i>
+                                    </div>
+                                    <p class="retro-font text-purple-400">$14.99</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center hover:bg-gray-800 p-2 rounded transition cursor-pointer" onclick="window.location.href='game-space-legends.html'">
+                                <img src="https://placehold.co/80x80/green/white?text=Space+Leg" alt="Space Legends" class="w-16 h-16 object-cover mr-4 pixel-border">
+                                <div>
+                                    <h5 class="retro-font text-lg">Space Legends</h5>
+                                    <div class="flex">
+                                        <i class="fas fa-star rating-star text-xs mx-0.5"></i>
+                                        <i class="fas fa-star rating-star text-xs mx-0.5"></i>
+                                        <i class="fas fa-star rating-star text-xs mx-0.5"></i>
+                                        <i class="fas fa-star rating-star text-xs mx-0.5"></i>
+                                        <i class="fas fa-star-half-alt rating-star text-xs mx-0.5"></i>
+                                    </div>
+                                    <p class="retro-font text-green-400">$12.99</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center hover:bg-gray-800 p-2 rounded transition cursor-pointer" onclick="window.location.href='game-neon-fury.html'">
+                                <img src="https://placehold.co/80x80/red/white?text=Neon+Fury" alt="Neon Fury" class="w-16 h-16 object-cover mr-4 pixel-border">
+                                <div>
+                                    <h5 class="retro-font text-lg">Neon Fury</h5>
+                                    <div class="flex">
+                                        <i class="fas fa-star rating-star text-xs mx-0.5"></i>
+                                        <i class="fas fa-star rating-star text-xs mx-0.5"></i>
+                                        <i class="fas fa-star rating-star text-xs mx-0.5"></i>
+                                        <i class="fas fa-star rating-star text-xs mx-0.5"></i>
+                                        <i class="far fa-star rating-star text-xs mx-0.5"></i>
+                                    </div>
+                                    <p class="retro-font text-red-400">$17.99</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section class="py-16 bg-black">
+        <div class="container mx-auto px-6">
+            <h3 class="pixel-font text-3xl mb-12 text-center text-blue-400">PLAYER REVIEWS</h3>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Review 1 -->
+                <div class="bg-gray-900 p-6 rounded-lg pixel-border">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center mr-4">
+                            <i class="fas fa-user text-xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="retro-font text-xl">PixelMaster92</h4>
+                            <div class="flex">
+                                <i class="fas fa-star rating-star text-sm mx-0.5"></i>
+                                <i class="fas fa-star rating-star text-sm mx-0.5"></i>
+                                <i class="fas fa-star rating-star text-sm mx-0.5"></i>
+                                <i class="fas fa-star rating-star text-sm mx-0.5"></i>
+                                <i class="fas fa-star rating-star text-sm mx-0.5"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="retro-font text-lg">"This game took me right back to my childhood! The handling feels perfect and the tracks are so creative. Split-screen multiplayer works flawlessly."</p>
+                    <p class="retro-font text-sm text-gray-400 mt-4">Posted: 2 weeks ago</p>
+                </div>
+
+                <!-- Review 2 -->
+                <div class="bg-gray-900 p-6 rounded-lg pixel-border">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center mr-4">
+                            <i class="fas fa-user text-xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="retro-font text-xl">RetroGamerX</h4>
+                            <div class="flex">
+                                <i class="fas fa-star rating-star text-sm mx-0.5"></i>
+                                <i class="fas fa-star rating-star text-sm mx-0.5"></i>
+                                <i class="fas fa-star rating-star text-sm mx-0.5"></i>
+                                <i class="fas fa-star rating-star text-sm mx-0.5"></i>
+                                <i class="fas fa-star-half-alt rating-star text-sm mx-0.5"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="retro-font text-lg">"Nostalgia overload! The pixel art is gorgeous and the soundtrack is incredible. My only complaint is that I wish there were more tracks."</p>
+                    <p class="retro-font text-sm text-gray-400 mt-4">Posted: 1 month ago</p>
+                </div>
+
+                <!-- Review 3 -->
+                <div class="bg-gray-900 p-6 rounded-lg pixel-border">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center mr-4">
+                            <i class="fas fa-user text-xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="retro-font text-xl">SpeedDemon</h4>
+                            <div class="flex">
+                                <i class="fas fa-star rating-star text-sm mx-0.5"></i>
+                                <i class="fas fa-star rating-star text-sm mx-0.5"></i>
+                                <i class="fas fa-star rating-star text-sm mx-0.5"></i>
+                                <i class="fas fa-star rating-star text-sm mx-0.5"></i>
+                                <i class="far fa-star rating-star text-sm mx-0.5"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="retro-font text-lg">"The time attack mode is super addictive! I've spent hours trying to beat my best times. Can't wait for the DLC tracks they promised."</p>
+                    <p class="retro-font text-sm text-gray-400 mt-4">Posted: 3 days ago</p>
+                </div>
+            </div>
+
+            <div class="text-center mt-12">
+                <button class="btn-pixel bg-blue-600 retro-font" onclick="viewAllReviews()">VIEW ALL REVIEWS</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black py-8">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <div class="flex items-center">
+                        <div class="w-15 h-15 bg-purple-600 rounded-full flex items-center justify-center mr-4 hover:animate-spin" onclick="playSound('select')">
+                            <img src="images/jup1.png" alt="Gamepad" class="w-[80px] sm:w-[80px] md:w-[130px] lg:w-[100px] object-contain rounded-full border-4 border-purple-500">
+
+                        </div>
+                        <h2 class="pixel-font text-xl">Jupiter LightHouse</h2>
+                    </div>
+                </div>
+
+                <div class="flex space-x-6 mb-6 md:mb-0">
+                    <a href="#" class="text-2xl hover:text-blue-400 transition"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-2xl hover:text-blue-400 transition"><i class="fab fa-facebook"></i></a>
+                    <a href="#" class="text-2xl hover:text-blue-400 transition"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-2xl hover:text-blue-400 transition"><i class="fab fa-discord"></i></a>
+                    <a href="#" class="text-2xl hover:text-blue-400 transition"><i class="fab fa-youtube"></i></a>
+                </div>
+
+                <div class="retro-font text-sm">
+                    <p>&copy; 2023 Jupiter LightHouse Games. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Easter egg character -->
+    <div id="easter-egg" class="fixed bottom-4 left-4 w-16 h-16 bg-transparent z-40 cursor-pointer" onclick="collectCoin()">
+        <div class="pixel-character"></div>
+    </div>
+
+    <!-- Coin counter -->
+    <div id="coin-counter" class="fixed top-4 right-4 bg-black text-white px-3 py-1 retro-font text-xl border-2 border-white hidden">
+        Coins: <span id="coin-count">0</span>
+    </div>
+
+    <!-- Audio elements -->
+    <audio id="hoverSound" src="https://assets.mixkit.co/sfx/preview/mixkit-arcade-game-jump-coin-216.mp3"></audio>
+    <audio id="selectSound" src="https://assets.mixkit.co/sfx/preview/mixkit-select-click-1109.mp3"></audio>
+    <audio id="confirmSound" src="https://assets.mixkit.co/sfx/preview/mixkit-quick-jump-arcade-game-239.mp3"></audio>
+    <audio id="coinSound" src="https://assets.mixkit.co/sfx/preview/mixkit-coin-win-notification-919.mp3"></audio>
+
+    <script>
+        // Initialize floating pixels background
+        function createFloatingPixels() {
+            const container = document.getElementById('floatingPixels');
+            const colors = ['#ff3366', '#00ff99', '#3399ff', '#ffcc00', '#9966ff'];
+
+            for (let i = 0; i < 50; i++) {
+                const pixel = document.createElement('div');
+                pixel.className = 'floating-pixel';
+                pixel.style.left = Math.random() * 100 + '%';
+                pixel.style.top = Math.random() * 100 + '%';
+                pixel.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                pixel.style.animationDuration = (Math.random() * 10 + 5) + 's';
+                pixel.style.animationDelay = (Math.random() * 5) + 's';
+                pixel.style.opacity = Math.random() * 0.7 + 0.3;
+                pixel.style.width = (Math.random() * 8 + 4) + 'px';
+                pixel.style.height = pixel.style.width;
+                container.appendChild(pixel);
+            }
+        }
+
+        // Sound effects
+        function playSound(type) {
+            let sound;
+            switch (type) {
+                case 'hover':
+                    sound = document.getElementById('hoverSound');
+                    break;
+                case 'select':
+                    sound = document.getElementById('selectSound');
+                    break;
+                case 'confirm':
+                    sound = document.getElementById('confirmSound');
+                    break;
+                case 'coin':
+                    sound = document.getElementById('coinSound');
+                    break;
+            }
+
+            sound.currentTime = 0;
+            sound.play();
+        }
+
+        // Game trailer functionality
+        function playTrailer(videoUrl) {
+            const overlay = document.getElementById('trailerOverlay');
+            const video = document.getElementById('trailerVideo');
+
+            video.src = videoUrl;
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeTrailer() {
+            const overlay = document.getElementById('trailerOverlay');
+            const video = document.getElementById('trailerVideo');
+
+            video.src = '';
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Screenshot viewer
+        function openScreenshot(url) {
+            const overlay = document.createElement('div');
+            overlay.className = 'fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center';
+            overlay.onclick = function() {
+                document.body.removeChild(overlay);
+            };
+
+            const img = document.createElement('img');
+            img.src = url;
+            img.className = 'max-w-full max-h-full';
+
+            overlay.appendChild(img);
+            document.body.appendChild(overlay);
+        }
+
+        // Cart functionality
+        function addToCart() {
+            playSound('confirm');
+            alert('Retro Racer has been added to your cart!');
+        }
+
+        function addToWishlist() {
+            playSound('confirm');
+            alert('Retro Racer has been added to your wishlist!');
+        }
+
+        // View all buttons
+        function viewAllReviews() {
+            playSound('confirm');
+            alert('Loading all reviews...');
+        }
+
+        function viewAllAchievements() {
+            playSound('confirm');
+            alert('Loading all achievements...');
+        }
+
+        // Easter egg - coin collection
+        let coins = 0;
+        const coinCounter = document.getElementById('coin-counter');
+
+        function collectCoin() {
+            coins++;
+            document.getElementById('coin-count').textContent = coins;
+            coinCounter.classList.remove('hidden');
+            playSound('coin');
+
+            // Move the character to a new random position
+            const egg = document.getElementById('easter-egg');
+            egg.style.left = Math.random() * 80 + 5 + '%';
+            egg.style.bottom = Math.random() * 20 + 5 + '%';
+        }
+
+        // Initialize on load
+        window.addEventListener('load', function() {
+            createFloatingPixels();
+        });
+    </script>
+</body>
+
+</html>

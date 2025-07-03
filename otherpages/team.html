@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PixelForge | Meet the Team</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
+        
+        .pixel-font {
+            font-family: 'Press Start 2P', cursive;
+        }
+        
+        .retro-font {
+            font-family: 'VT323', monospace;
+        }
+        
+        .pixel-border {
+            border: 4px solid #000;
+            position: relative;
+            box-shadow: 8px 8px 0 rgba(0,0,0,0.2);
+        }
+        
+        .pixel-border::before {
+            content: "";
+            position: absolute;
+            top: -8px;
+            left: -8px;
+            right: -8px;
+            bottom: -8px;
+            border: 2px solid #fff;
+            z-index: -1;
+        }
+        
+        .btn-pixel {
+            position: relative;
+            border: 4px solid #000;
+            background: #ff3366;
+            color: white;
+            padding: 12px 24px;
+            font-family: 'Press Start 2P', cursive;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.1s;
+            box-shadow: 4px 4px 0 rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        
+        .btn-pixel:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0 #000;
+        }
+        
+        .btn-pixel:active {
+            transform: translate(0, 0);
+            box-shadow: 2px 2px 0 #000;
+        }
+
+        .btn-pixel::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255,255,255,0.1);
+            transform: translateX(-100%);
+            transition: 0.3s;
+        }
+
+        .btn-pixel:hover::after {
+            transform: translateX(100%);
+        }
+
+        /* CRT screen effect */
+        .crt-effect::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
+                        linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            background-size: 100% 2px, 3px 100%;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        /* Floating pixels */
+        .floating-pixels {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .floating-pixel {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background-color: rgba(255, 51, 102, 0.5);
+            border-radius: 50%;
+            animation: float 15s linear infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(20px);
+                opacity: 0;
+            }
+        }
+
+        /* Team member cards */
+        .team-card {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .team-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(255, 51, 102, 0.3);
+        }
+
+        .team-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,51,102,0.1) 0%, rgba(51,153,255,0.1) 100%);
+            z-index: -1;
+        }
+
+        .team-card:hover::before {
+            animation: card-shine 1.5s ease;
+        }
+
+        @keyframes card-shine {
+            0% { transform: translateX(-100%) skewX(-15deg); }
+            100% { transform: translateX(100%) skewX(-15deg); }
+        }
+
+        /* Pixel avatar frames */
+        .avatar-frame {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            margin: 0 auto;
+        }
+
+        .avatar-frame::before {
+            content: "";
+            position: absolute;
+            top: -8px;
+            left: -8px;
+            right: -8px;
+            bottom: -8px;
+            border: 4px solid #000;
+            z-index: -1;
+        }
+
+        /* Role badges */
+        .role-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 16px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        /* Pixel cursor */
+        body {
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><rect x="4" y="4" width="8" height="8" fill="%23ff3366"/><rect x="2" y="2" width="12" height="12" fill="none" stroke="%23000" stroke-width="2"/></svg>'), auto;
+        }
+
+        a, button {
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><rect x="4" y="4" width="8" height="8" fill="%23ff3366"/><rect x="2" y="2" width="12" height="12" fill="none" stroke="%23000" stroke-width="2"/></svg>'), auto;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white crt-effect">
+    <!-- Floating Pixels Background -->
+    <div class="floating-pixels" id="floatingPixels"></div>
+
+    <!-- Header -->
+    <header class="bg-black py-4 px-6 border-b-4 border-purple-600 sticky top-0 z-30">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center">
+                <a href="index.html" class="flex items-center">
+                    <div class="w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center mr-4 hover:animate-spin">
+                        <i class="fas fa-gamepad text-2xl"></i>
+                    </div>
+                    <h1 class="pixel-font text-2xl md:text-3xl text-purple-400 hover:text-pink-400 transition-colors">PIXELFORGE</h1>
+                </a>
+            </div>
+            <nav class="hidden md:block">
+                <ul class="flex space-x-8 retro-font text-xl">
+                    <li><a href="index.html" class="hover:text-purple-400 transition hover:underline hover:underline-offset-4">Home</a></li>
+                    <li><a href="games.html" class="hover:text-purple-400 transition hover:underline hover:underline-offset-4">Games</a></li>
+                    <li><a href="team.html" class="text-purple-400 transition underline underline-offset-4">Team</a></li>
+                    <li><a href="about.html" class="hover:text-purple-400 transition hover:underline hover:underline-offset-4">About</a></li>
+                    <li><a href="contact.html" class="hover:text-purple-400 transition hover:underline hover:underline-offset-4">Contact</a></li>
+                </ul>
+            </nav>
+            <button class="md:hidden text-2xl">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative bg-gradient-to-b from-gray-900 to-purple-900 py-20">
+        <div class="container mx-auto px-6 text-center">
+            <h1 class="pixel-font text-4xl md:text-6xl mb-6 text-purple-400">MEET THE TEAM</h1>
+            <p class="retro-font text-xl md:text-2xl max-w-3xl mx-auto">
+                The pixel wizards behind your favorite retro gaming experiences. We're a passionate team of developers, artists, and designers dedicated to creating unforgettable gaming moments.
+            </p>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="py-16 bg-gray-800">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="pixel-font text-3xl mb-4 text-purple-400">OUR DEVELOPMENT TEAM</h2>
+                <div class="w-24 h-1 bg-purple-600 mx-auto mb-6"></div>
+                <p class="retro-font text-xl max-w-3xl mx-auto">
+                    From code warriors to pixel artists, our team combines decades of experience with a passion for retro gaming.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                <!-- Team Member 1 -->
+                <div class="team-card bg-gray-900 p-8 rounded-lg pixel-border text-center">
+                    <div class="avatar-frame mb-6">
+                        <img src="https://placehold.co/120x120/purple/white?text=Alex" alt="Alex" class="w-full h-full object-cover">
+                    </div>
+                    <span class="role-badge bg-purple-600 text-white">Lead Developer</span>
+                    <h3 class="pixel-font text-xl mb-2">Alex "Byte" Carter</h3>
+                    <p class="retro-font text-lg mb-4">The coding wizard who turns coffee into game mechanics.</p>
+                    <div class="flex justify-center space-x-4">
+                        <a href="#" class="text-purple-400 hover:text-white transition"><i class="fab fa-twitter text-xl"></i></a>
+                        <a href="#" class="text-blue-400 hover:text-white transition"><i class="fab fa-linkedin text-xl"></i></a>
+                        <a href="#" class="text-pink-400 hover:text-white transition"><i class="fab fa-github text-xl"></i></a>
+                    </div>
+                </div>
+
+                <!-- Team Member 2 -->
+                <div class="team-card bg-gray-900 p-8 rounded-lg pixel-border text-center">
+                    <div class="avatar-frame mb-6">
+                        <img src="https://placehold.co/120x120/blue/white?text=Maya" alt="Maya" class="w-full h-full object-cover">
+                    </div>
+                    <span class="role-badge bg-blue-600 text-white">Art Director</span>
+                    <h3 class="pixel-font text-xl mb-2">Maya "Pixel" Chen</h3>
+                    <p class="retro-font text-lg mb-4">Breathes life into pixels with her magical art skills.</p>
+                    <div class="flex justify-center space-x-4">
+                        <a href="#" class="text-purple-400 hover:text-white transition"><i class="fab fa-twitter text-xl"></i></a>
+                        <a href="#" class="text-blue-400 hover:text-white transition"><i class="fab fa-linkedin text-xl"></i></a>
+                        <a href="#" class="text-red-400 hover:text-white transition"><i class="fab fa-instagram text-xl"></i></a>
+                    </div>
+                </div>
+
+                <!-- Team Member 3 -->
+                <div class="team-card bg-gray-900 p-8 rounded-lg pixel-border text-center">
+                    <div class="avatar-frame mb-6">
+                        <img src="https://placehold.co/120x120/green/white?text=Sam" alt="Sam" class="w-full h-full object-cover">
+                    </div>
+                    <span class="role-badge bg-green-600 text-white">Game Designer</span>
+                    <h3 class="pixel-font text-xl mb-2">Sam "Logic" Rodriguez</h3>
+                    <p class="retro-font text-lg mb-4">Creates game worlds that keep players coming back.</p>
+                    <div class="flex justify-center space-x-4">
+                        <a href="#" class="text-purple-400 hover:text-white transition"><i class="fab fa-twitter text-xl"></i></a>
+                        <a href="#" class="text-blue-400 hover:text-white transition"><i class="fab fa-linkedin text-xl"></i></a>
+                        <a href="#" class="text-yellow-400 hover:text-white transition"><i class="fab fa-twitch text-xl"></i></a>
+                    </div>
+                </div>
+
+                <!-- Team Member 4 -->
+                <div class="team-card bg-gray-900 p-8 rounded-lg pixel-border text-center">
+                    <div class="avatar-frame mb-6">
+                        <img src="https://placehold.co/120x120/red/white?text=Jamie" alt="Jamie" class="w-full h-full object-cover">
+                    </div>
+                    <span class="role-badge bg-red-600 text-white">Sound Engineer</span>
+                    <h3 class="pixel-font text-xl mb-2">Jamie "Beats" Wilson</h3>
+                    <p class="retro-font text-lg mb-4">Composes chiptune symphonies that get stuck in your head.</p>
+                    <div class="flex justify-center space-x-4">
+                        <a href="#" class="text-purple-400 hover:text-white transition"><i class="fab fa-twitter text-xl"></i></a>
+                        <a href="#" class="text-blue-400 hover:text-white transition"><i class="fab fa-linkedin text-xl"></i></a>
+                        <a href="#" class="text-green-400 hover:text-white transition"><i class="fab fa-soundcloud text-xl"></i></a>
+                    </div>
+                </div>
+
+                <!-- Team Member 5 -->
+                <div class="team-card bg-gray-900 p-8 rounded-lg pixel-border text-center">
+                    <div class="avatar-frame mb-6">
+                        <img src="https://placehold.co/120x120/yellow/white?text=Taylor" alt="Taylor" class="w-full h-full object-cover">
+                    </div>
+                    <span class="role-badge bg-yellow-600 text-black">QA Lead</span>
+                    <h3 class="pixel-font text-xl mb-2">Taylor "Bug" Smith</h3>
+                    <p class="retro-font text-lg mb-4">Finds every glitch before players do. The ultimate game breaker.</p>
+                    <div class="flex justify-center space-x-4">
+                        <a href="#" class="text-purple-400 hover:text-white transition"><i class="fab fa-twitter text-xl"></i></a>
+                        <a href="#" class="text-blue-400 hover:text-white transition"><i class="fab fa-linkedin text-xl"></i></a>
+                        <a href="#" class="text-orange-400 hover:text-white transition"><i class="fab fa-reddit text-xl"></i></a>
+                    </div>
+                </div>
+
+                <!-- Team Member 6 -->
+                <div class="team-card bg-gray-900 p-8 rounded-lg pixel-border text-center">
+                    <div class="avatar-frame mb-6">
+                        <img src="https://placehold.co/120x120/pink/white?text=Jordan" alt="Jordan" class="w-full h-full object-cover">
+                    </div>
+                    <span class="role-badge bg-pink-600 text-white">Community Manager</span>
+                    <h3 class="pixel-font text-xl mb-2">Jordan "Chat" Lee</h3>
+                    <p class="retro-font text-lg mb-4">Keeps our players happy and engaged with the PixelForge community.</p>
+                    <div class="flex justify-center space-x-4">
+                        <a href="#" class="text-purple-400 hover:text-white transition"><i class="fab fa-twitter text-xl"></i></a>
+                        <a href="#" class="text-blue-400 hover:text-white transition"><i class="fab fa-linkedin text-xl"></i></a>
+                        <a href="#" class="text-blue-500 hover:text-white transition"><i class="fab fa-discord text-xl"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Story Section -->
+    <section class="py-16 bg-black">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col lg:flex-row items-center">
+                <div class="lg:w-1/2 mb-10 lg:mb-0 lg:pr-10">
+                    <div class="pixel-border p-6 bg-gray-900">
+                        <img src="https://placehold.co/600x400/black/purple?text=PixelForge+Office" alt="PixelForge Office" class="w-full h-auto">
+                    </div>
+                </div>
+                <div class="lg:w-1/2">
+                    <h2 class="pixel-font text-3xl mb-6 text-purple-400">OUR STORY</h2>
+                    <p class="retro-font text-xl mb-6">
+                        PixelForge was born in 2015 from a shared love of classic arcade games and the golden age of pixel art. What started as a small indie studio in a garage has grown into a team of passionate developers creating games that blend retro aesthetics with modern gameplay.
+                    </p>
+                    <p class="retro-font text-xl mb-6">
+                        Our mission is simple: create games that feel like they were pulled straight from your childhood memories, but with the polish and quality that today's gamers expect.
+                    </p>
+                    <p class="retro-font text-xl mb-8">
+                        We believe in small, focused teams where every member has a voice in the creative process. This approach allows us to stay agile and innovative while maintaining the personal touch that defines PixelForge games.
+                    </p>
+                    <button class="btn-pixel bg-purple-600 retro-font">JOIN OUR TEAM</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values Section -->
+    <section class="py-16 bg-gray-800">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="pixel-font text-3xl mb-4 text-purple-400">OUR VALUES</h2>
+                <div class="w-24 h-1 bg-purple-600 mx-auto mb-6"></div>
+                <p class="retro-font text-xl max-w-3xl mx-auto">
+                    These principles guide everything we do at PixelForge, from game design to company culture.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Value 1 -->
+                <div class="bg-gray-900 p-8 rounded-lg pixel-border text-center">
+                    <div class="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-heart text-2xl"></i>
+                    </div>
+                    <h3 class="pixel-font text-xl mb-4">PASSION FOR PIXELS</h3>
+                    <p class="retro-font text-lg">
+                        We genuinely love what we do. Every pixel placed, every line of code written comes from a place of passion for gaming.
+                    </p>
+                </div>
+
+                <!-- Value 2 -->
+                <div class="bg-gray-900 p-8 rounded-lg pixel-border text-center">
+                    <div class="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-users text-2xl"></i>
+                    </div>
+                    <h3 class="pixel-font text-xl mb-4">PLAYER FIRST</h3>
+                    <p class="retro-font text-lg">
+                        Our players are at the heart of every decision. We create games we'd want to play ourselves.
+                    </p>
+                </div>
+
+                <!-- Value 3 -->
+                <div class="bg-gray-900 p-8 rounded-lg pixel-border text-center">
+                    <div class="w-16 h-16 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-lightbulb text-2xl"></i>
+                    </div>
+                    <h3 class="pixel-font text-xl mb-4">INNOVATE & ITERATE</h3>
+                    <p class="retro-font text-lg">
+                        We're not afraid to try new ideas, fail fast, and iterate until we get it right.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Join Team CTA -->
+    <section class="py-16 bg-gradient-to-r from-purple-900 to-blue-900">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="pixel-font text-3xl md:text-4xl mb-6 text-white">WANT TO JOIN OUR QUEST?</h2>
+            <p class="retro-font text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
+                We're always looking for talented pixel artists, developers, and game designers who share our passion for retro gaming.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <button class="btn-pixel bg-white text-purple-900 retro-font">VIEW OPEN POSITIONS</button>
+                <button class="btn-pixel bg-black text-white retro-font">INTERNSHIP PROGRAM</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black py-8">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 bg-purple-600 rounded-full flex items-center justify-center mr-3">
+                            <i class="fas fa-gamepad"></i>
+                        </div>
+                        <h2 class="pixel-font text-xl">PIXELFORGE</h2>
+                    </div>
+                </div>
+                
+                <div class="flex space-x-6 mb-6 md:mb-0">
+                    <a href="#" class="text-2xl hover:text-blue-400 transition"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-2xl hover:text-blue-400 transition"><i class="fab fa-facebook"></i></a>
+                    <a href="#" class="text-2xl hover:text-blue-400 transition"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-2xl hover:text-blue-400 transition"><i class="fab fa-discord"></i></a>
+                    <a href="#" class="text-2xl hover:text-blue-400 transition"><i class="fab fa-youtube"></i></a>
+                </div>
+                
+                <div class="retro-font text-sm">
+                    <p>&copy; 2023 PixelForge Games. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Audio elements -->
+    <audio id="hoverSound" src="https://assets.mixkit.co/sfx/preview/mixkit-arcade-game-jump-coin-216.mp3"></audio>
+    <audio id="selectSound" src="https://assets.mixkit.co/sfx/preview/mixkit-select-click-1109.mp3"></audio>
+    <audio id="confirmSound" src="https://assets.mixkit.co/sfx/preview/mixkit-quick-jump-arcade-game-239.mp3"></audio>
+
+    <script>
+        // Initialize floating pixels background
+        function createFloatingPixels() {
+            const container = document.getElementById('floatingPixels');
+            const colors = ['#ff3366', '#00ff99', '#3399ff', '#ffcc00', '#9966ff'];
+            
+            for (let i = 0; i < 50; i++) {
+                const pixel = document.createElement('div');
+                pixel.className = 'floating-pixel';
+                pixel.style.left = Math.random() * 100 + '%';
+                pixel.style.top = Math.random() * 100 + '%';
+                pixel.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                pixel.style.animationDuration = (Math.random() * 10 + 5) + 's';
+                pixel.style.animationDelay = (Math.random() * 5) + 's';
+                pixel.style.opacity = Math.random() * 0.7 + 0.3;
+                pixel.style.width = (Math.random() * 8 + 4) + 'px';
+                pixel.style.height = pixel.style.width;
+                container.appendChild(pixel);
+            }
+        }
+
+        // Sound effects
+        function playSound(type) {
+            let sound;
+            switch(type) {
+                case 'hover':
+                    sound = document.getElementById('hoverSound');
+                    break;
+                case 'select':
+                    sound = document.getElementById('selectSound');
+                    break;
+                case 'confirm':
+                    sound = document.getElementById('confirmSound');
+                    break;
+            }
+            
+            sound.currentTime = 0;
+            sound.play();
+        }
+
+        // Initialize on load
+        window.addEventListener('load', function() {
+            createFloatingPixels();
+            
+            // Add hover effects to team cards
+            const teamCards = document.querySelectorAll('.team-card');
+            teamCards.forEach(card => {
+                card.addEventListener('mouseenter', () => playSound('hover'));
+            });
+            
+            // Add click effects to buttons
+            const buttons = document.querySelectorAll('button');
+            buttons.forEach(button => {
+                button.addEventListener('click', () => playSound('confirm'));
+            });
+        });
+    </script>
+</body>
+</html>

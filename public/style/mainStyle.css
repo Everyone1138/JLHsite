@@ -1,0 +1,555 @@
+ @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
+ .pixel-font {
+     font-family: 'Press Start 2P', cursive;
+ }
+ 
+ .retro-font {
+     font-family: 'VT323', monospace;
+ }
+ 
+ .carousel-item {
+     transition: transform 0.5s ease, opacity 0.5s ease;
+ }
+ 
+ .game-card {
+     transition: all 0.3s ease;
+     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+     position: relative;
+     overflow: hidden;
+ }
+ 
+ .game-card:hover {
+     transform: translateY(-5px) scale(1.02);
+     box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+ }
+ 
+ .game-card::before {
+     content: "";
+     position: absolute;
+     top: 0;
+     left: -100%;
+     width: 100%;
+     height: 100%;
+     background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+     transition: 0.5s;
+ }
+ 
+ .game-card:hover::before {
+     left: 100%;
+ }
+ 
+ .pixel-border {
+     border: 4px solid #000;
+     position: relative;
+     box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.2);
+ }
+ 
+ .pixel-border::before {
+     content: "";
+     position: absolute;
+     top: -8px;
+     left: -8px;
+     right: -8px;
+     bottom: -8px;
+     border: 2px solid #fff;
+     z-index: -1;
+ }
+ 
+ .btn-pixel {
+     position: relative;
+     border: 4px solid #000;
+     background: #ff3366;
+     color: white;
+     padding: 12px 24px;
+     font-family: 'Press Start 2P', cursive;
+     text-transform: uppercase;
+     letter-spacing: 1px;
+     transition: all 0.1s;
+     box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
+     overflow: hidden;
+ }
+ 
+ .btn-pixel:hover {
+     transform: translate(-2px, -2px);
+     box-shadow: 6px 6px 0 #000;
+ }
+ 
+ .btn-pixel:active {
+     transform: translate(0, 0);
+     box-shadow: 2px 2px 0 #000;
+ }
+ 
+ .btn-pixel::after {
+     content: "";
+     position: absolute;
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 100%;
+     background: rgba(255, 255, 255, 0.1);
+     transform: translateX(-100%);
+     transition: 0.3s;
+ }
+ 
+ .btn-pixel:hover::after {
+     transform: translateX(100%);
+ }
+ /* Pixel art cursor */
+ 
+ body {
+     cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><rect x="4" y="4" width="8" height="8" fill="%23ff3366"/><rect x="2" y="2" width="12" height="12" fill="none" stroke="%23000" stroke-width="2"/></svg>'), auto;
+ }
+ 
+ body,
+ html {
+     overflow-x: hidden;
+ }
+ 
+ a,
+ button {
+     cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><rect x="4" y="4" width="8" height="8" fill="%23ff3366"/><rect x="2" y="2" width="12" height="12" fill="none" stroke="%23000" stroke-width="2"/></svg>'), auto;
+ }
+ /* 8-bit animation */
+ 
+ @keyframes pixel-bounce {
+     0%,
+     100% {
+         transform: translateY(0);
+     }
+     50% {
+         transform: translateY(-10px);
+     }
+ }
+ 
+ .pixel-bounce {
+     animation: pixel-bounce 2s infinite;
+ }
+ /* CRT screen effect */
+ 
+ .crt-effect::after {
+     content: "";
+     position: absolute;
+     top: 0;
+     left: 0;
+     right: 0;
+     bottom: 0;
+     background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+     background-size: 100% 2px, 3px 100%;
+     pointer-events: none;
+     z-index: 10;
+ }
+ /* Loading bar */
+ 
+ .loading-bar {
+     height: 8px;
+     background: #333;
+     position: relative;
+     overflow: hidden;
+ }
+ 
+ .loading-bar::after {
+     content: "";
+     position: absolute;
+     left: 0;
+     top: 0;
+     bottom: 0;
+     width: 100%;
+     background: #ff3366;
+     animation: loading 2s linear infinite;
+ }
+ 
+ @keyframes loading {
+     0% {
+         transform: translateX(-100%);
+     }
+     100% {
+         transform: translateX(100%);
+     }
+ }
+ /* Retro checkbox */
+ 
+ .retro-checkbox {
+     appearance: none;
+     width: 20px;
+     height: 20px;
+     border: 3px solid #000;
+     position: relative;
+     background: #fff;
+ }
+ 
+ .retro-checkbox:checked::after {
+     content: "✓";
+     position: absolute;
+     top: -5px;
+     left: 2px;
+     font-size: 20px;
+     color: #000;
+ }
+ /* Gameboy-style notification */
+ 
+ .gameboy-notification {
+     position: fixed;
+     bottom: -100px;
+     left: 50%;
+     transform: translateX(-50%);
+     background: #fff;
+     color: #000;
+     border: 4px solid #000;
+     padding: 10px 20px;
+     font-family: 'VT323', monospace;
+     font-size: 1.5rem;
+     z-index: 1000;
+     transition: bottom 0.5s ease;
+     box-shadow: 0 0 0 4px #fff, 0 0 0 8px #000;
+ }
+ /* Pixelated scrollbar */
+ 
+ ::-webkit-scrollbar {
+     width: 12px;
+ }
+ 
+ ::-webkit-scrollbar-track {
+     background: #222;
+ }
+ 
+ ::-webkit-scrollbar-thumb {
+     background: #ff3366;
+     border: 2px solid #000;
+ }
+ /* 8-bit character */
+ 
+ .pixel-character {
+     width: 32px;
+     height: 32px;
+     background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect x="8" y="4" width="16" height="8" fill="%23ff3366"/><rect x="4" y="12" width="24" height="12" fill="%23ff3366"/><rect x="8" y="24" width="4" height="8" fill="%23ff3366"/><rect x="20" y="24" width="4" height="8" fill="%23ff3366"/><rect x="12" y="8" width="2" height="2" fill="%23000"/><rect x="18" y="8" width="2" height="2" fill="%23000"/><rect x="14" y="12" width="4" height="2" fill="%23000"/></svg>') no-repeat;
+     image-rendering: pixelated;
+ }
+ /* Pixel rain effect */
+ 
+ .pixel-rain {
+     position: fixed;
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 100%;
+     pointer-events: none;
+     z-index: 100;
+     display: none;
+ }
+ 
+ .pixel {
+     position: absolute;
+     width: 10px;
+     height: 10px;
+     background-color: #ff3366;
+     opacity: 0.7;
+ }
+ /* Glitch effect */
+ 
+ .glitch {
+     position: relative;
+ }
+ 
+ .glitch::before,
+ .glitch::after {
+     content: attr(data-text);
+     position: absolute;
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 100%;
+     opacity: 0.8;
+ }
+ 
+ .glitch::before {
+     color: #0ff;
+     z-index: -1;
+     animation: glitch-effect 3s infinite;
+ }
+ 
+ .glitch::after {
+     color: #f0f;
+     z-index: -2;
+     animation: glitch-effect 2s infinite reverse;
+ }
+ 
+ @keyframes glitch-effect {
+     0% {
+         transform: translate(0);
+     }
+     20% {
+         transform: translate(-3px, 3px);
+     }
+     40% {
+         transform: translate(-3px, -3px);
+     }
+     60% {
+         transform: translate(3px, 3px);
+     }
+     80% {
+         transform: translate(3px, -3px);
+     }
+     100% {
+         transform: translate(0);
+     }
+ }
+ /* Retro scanlines */
+ 
+ .scanlines {
+     position: relative;
+     overflow: hidden;
+ }
+ 
+ .scanlines::before {
+     content: "";
+     position: absolute;
+     top: 0;
+     left: 0;
+     right: 0;
+     bottom: 0;
+     background: linear-gradient( to bottom, transparent 50%, rgba(0, 0, 0, 0.3) 51%);
+     background-size: 100% 4px;
+     pointer-events: none;
+     z-index: 1;
+ }
+ /* Pixel explosion */
+ 
+ .pixel-explosion {
+     position: absolute;
+     width: 100%;
+     height: 100%;
+     pointer-events: none;
+     z-index: 50;
+ }
+ 
+ .explosion-particle {
+     position: absolute;
+     width: 8px;
+     height: 8px;
+     background-color: #ff3366;
+     border-radius: 50%;
+     opacity: 0;
+ }
+ /* Typewriter effect */
+ 
+ .typewriter {
+     overflow: hidden;
+     border-right: 3px solid #ff3366;
+     white-space: nowrap;
+     margin: 0 auto;
+     letter-spacing: 2px;
+     animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+ }
+ 
+ @keyframes typing {
+     from {
+         width: 0
+     }
+     to {
+         width: 100%
+     }
+ }
+ 
+ @keyframes blink-caret {
+     from,
+     to {
+         border-color: transparent
+     }
+     50% {
+         border-color: #ff3366
+     }
+ }
+ /* Retro TV noise */
+ 
+ .tv-noise {
+     position: fixed;
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 100%;
+     background: repeating-linear-gradient( 0deg, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15) 1px, transparent 1px, transparent 2px);
+     pointer-events: none;
+     z-index: 99;
+     opacity: 0.05;
+     animation: noise 0.1s infinite;
+     display: none;
+ }
+ 
+ @keyframes noise {
+     0% {
+         transform: translateY(0);
+     }
+     10% {
+         transform: translateY(-5px);
+     }
+     20% {
+         transform: translateY(-10px);
+     }
+     30% {
+         transform: translateY(5px);
+     }
+     40% {
+         transform: translateY(0);
+     }
+     50% {
+         transform: translateY(-5px);
+     }
+     60% {
+         transform: translateY(10px);
+     }
+     70% {
+         transform: translateY(5px);
+     }
+     80% {
+         transform: translateY(-15px);
+     }
+     90% {
+         transform: translateY(10px);
+     }
+     100% {
+         transform: translateY(5px);
+     }
+ }
+ /* Retro button press effect */
+ 
+ .btn-retro:active {
+     transform: translateY(4px);
+     box-shadow: 0 0 0 #000;
+ }
+ /* Floating pixels */
+ 
+ .floating-pixels {
+     position: absolute;
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 100%;
+     overflow: hidden;
+     pointer-events: none;
+     z-index: -1;
+ }
+ 
+ .floating-pixel {
+     position: absolute;
+     width: 6px;
+     height: 6px;
+     background-color: rgba(255, 51, 102, 0.5);
+     border-radius: 50%;
+     animation: float 15s linear infinite;
+ }
+ 
+ @keyframes float {
+     0% {
+         transform: translateY(0) translateX(0);
+         opacity: 0;
+     }
+     10% {
+         opacity: 1;
+     }
+     90% {
+         opacity: 1;
+     }
+     100% {
+         transform: translateY(-100vh) translateX(20px);
+         opacity: 0;
+     }
+ }
+ /* Retro input focus */
+ 
+ .retro-input:focus {
+     outline: none;
+     box-shadow: 0 0 0 3px rgba(255, 51, 102, 0.5);
+     animation: input-pulse 1.5s infinite;
+ }
+ 
+ @keyframes input-pulse {
+     0% {
+         box-shadow: 0 0 0 3px rgba(255, 51, 102, 0.5);
+     }
+     50% {
+         box-shadow: 0 0 0 6px rgba(255, 51, 102, 0.2);
+     }
+     100% {
+         box-shadow: 0 0 0 3px rgba(255, 51, 102, 0.5);
+     }
+ }
+ /* Game cartridge tilt effect */
+ 
+ .cartridge-tilt {
+     transition: transform 0.3s ease;
+ }
+ 
+ .cartridge-tilt:hover {
+     transform: rotate(5deg) scale(1.05);
+ }
+ /* 8-bit parallax effect */
+ 
+ .parallax-container {
+     perspective: 1000px;
+     height: 100vh;
+     overflow-x: hidden;
+     overflow-y: auto;
+ }
+ 
+ .parallax-layer {
+     position: absolute;
+     top: 0;
+     right: 0;
+     bottom: 0;
+     left: 0;
+ }
+ /* Retro progress bar */
+ 
+ .retro-progress {
+     height: 20px;
+     background-color: #333;
+     border: 3px solid #000;
+     position: relative;
+     overflow: hidden;
+ }
+ 
+ .retro-progress-fill {
+     height: 100%;
+     background-color: #ff3366;
+     position: relative;
+     transition: width 0.5s ease;
+ }
+ 
+ .retro-progress-fill::after {
+     content: "";
+     position: absolute;
+     top: 0;
+     left: 0;
+     right: 0;
+     bottom: 0;
+     background: linear-gradient( to right, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0.3) 100%);
+     animation: progress-shine 2s infinite;
+ }
+ 
+ @keyframes progress-shine {
+     0% {
+         transform: translateX(-100%);
+     }
+     100% {
+         transform: translateX(100%);
+     }
+ }
+ /* Team cards */
+ 
+ .team-card {
+     transition: all 0.3s;
+     background: rgba(0, 0, 0, 0.7);
+ }
+ 
+ .team-card:hover {
+     transform: translateY(-10px);
+     box-shadow: 0 10px 20px rgba(255, 51, 102, 0.3);
+ }
+ 
+ .team-card img {
+     transition: all 0.3s;
+ }
+ 
+ .team-card:hover img {
+     transform: scale(1.05);
+ }

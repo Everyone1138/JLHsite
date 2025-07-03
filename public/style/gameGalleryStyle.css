@@ -1,0 +1,292 @@
+ @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
+ .pixel-font {
+     font-family: 'Press Start 2P', cursive;
+ }
+ 
+ .retro-font {
+     font-family: 'VT323', monospace;
+ }
+ 
+ .pixel-border {
+     border: 4px solid #000;
+     position: relative;
+     box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.2);
+ }
+ 
+ .pixel-border::before {
+     content: "";
+     position: absolute;
+     top: -8px;
+     left: -8px;
+     right: -8px;
+     bottom: -8px;
+     border: 2px solid #fff;
+     z-index: -1;
+ }
+ 
+ .btn-pixel {
+     position: relative;
+     border: 4px solid #000;
+     background: #ff3366;
+     color: white;
+     padding: 12px 24px;
+     font-family: 'Press Start 2P', cursive;
+     text-transform: uppercase;
+     letter-spacing: 1px;
+     transition: all 0.1s;
+     box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
+     overflow: hidden;
+ }
+ 
+ .btn-pixel:hover {
+     transform: translate(-2px, -2px);
+     box-shadow: 6px 6px 0 #000;
+ }
+ 
+ .btn-pixel:active {
+     transform: translate(0, 0);
+     box-shadow: 2px 2px 0 #000;
+ }
+ 
+ .btn-pixel::after {
+     content: "";
+     position: absolute;
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 100%;
+     background: rgba(255, 255, 255, 0.1);
+     transform: translateX(-100%);
+     transition: 0.3s;
+ }
+ 
+ .btn-pixel:hover::after {
+     transform: translateX(100%);
+ }
+ /* CRT screen effect */
+ 
+ .crt-effect::after {
+     content: "";
+     position: absolute;
+     top: 0;
+     left: 0;
+     right: 0;
+     bottom: 0;
+     background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+     background-size: 100% 2px, 3px 100%;
+     pointer-events: none;
+     z-index: 10;
+ }
+ /* Floating pixels */
+ 
+ .floating-pixels {
+     position: absolute;
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 100%;
+     overflow: hidden;
+     pointer-events: none;
+     z-index: -1;
+ }
+ 
+ .floating-pixel {
+     position: absolute;
+     width: 6px;
+     height: 6px;
+     background-color: rgba(255, 51, 102, 0.5);
+     border-radius: 50%;
+     animation: float 15s linear infinite;
+ }
+ 
+ @keyframes float {
+     0% {
+         transform: translateY(0) translateX(0);
+         opacity: 0;
+     }
+     10% {
+         opacity: 1;
+     }
+     90% {
+         opacity: 1;
+     }
+     100% {
+         transform: translateY(-100vh) translateX(20px);
+         opacity: 0;
+     }
+ }
+ /* Game cards */
+ 
+ .game-card {
+     transition: all 0.3s ease;
+     position: relative;
+     overflow: hidden;
+     background-size: cover;
+     background-position: center;
+     height: 300px;
+ }
+ 
+ .game-card:hover {
+     transform: translateY(-10px) scale(1.02);
+     box-shadow: 0 15px 30px rgba(255, 51, 102, 0.4);
+ }
+ 
+ .game-card::before {
+     content: "";
+     position: absolute;
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 100%;
+     background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.7) 100%);
+     z-index: 1;
+ }
+ 
+ .game-card:hover::before {
+     background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.8) 100%);
+ }
+ 
+ .game-card-content {
+     position: absolute;
+     bottom: 0;
+     left: 0;
+     right: 0;
+     padding: 20px;
+     z-index: 2;
+ }
+ /* .game-tag {
+     display: inline-block;
+     padding: 4px 8px;
+     margin-right: 8px;
+     margin-bottom: 8px;
+     background-color: rgba(255, 51, 102, 0.8);
+     color: white;
+     font-size: 0.8rem;
+     border-radius: 4px;
+ } */
+ 
+ .game-tag {
+     display: inline-block;
+     padding: 4px 8px;
+     font-family: 'Press Start 2P', cursive;
+     font-size: 0.75rem;
+     border: 2px solid #000;
+     background-color: #111;
+     margin: 2px;
+     border-radius: 4px;
+ }
+ /* Unique tag colors */
+ 
+ .tag-action {
+     color: #ff3366;
+     background-color: rgba(255, 51, 102, 0.2);
+     border-color: #ff3366;
+ }
+ 
+ .tag-platformer {
+     color: #00ccff;
+     background-color: rgba(0, 204, 255, 0.2);
+     border-color: #00ccff;
+ }
+ 
+ .tag-new {
+     color: #ffcc00;
+     background-color: rgba(255, 204, 0, 0.2);
+     border-color: #ffcc00;
+ }
+ 
+ .tag-rpg {
+     color: #66ff66;
+     background-color: rgba(102, 255, 102, 0.2);
+     border-color: #66ff66;
+ }
+ 
+ .tag-adventure {
+     color: #9966ff;
+     background-color: rgba(153, 102, 255, 0.2);
+     border-color: #9966ff;
+ }
+ 
+ .tag-puzzle {
+     color: #ff9933;
+     background-color: rgba(255, 153, 51, 0.2);
+     border-color: #ff9933;
+ }
+ /* Pixel cursor */
+ 
+ section {
+     cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><rect x="4" y="4" width="8" height="8" fill="%23ff3366"/><rect x="2" y="2" width="12" height="12" fill="none" stroke="%23000" stroke-width="2"/></svg>'), auto;
+ }
+ 
+ a,
+ button {
+     cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><rect x="4" y="4" width="8" height="8" fill="%23ff3366"/><rect x="2" y="2" width="12" height="12" fill="none" stroke="%23000" stroke-width="2"/></svg>'), auto;
+ }
+ /* Modal */
+ 
+ .modal {
+     display: none;
+     position: fixed;
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 100%;
+     background-color: rgba(0, 0, 0, 0.9);
+     z-index: 100;
+     overflow-y: auto;
+ }
+ 
+ .modal-content {
+     background-color: #1a1a1a;
+     margin: 5% auto;
+     padding: 30px;
+     width: 80%;
+     max-width: 900px;
+     position: relative;
+     border: 6px solid #000;
+     box-shadow: 0 0 0 3px #fff;
+ }
+ 
+ .close-modal {
+     position: absolute;
+     top: 15px;
+     right: 15px;
+     color: #fff;
+     font-size: 28px;
+     cursor: pointer;
+     transition: color 0.3s;
+ }
+ 
+ .close-modal:hover {
+     color: #ff3366;
+ }
+ /* Filter buttons */
+ 
+ .filter-btn {
+     background-color: #333;
+     color: white;
+     border: 2px solid #000;
+     padding: 8px 16px;
+     margin: 0 5px 10px 0;
+     font-family: 'VT323', monospace;
+     font-size: 1.2rem;
+     transition: all 0.3s;
+ }
+ 
+ .filter-btn:hover,
+ .filter-btn.active {
+     background-color: #ff3366;
+     color: white;
+     transform: translateY(-2px);
+ }
+ /* Screenshot gallery */
+ 
+ .screenshot {
+     transition: all 0.3s;
+     cursor: pointer;
+ }
+ 
+ .screenshot:hover {
+     transform: scale(1.03);
+     box-shadow: 0 5px 15px rgba(255, 51, 102, 0.5);
+ }

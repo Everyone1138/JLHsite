@@ -1,0 +1,917 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jupiter LightHouse Games | 32-bit Gaming Specialists</title>
+
+    <!-- General Meta Tags -->
+    <meta name="description" content="Retro-inspired 32-bit games crafted with pixel-perfect precision. Jupiter LightHouse Games builds your dream game with nostalgic charm and modern polish.">
+    <meta name="keywords" content="Jupiter Lighthouse, retro games, 32-bit games, indie games, pixel art, game development, platformers, RPG, adventure games">
+    <meta name="author" content="Jupiter LightHouse Games">
+    <meta name="copyright" content="Jupiter LightHouse Games 2025">
+    <meta name="robots" content="index, follow">
+
+    <!-- Favicon -->
+    <link rel="icon" href="images/jup1.png" type="image/png">
+
+    <!-- Theme Colors -->
+    <meta name="theme-color" content="#6B21A8">
+    <meta name="msapplication-TileColor" content="#6B21A8">
+
+    <!-- Open Graph (Facebook, Discord, LinkedIn) -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Jupiter LightHouse Games | 32-bit Gaming Specialists">
+    <meta property="og:description" content="We create nostalgic, high-performance 32-bit games with modern design.">
+    <meta property="og:url" content="https://yourwebsite.com">
+    <meta property="og:image" content="https://yourwebsite.com/images/jup1.png">
+    <meta property="og:site_name" content="Jupiter LightHouse Games">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Jupiter LightHouse Games">
+    <meta name="twitter:description" content="Modern games with retro soul. Let us build your next 32-bit adventure.">
+    <meta name="twitter:image" content="https://yourwebsite.com/images/jup1.png">
+    <meta name="twitter:creator" content="@YourStudioHandle">
+
+    <!-- Discord Preview (uses Open Graph tags) -->
+    <!-- Optional: extra Discord support via og:type=image/gif or animated preview -->
+    <!-- Discord uses Open Graph, so no unique tags needed -->
+
+    <!-- Web App Capabilities -->
+    <meta name="apple-mobile-web-app-title" content="Jupiter LightHouse">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <!-- Preload (optional, boosts loading of key assets) -->
+    <link rel="preload" as="image" href="images/jup1.png">
+
+    <!-- CSS & Libraries -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style/mainStyle.css">
+    <link rel="stylesheet" href="style/contactUSStyle.css">
+    <link rel="stylesheet" href="style/gameGalleryStyle.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+
+
+<body class="bg-gray-900 text-white crt-effect">
+    <!-- TV Noise Effect -->
+    <div class="tv-noise" id="tvNoise"></div>
+
+    <!-- Floating Pixels Background -->
+    <div class="floating-pixels" id="floatingPixels"></div>
+
+    <!-- Pixel Rain Effect -->
+    <div class="pixel-rain" id="pixelRain"></div>
+
+    <!-- Loading screen -->
+    <div id="loading-screen" class="fixed inset-0 bg-black z-50 flex flex-col items-center justify-center">
+        <div class="pixel-character mb-8"></div>
+        <h2 class="pixel-font text-2xl mb-4 text-purple-400">LOADING Jupiter Lighthouse...</h2>
+        <div class="loading-bar w-64 mb-8"></div>
+        <p class="retro-font text-xl">We can build the video game you want!</p>
+    </div>
+
+    <!-- Gameboy notification -->
+    <div id="notification" class="gameboy-notification">
+        Welcome to Jupiter Lighthouse Games!
+    </div>
+
+    <!-- Easter egg character -->
+    <div id="easter-egg" class="fixed bottom-4 left-4 w-16 h-16 bg-transparent z-40 cursor-pointer" onclick="collectCoin()">
+        <div class="pixel-character"></div>
+    </div>
+
+    <!-- Coin counter -->
+    <div id="coin-counter" class="fixed bottom-4 right-4 bg-black text-white px-3 py-1 retro-font text-xl border-2 border-white hidden">
+        Coins: <span id="coin-count">0</span>
+    </div>
+    <!-- below loading-screen (z-50) but above page -->
+    <!-- Header -->
+    <header id="mainHeader" class="fixed top-0 left-0 w-full z-40    
+               bg-black/90 backdrop-blur-lg
+               py-4 px-6 border-b-4 border-purple-600
+               hidden">
+        <div class="container mx-auto flex justify-between items-center gap-4">
+            <!-- …everything inside stays the same… -->
+            <div class="flex items-center">
+                <div class="w-15 h-15 bg-purple-600 rounded-full flex items-center justify-center mr-4 hover:animate-spin" onclick="playSound('select')">
+                    <img src="images/jup1.png" alt="Gamepad" class="w-[80px] sm:w-[80px] md:w-[130px] lg:w-[100px] object-contain rounded-full border-4 border-purple-500">
+
+                </div>
+                <h1 class="pixel-font text-2xl md:text-3xl text-purple-400 hover:text-pink-400 transition-colors glitch" data-text="Jupiter Lighthouse">Jupiter Lighthouse</h1>
+            </div>
+            <nav class="hidden md:block ml-auto lg:mr-4">
+                <ul class="flex space-x-6 retro-font text-xl">
+                    <li><a href="#home" class="hover:text-purple-400 transition hover:underline hover:underline-offset-4" onclick="playSound('select')">Home</a></li>
+                    <li><a href="#games" class="hover:text-purple-400 transition hover:underline hover:underline-offset-4" onclick="playSound('select')">Games</a></li>
+                    <li><a href="#about" class="hover:text-purple-400 transition hover:underline hover:underline-offset-4" onclick="playSound('select')">About</a></li>
+                    <li><a href="#contact" class="hover:text-purple-400 transition hover:underline hover:underline-offset-4" onclick="playSound('select')">Contact</a></li>
+                </ul>
+            </nav>
+
+            <!-- pixel hamburger -->
+            <button class="md:hidden text-2xl btn-retro pixel-border p-2 bg-purple-600 hover:bg-pink-600 transition" onclick="toggleMobileMenu()">
+  <i class="fas fa-bars text-white"></i>
+</button>
+
+
+        </div>
+    </header>
+
+
+
+
+
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="fixed inset-0 bg-black bg-opacity-90 z-40 flex items-center justify-center hidden">
+        <button class="absolute top-4 right-4 text-4xl btn-retro" onclick="toggleMobileMenu()">
+            <i class="fas fa-times"></i>
+        </button>
+        <ul class="text-center retro-font text-3xl space-y-8">
+            <li><a href="#home" class="hover:text-purple-400 transition block py-2 hover:scale-110" onclick="toggleMobileMenu(); playSound('select')">Home</a></li>
+            <li><a href="#games" class="hover:text-purple-400 transition block py-2 hover:scale-110" onclick="toggleMobileMenu(); playSound('select')">Games</a></li>
+            <li><a href="#about" class="hover:text-purple-400 transition block py-2 hover:scale-110" onclick="toggleMobileMenu(); playSound('select')">About</a></li>
+            <li><a href="#contact" class="hover:text-purple-400 transition block py-2 hover:scale-110" onclick="toggleMobileMenu(); playSound('select')">Contact</a></li>
+        </ul>
+    </div>
+
+    <!-- Right Slide-In Menu -->
+    <!-- <div id="right-menu" class="fixed top-0 right-0 h-full w-64 bg-black text-white z-50 transform translate-x-full transition-transform duration-300 shadow-lg border-l-4 border-purple-600 pixel-border">
+        <div class="flex justify-between items-center p-4 border-b border-purple-600">
+            <h2 class="pixel-font text-xl text-purple-400">MENU</h2>
+            <button onclick="toggleRightMenu()" class="text-white text-2xl btn-retro hover:text-pink-400 transition">
+      <i class="fas fa-times"></i>
+    </button>
+        </div>
+        <ul class="p-6 space-y-6 retro-font text-xl">
+            <li><a href="index.html" class="block text-white hover:text-pink-400 hover:scale-105 transition-all duration-200" onclick="toggleRightMenu(); playSound('select')">Home</a></li>
+            <li><a href="gallery.html" class="block text-white hover:text-pink-400 hover:scale-105 transition-all duration-200" onclick="toggleRightMenu(); playSound('select')">Games</a></li>
+            <li><a href="aboutus.html" class="block text-white hover:text-pink-400 hover:scale-105 transition-all duration-200" onclick="toggleRightMenu(); playSound('select')">About Us</a></li>
+            <li><a href="contactus.html" class="block text-white hover:text-pink-400 hover:scale-105 transition-all duration-200" onclick="toggleRightMenu(); playSound('select')">Contact</a></li>
+        </ul>
+    </div> -->
+
+
+
+    <!-- Hero Carousel -->
+    <section id="home" class="relative overflow-hidden pt-20 sm:pt-0">
+        <div class="carousel-container relative min-h-[30rem] md:min-h-[80vh] w-full py-10 px-4 flex items-center">
+
+            <!-- Carousel Items -->
+            <!-- Slide 1 -->
+            <!-- Slide 1 -->
+            <div class="carousel-item absolute inset-0 flex items-center justify-center bg-gradient-to-br from-gray-900 to-purple-900 opacity-0 transition-opacity duration-500">
+                <div class="container mx-auto px-4 sm:px-6 flex flex-col-reverse md:flex-row items-center justify-center gap-6 text-center sm:text-left">
+                    <div class="md:w-1/2">
+                        <h2 class="pixel-font text-xl sm:text-2xl md:text-4xl lg:text-6xl mb-4 text-purple-400">LET US BUILD YOUR NEXT GAME</h2>
+                        <p class="retro-font text-sm sm:text-base md:text-xl mb-4">Experience the golden age of gaming with modern polish. Our 32-bit masterpieces bring back the magic.</p>
+                        <button class="btn-pixel retro-font" onclick="playSound('confirm'); startPixelRain()">Explore Games</button>
+                    </div>
+                    <div class="md:w-1/2 flex justify-center">
+                        <div class="pixel-border w-full max-w-sm sm:max-w-md md:max-w-xl lg:max-w-2xl xl:max-w-3xl aspect-video bg-gray-800 hover:animate-pulse cartridge-tilt">
+                            <iframe src="https://www.youtube.com/embed/qv0seGIOr3I
+       ?autoplay=1&mute=1&controls=0&loop=1&playlist=qv0seGIOr3I" title="Trailer" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen class="w-full h-full object-cover pointer-events-none">
+</iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <!-- Slide 2 -->
+            <!-- Slide 2 -->
+            <div class="carousel-item absolute inset-0 flex items-center justify-center bg-gradient-to-br from-gray-900 to-blue-900 opacity-0 transition-opacity duration-500">
+                <div class="container mx-auto px-4 flex flex-col-reverse md:flex-row items-center justify-center gap-6 text-center">
+
+                    <div class="md:w-1/2">
+                        <h2 class="pixel-font text-xl sm:text-2xl md:text-4xl lg:text-6xl mb-4 text-blue-400">IDEAS BUILT INTO GAMES</h2>
+                        <p class="retro-font text-sm sm:text-base md:text-xl mb-4">Authentic 32-bit experiences crafted with love by veteran developers who grew up with the classics.</p>
+                        <button class="btn-pixel bg-blue-600 retro-font" onclick="playSound('confirm'); showGlitchEffect(this)">Our Story</button>
+                    </div>
+                    <div class="md:w-1/2 flex justify-center">
+                        <div class="pixel-border w-full max-w-sm sm:max-w-md md:max-w-xl lg:max-w-2xl xl:max-w-3xl aspect-video bg-gray-800 hover:animate-pulse cartridge-tilt">
+
+                            <iframe src="https://www.youtube.com/embed/EsDVAhz2pro
+       ?autoplay=1&mute=1&controls=0&loop=1&playlist=EsDVAhz2pro" title="Trailer" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen class="w-full h-full object-cover pointer-events-none">
+</iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <!--slide 3-->
+            <div class="carousel-item absolute inset-0 flex items-center justify-center bg-gradient-to-br from-gray-900 to-green-900 opacity-0 transition-opacity duration-500">
+                <div class="container mx-auto px-4 flex flex-col-reverse md:flex-row items-center justify-center gap-6 text-center">
+                    <div class="md:w-1/2">
+                        <h2 class="pixel-font text-xl sm:text-2xl md:text-4xl lg:text-6xl mb-4 text-green-400">WISH LIST WRECKAGE!</h2>
+                        <p class="retro-font text-sm sm:text-base md:text-xl leading-snug mb-4">Get your post-apocalyptic wreckage on, like the old days. Make sure to add wreckage to yoru wishlist.</p>
+                        <button class="btn-pixel bg-green-600 retro-font" onclick="playSound('confirm'); showExplosion(this)"></button>
+                    </div>
+                    <div class="md:w-1/2 flex justify-center">
+                        <div class="pixel-border w-full max-w-sm sm:max-w-md md:max-w-xl lg:max-w-2xl xl:max-w-3xl aspect-video bg-gray-800 hover:animate-pulse cartridge-tilt">
+
+                            <iframe src="https://www.youtube.com/embed/Xk6DUaZoTdk
+       ?autoplay=1&mute=1&controls=0&loop=1&playlist=Xk6DUaZoTdk" title="Wish-List Wreckage trailer" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen class="w-full h-full object-cover pointer-events-none">
+</iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Carousel Controls -->
+        <div class="absolute bottom-8 left-0 right-0 flex justify-center space-x-4">
+            <button onclick="showSlide(0); playSound('select')" class="carousel-indicator w-4 h-4 rounded-full bg-purple-400 focus:outline-none hover:scale-125 transition"></button>
+            <button onclick="showSlide(1); playSound('select')" class="carousel-indicator w-4 h-4 rounded-full bg-gray-600 focus:outline-none hover:scale-125 transition"></button>
+            <button onclick="showSlide(2); playSound('select')" class="carousel-indicator w-4 h-4 rounded-full bg-gray-600 focus:outline-none hover:scale-125 transition"></button>
+            <!-- <button onclick="showSlide(); playSound('select')" class="carousel-indicator w-4 h-4 rounded-full bg-gray-600 focus:outline-none hover:scale-125 transition"></button> -->
+        </div>
+    </section>
+
+
+
+    <!-- About Section -->
+    <section id="about" class="py-16 ">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-10 md:mb-0 md:pr-10">
+                    <h2 class="pixel-font text-3xl md:text-4xl mb-6 text-purple-400">About JLH</h2>
+                    <p class="retro-font text-xl mb-6">Founded in 2014 by a group of veteran game developers who grew up with the 16-bit and 32-bit eras, Jupiter Lighthouse is dedicated to keeping the spirit of classic gaming alive.</p>
+                    <p class="retro-font text-xl mb-6">We combine modern development techniques with authentic pixel art and chiptune music to create experiences that feel both nostalgic and fresh.</p>
+                    <p class="retro-font text-xl mb-8">All our games are developed with genuine 32-bit architecture limitations in mind, ensuring authentic performance across all platforms.</p>
+                    <button class="btn-pixel bg-green-500 retro-font" onclick="playSound('confirm')">Contact Us!</button>
+                </div>
+                <div class="md:w-1/2">
+                    <div class="pixel-border p-2 bg-gray-800 hover:rotate-1 transition-transform">
+                        <img src="https://placehold.co/600x400/black/purple?text=Our+Studio" alt="Jupiter Lighthouse Studio" class="w-full h-auto">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!--Gallery Section -->
+
+
+    <!-- Hero Section -->
+    <section class="relative bg-gradient-to-b from-gray-900 to-purple-900 py-20">
+        <div class="container mx-auto px-6 text-center">
+            <h1 class="pixel-font text-4xl md:text-6xl mb-6 text-purple-400">GAME GALLERY</h1>
+            <p class="retro-font text-xl md:text-2xl max-w-3xl mx-auto">
+                Explore our collection of pixel-perfect games. Each one crafted with love and 8-bit nostalgia.
+            </p>
+        </div>
+    </section>
+
+    <!-- Game Filters -->
+    <section class="py-10 bg-gray-800">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-8">
+                <h2 class="pixel-font text-2xl mb-4 text-purple-400">FILTER GAMES</h2>
+                <div class="flex flex-wrap justify-center">
+                    <button class="filter-btn active" data-filter="all">ALL</button>
+                    <button class="filter-btn" data-filter="action">ACTION</button>
+                    <button class="filter-btn" data-filter="adventure">ADVENTURE</button>
+                    <button class="filter-btn" data-filter="rpg">RPG</button>
+                    <button class="filter-btn" data-filter="puzzle">PUZZLE</button>
+                    <button class="filter-btn" data-filter="platformer">PLATFORMER</button>
+                    <button class="filter-btn" data-filter="new">NEW RELEASES</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Games Grid -->
+    <section class="py-12 bg-black">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Game 1 -->
+                <div class="game-card pixel-border rounded-lg" data-category="action platformer new" style="background-image: url('images/ss_38ab89bf9645f851f7aef18b6400b42e2f7309f0.600x338.jpg')">
+                    <div class="game-card-content">
+                        <div>
+                            <span class="game-tag">ACTION</span>
+                            <span class="game-tag">PLATFORMER</span>
+                            <span class="game-tag">NEW</span>
+                        </div>
+                        <h3 class="pixel-font text-xl mb-2">WRECKAGE</h3>
+                        <p class="retro-font text-lg mb-4">Slice through enemies in this fast-paced platformer</p>
+                        <button class="btn-pixel retro-font game-details" data-game="1">
+                            VIEW DETAILS <i class="fas fa-arrow-right ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Game 2 -->
+                <div class="game-card pixel-border rounded-lg" data-category="rpg adventure" style="background-image: url('https://images.unsplash.com/photo-1560253023-3ec5d502959f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80')">
+                    <div class="game-card-content">
+                        <div>
+                            <span class="game-tag">RPG</span>
+                            <span class="game-tag">ADVENTURE</span>
+                        </div>
+                        <h3 class="pixel-font text-xl mb-2">TRELLIS</h3>
+                        <p class="retro-font text-lg mb-4">An epic time-traveling adventure</p>
+                        <button class="btn-pixel retro-font game-details" data-game="2">
+                            VIEW DETAILS <i class="fas fa-arrow-right ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Game 3 -->
+                <div class="game-card pixel-border rounded-lg" data-category="puzzle" style="background-image: url('https://images.unsplash.com/photo-1585238342024-78d80f7c1b8e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80')">
+                    <div class="game-card-content">
+                        <div>
+                            <span class="game-tag">PUZZLE</span>
+                        </div>
+                        <h3 class="pixel-font text-xl mb-2">BLOCK MATRIX</h3>
+                        <p class="retro-font text-lg mb-4">Match colors and solve the mystery</p>
+                        <button class="btn-pixel retro-font game-details" data-game="3">
+                            VIEW DETAILS <i class="fas fa-arrow-right ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Game 4 -->
+                <div class="game-card pixel-border rounded-lg" data-category="action adventure new" style="background-image: url('https://images.unsplash.com/photo-1547036967-23d11aacaee0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80')">
+                    <div class="game-card-content">
+                        <div>
+                            <span class="game-tag">ACTION</span>
+                            <span class="game-tag">ADVENTURE</span>
+                            <span class="game-tag">NEW</span>
+                        </div>
+                        <h3 class="pixel-font text-xl mb-2">SPACE RANGERS</h3>
+                        <p class="retro-font text-lg mb-4">Defend the galaxy from alien invaders</p>
+                        <button class="btn-pixel retro-font game-details" data-game="4">
+                            VIEW DETAILS <i class="fas fa-arrow-right ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Game 5 -->
+                <div class="game-card pixel-border rounded-lg" data-category="rpg" style="background-image: url('https://images.unsplash.com/photo-1511512578047-dba367496ab6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80')">
+                    <div class="game-card-content">
+                        <div>
+                            <span class="game-tag">RPG</span>
+                        </div>
+                        <h3 class="pixel-font text-xl mb-2">DRAGON REALM</h3>
+                        <p class="retro-font text-lg mb-4">Build your legend in a world of magic</p>
+                        <button class="btn-pixel retro-font game-details" data-game="5">
+                            VIEW DETAILS <i class="fas fa-arrow-right ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Game 6 -->
+                <div class="game-card pixel-border rounded-lg" data-category="platformer" style="background-image: url('https://images.unsplash.com/photo-1551103782-8ab07afd45c1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80')">
+                    <div class="game-card-content">
+                        <div>
+                            <span class="game-tag">PLATFORMER</span>
+                        </div>
+                        <h3 class="pixel-font text-xl mb-2">JUMPY SQUIRREL</h3>
+                        <p class="retro-font text-lg mb-4">Collect acorns in this high-flying adventure</p>
+                        <button class="btn-pixel retro-font game-details" data-game="6">
+                            VIEW DETAILS <i class="fas fa-arrow-right ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Coming Soon Section -->
+    <section class="py-16 bg-gray-800">
+        <div class="container mx-auto px-6">
+            <h2 class="pixel-font text-3xl mb-12 text-center text-purple-400">COMING SOON</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Coming Soon 1 -->
+                <div class="bg-gray-900 p-8 rounded-lg pixel-border flex items-center">
+                    <div class="w-24 h-24 bg-purple-600 rounded-full flex items-center justify-center mr-6">
+                        <i class="fas fa-question text-3xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="pixel-font text-xl mb-2">MYSTERY PROJECT X</h3>
+                        <p class="retro-font text-lg">Something amazing is coming soon...</p>
+                    </div>
+                </div>
+
+                <!-- Coming Soon 2 -->
+                <div class="bg-gray-900 p-8 rounded-lg pixel-border flex items-center">
+                    <div class="w-24 h-24 bg-blue-600 rounded-full flex items-center justify-center mr-6">
+                        <i class="fas fa-robot text-3xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="pixel-font text-xl mb-2">ROBOT REBELLION</h3>
+                        <p class="retro-font text-lg">Fight against the machine uprising</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="py-16 bg-gradient-to-r from-purple-900 to-blue-900">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="pixel-font text-3xl md:text-4xl mb-6 text-white">GET UPDATES</h2>
+            <p class="retro-font text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
+                Be the first to know about new releases, updates, and special offers.
+            </p>
+            <form class="max-w-md mx-auto flex flex-col sm:flex-row gap-4">
+                <input type="email" placeholder="Your email address" class="flex-grow pixel-input retro-font px-4 py-3">
+                <button type="submit" class="btn-pixel bg-white text-purple-900 retro-font">
+                    SUBSCRIBE <i class="fas fa-envelope-open-text ml-2"></i>
+                </button>
+            </form>
+        </div>
+    </section>
+
+
+
+
+    <!-- Game Details Modal -->
+    <div id="gameModal" class="modal">
+        <div class="modal-content retro-font">
+            <span class="close-modal">&times;</span>
+            <div id="modalContent">
+                <!-- Content will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <!-- clients -->
+
+    <section id="clients" class="py-16 bg-gray-800 text-white">
+        <div class="container mx-auto px-6">
+            <h2 class="pixel-font text-3xl md:text-4xl mb-12 text-center text-pink-400 pixel-bounce">OUR AWESOME CLIENTS</h2>
+
+            <div class="relative overflow-hidden pixel-border bg-black py-6">
+                <div id="clientCarousel" class="flex transition-transform duration-700 ease-in-out space-x-12 px-4">
+                    <!-- Client 1 -->
+                    <div class="flex-shrink-0 w-80 p-4 bg-gray-900 rounded-lg text-center hover:scale-105 transition">
+                        <img src="https://placehold.co/120x120/ff3366/fff?text=👾" alt="Client 1" class="mx-auto mb-4 rounded-full border-4 border-pink-400">
+                        <h3 class="pixel-font text-lg text-pink-400">PixelWorks Studio</h3>
+                        <p class="retro-font text-gray-300 mt-2">"Working with Jupiter Lighthouse was a blast. Their 32-bit engine helped us ship our game 3x faster."</p>
+                    </div>
+                    <!-- Client 2 -->
+                    <div class="flex-shrink-0 w-80 p-4 bg-gray-900 rounded-lg text-center hover:scale-105 transition">
+                        <img src="https://placehold.co/120x120/3399ff/fff?text=🕹️" alt="Client 2" class="mx-auto mb-4 rounded-full border-4 border-blue-400">
+                        <h3 class="pixel-font text-lg text-blue-400">Chiptune Labs</h3>
+                        <p class="retro-font text-gray-300 mt-2">"Their custom tools and music support took our audio-based puzzle game to the next level."</p>
+                    </div>
+                    <!-- Client 3 -->
+                    <div class="flex-shrink-0 w-80 p-4 bg-gray-900 rounded-lg text-center hover:scale-105 transition">
+                        <img src="https://placehold.co/120x120/00ff99/fff?text=🎮" alt="Client 3" class="mx-auto mb-4 rounded-full border-4 border-green-400">
+                        <h3 class="pixel-font text-lg text-green-400">BitRealm Games</h3>
+                        <p class="retro-font text-gray-300 mt-2">"We keep coming back. Their passion for pixel art is unmatched in the indie dev world."</p>
+                    </div>
+                    <!-- Client 1 -->
+                    <div class="flex-shrink-0 w-80 p-4 bg-gray-900 rounded-lg text-center hover:scale-105 transition">
+                        <img src="https://placehold.co/120x120/ff3366/fff?text=👾" alt="Client 1" class="mx-auto mb-4 rounded-full border-4 border-pink-400">
+                        <h3 class="pixel-font text-lg text-pink-400">PixelWorks Studio</h3>
+                        <p class="retro-font text-gray-300 mt-2">"Working with Jupiter Lighthouse was a blast. Their 32-bit engine helped us ship our game 3x faster."</p>
+                    </div>
+                    <!-- Client 2 -->
+                    <div class="flex-shrink-0 w-80 p-4 bg-gray-900 rounded-lg text-center hover:scale-105 transition">
+                        <img src="https://placehold.co/120x120/3399ff/fff?text=🕹️" alt="Client 2" class="mx-auto mb-4 rounded-full border-4 border-blue-400">
+                        <h3 class="pixel-font text-lg text-blue-400">Chiptune Labs</h3>
+                        <p class="retro-font text-gray-300 mt-2">"Their custom tools and music support took our audio-based puzzle game to the next level."</p>
+                    </div>
+                    <!-- Client 3 -->
+                    <div class="flex-shrink-0 w-80 p-4 bg-gray-900 rounded-lg text-center hover:scale-105 transition">
+                        <img src="https://placehold.co/120x120/00ff99/fff?text=🎮" alt="Client 3" class="mx-auto mb-4 rounded-full border-4 border-green-400">
+                        <h3 class="pixel-font text-lg text-green-400">BitRealm Games</h3>
+                        <p class="retro-font text-gray-300 mt-2">"We keep coming back. Their passion for pixel art is unmatched in the indie dev world."</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const carousel = document.getElementById('clientCarousel');
+        let scrollAmount = 0;
+        let scrollInterval;
+
+        function startClientCarousel() {
+            scrollInterval = setInterval(() => {
+                scrollAmount += 1;
+                if (scrollAmount >= carousel.scrollWidth / 3) scrollAmount = 0;
+                carousel.style.transform = `translateX(-${scrollAmount}px)`;
+            }, 20);
+        }
+
+        function stopClientCarousel() {
+            clearInterval(scrollInterval);
+        }
+
+        carousel.addEventListener('mouseenter', stopClientCarousel);
+        carousel.addEventListener('mouseleave', startClientCarousel);
+        startClientCarousel();
+    </script>
+
+
+
+    <!--new section-->
+    <section id="clientApproach" class="py-16 bg-black text-white">
+        <div class="container mx-auto px-6 md:flex items-center gap-12">
+            <!-- Image Left -->
+            <div class="md:w-1/2 mb-8 md:mb-0">
+                <div class="pixel-border bg-gray-800 p-2 hover:rotate-1 transition-transform">
+                    <video width="100%" height="100%" controls autoplay muted loop>
+  <source src="https://video.akamai.steamstatic.com/store_trailers/257047294/movie480_vp9.webm?t=1725465704" type="video/webm">
+  Your browser does not support the video tag.
+</video>
+                    <!-- <img src="https://placehold.co/600x400/0000ff/ffffff?text=Client+Workshop" alt="Client Collaboration" class="w-full h-auto"> -->
+                </div>
+            </div>
+            <!-- Text Right -->
+            <div class="md:w-1/2">
+                <h2 class="pixel-font text-3xl md:text-4xl text-blue-400 mb-6">COLLABORATE & CREATE</h2>
+                <p class="retro-font text-xl mb-4 text-gray-300">
+                    At Jupiter Lighthouse, collaboration isn't a feature — it's a philosophy. We work closely with indie studios, musicians, and pixel wizards to bring authentic 32-bit visions to life.
+                </p>
+                <p class="retro-font text-xl mb-4 text-gray-300">
+                    Whether you're building a one-level demo or a full saga, we plug into your creative pipeline and power it with our retro engine, toolsets, and visual design expertise.
+                </p>
+                <button class="btn-pixel retro-font" onclick="playSound('confirm'); document.getElementById('contact').scrollIntoView({behavior: 'smooth'})">Start a Project</button>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Meet the team -->
+    <section class="py-16 bg-gray-800">
+        <div class="container mx-auto px-6">
+            <h2 class="pixel-font text-3xl mb-12 text-center text-purple-400">MEET THE TEAM</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Founder 1 -->
+                <div class="team-card pixel-border rounded-lg overflow-hidden">
+                    <img src="images/meinglasses.jpg" alt="Dylan" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="pixel-font text-xl mb-2">DYLAN</h3>
+                        <p class="retro-font text-lg text-purple-400 mb-2">Developer</p>
+                        <p class="retro-font text-lg">
+                            "I believe games should challenge and delight in equal measure."
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Founder 2 -->
+                <div class="team-card pixel-border rounded-lg overflow-hidden">
+                    <img src="images/DSC_0393.jpg" alt="Andy" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="pixel-font text-xl mb-2">ANDY</h3>
+                        <p class="retro-font text-lg text-purple-400 mb-2">Graphic Designer</p>
+                        <p class="retro-font text-lg">
+                            "Every pixel tells a story. We just help them speak."
+
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Founder 3 -->
+                <div class="team-card pixel-border rounded-lg overflow-hidden">
+                    <img src="images/64525155226__1143598F-077D-42C5-A01D-40D056ED588C.jpeg" alt="Santi" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="pixel-font text-xl mb-2">SANTI</h3>
+                        <p class="retro-font text-lg text-purple-400 mb-2">Wed Developer</p>
+                        <p class="retro-font text-lg">
+                            "Surfing the web for the real answers! Can it run Doom?"
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mini Game Section -->
+    <!-- <section class="py-16 bg-purple-900">
+                <div class="container mx-auto px-6 text-center">
+                    <h2 class="pixel-font text-3xl md:text-4xl mb-8 text-white">TRY OUR DEMO</h2>
+                    <div class="max-w-2xl mx-auto bg-black p-4 pixel-border">
+                        <canvas id="gameCanvas" width="640" height="360" class="w-full h-auto bg-gray-900"></canvas>
+                        <div class="mt-4 flex justify-center space-x-4">
+                            <button id="startBtn" class="btn-pixel retro-font" onclick="startGame()">START</button>
+                            <button id="jumpBtn" class="btn-pixel bg-green-600 retro-font hidden" onclick="jump()">JUMP</button>
+                        </div>
+                        <p class="retro-font text-xl mt-4">Use arrow keys or tap JUMP to avoid obstacles!</p>
+                    </div>
+                </div>
+            </section> -->
+
+
+
+
+
+
+
+
+
+
+
+    <section class="bg-gray-900 text-white crt-effect">
+
+        <!-- Hero Section -->
+        <section class="relative bg-gradient-to-b from-gray-900 to-purple-900 py-20">
+            <div class="container mx-auto px-6 text-center">
+                <h1 class="pixel-font text-4xl md:text-6xl mb-6 text-purple-400">CONTACT US</h1>
+                <p class="retro-font text-xl md:text-2xl max-w-3xl mx-auto">
+                    Got questions, feedback, or just want to say hello? Drop us a message and we'll get back to you faster than you can say "Game Over!"
+                </p>
+            </div>
+        </section>
+
+        <!-- Contact Form Section -->
+        <section class="py-16 bg-gray-800">
+            <div class="container mx-auto px-6">
+                <div class="max-w-4xl mx-auto bg-gray-900 p-8 rounded-lg pixel-border">
+                    <h2 class="pixel-font text-2xl mb-8 text-purple-400">SEND US A MESSAGE</h2>
+
+                    <form id="contactForm" class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="name" class="block retro-font text-xl mb-2">YOUR NAME</label>
+                                <input type="text" id="name" name="name" required class="w-full pixel-input retro-font" placeholder="Enter your name">
+                            </div>
+                            <div>
+                                <label for="email" class="block retro-font text-xl mb-2">YOUR EMAIL</label>
+                                <input type="email" id="email" name="email" required class="w-full pixel-input retro-font" placeholder="Enter your email">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="subject" class="block retro-font text-xl mb-2">SUBJECT</label>
+                            <input type="text" id="subject" name="subject" required class="w-full pixel-input retro-font" placeholder="What's this about?">
+                        </div>
+
+                        <div>
+                            <label for="message" class="block retro-font text-xl mb-2">YOUR MESSAGE</label>
+                            <textarea id="message" name="message" rows="6" required class="w-full pixel-input retro-font" placeholder="Type your message here..."></textarea>
+                        </div>
+
+                        <div class="flex items-center">
+                            <input type="checkbox" id="newsletter" name="newsletter" class="w-6 h-6 mr-3 pixel-input">
+                            <label for="newsletter" class="retro-font text-lg">
+                            Subscribe to our newsletter for game updates and special offers
+                        </label>
+                        </div>
+
+                        <div class="text-center">
+                            <button type="submit" class="btn-pixel bg-purple-600 retro-font">
+                            SEND MESSAGE <i class="fas fa-paper-plane ml-2"></i>
+                        </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+        <!-- Success Popup -->
+        <div id="successPopup" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 hidden">
+            <div class="bg-white border-4 border-black px-6 py-5 max-w-md text-center rounded shadow-xl pixel-font">
+                <h2 class="text-xl mb-4 text-black">📬 Message Sent!</h2>
+                <p class="text-black">Thanks for reaching out. We'll get back to you as soon as possible.</p>
+                <button onclick="closePopup()" class="mt-6 px-4 py-2 bg-black text-white pixel-font border-2 border-black hover:bg-gray-800">
+      Close
+    </button>
+            </div>
+        </div>
+
+
+
+
+        <!-- Contact Info Section -->
+        <section class="py-16 bg-black">
+            <div class="container mx-auto px-6">
+                <h2 class="pixel-font text-3xl mb-12 text-center text-purple-400">OTHER WAYS TO REACH US</h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Email Card -->
+                    <div class="contact-card bg-gray-900 p-8 rounded-lg pixel-border text-center">
+                        <div class="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <i class="fas fa-envelope text-2xl"></i>
+                        </div>
+                        <h3 class="pixel-font text-xl mb-4">EMAIL US</h3>
+                        <p class="retro-font text-lg mb-4">
+                            For general inquiries and support
+                        </p>
+                        <a href="mailto:hello@Jupiter LightHouse.com" class="retro-font text-xl text-purple-400 hover:text-white transition">
+                        hello@Jupiter LightHouse.com
+                    </a>
+                    </div>
+
+                    <!-- Social Card -->
+                    <div class="contact-card bg-gray-900 p-8 rounded-lg pixel-border text-center">
+                        <div class="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <i class="fas fa-hashtag text-2xl"></i>
+                        </div>
+                        <h3 class="pixel-font text-xl mb-4">SOCIAL MEDIA</h3>
+                        <p class="retro-font text-lg mb-4">
+                            Connect with us on social platforms
+                        </p>
+                        <div class="flex justify-center space-x-4">
+                            <a href="#" class="text-blue-400 hover:text-white transition"><i class="fab fa-twitter text-2xl"></i></a>
+                            <a href="#" class="text-blue-600 hover:text-white transition"><i class="fab fa-facebook text-2xl"></i></a>
+                            <a href="#" class="text-pink-600 hover:text-white transition"><i class="fab fa-instagram text-2xl"></i></a>
+                            <a href="#" class="text-purple-600 hover:text-white transition"><i class="fab fa-discord text-2xl"></i></a>
+                        </div>
+                    </div>
+
+                    <!-- Support Card -->
+                    <div class="contact-card bg-gray-900 p-8 rounded-lg pixel-border text-center">
+                        <div class="w-16 h-16 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <i class="fas fa-headset text-2xl"></i>
+                        </div>
+                        <h3 class="pixel-font text-xl mb-4">GAME SUPPORT</h3>
+                        <p class="retro-font text-lg mb-4">
+                            Need help with our games?
+                        </p>
+                        <a href="mailto:support@Jupiter LightHouse.com" class="retro-font text-xl text-green-400 hover:text-white transition">
+                        support@Jupiter LightHouse.com
+                    </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Location Section -->
+        <section class="py-16 bg-gray-800">
+            <div class="container mx-auto px-6">
+                <div class="flex flex-col lg:flex-row items-center">
+                    <div class="lg:w-1/2 mb-10 lg:mb-0 lg:pr-10">
+                        <h2 class="pixel-font text-3xl mb-6 text-purple-400">OUR STUDIO</h2>
+                        <p class="retro-font text-xl mb-6">
+                            Visit our pixel paradise where the magic happens. We're located in the heart of the gaming district.
+                        </p>
+                        <div class="space-y-4 retro-font text-xl">
+                            <p><i class="fas fa-map-marker-alt text-purple-400 mr-3"></i> 8-Bit Avenue, Pixel Town, CA 90210</p>
+                            <p><i class="fas fa-phone-alt text-purple-400 mr-3"></i> +1 (555) PIX-ELGO</p>
+                            <p><i class="fas fa-clock text-purple-400 mr-3"></i> Mon-Fri: 9AM - 6PM (PST)</p>
+                        </div>
+                    </div>
+                    <div class="lg:w-1/2">
+                        <div class="map-container aspect-video">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.215256018546!2d-73.9878449245351!3d40.74844097138988!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c259a9b3117469%3A0xd134e199a405a163!2sEmpire%20State%20Building!5e0!3m2!1sen!2sus!4v1689872481355!5m2!1sen!2sus"
+                                width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="py-16 bg-black">
+            <div class="container mx-auto px-6">
+                <h2 class="pixel-font text-3xl mb-12 text-center text-purple-400">FREQUENTLY ASKED QUESTIONS</h2>
+
+                <div class="max-w-3xl mx-auto space-y-4">
+                    <!-- FAQ Item 1 -->
+                    <div class="bg-gray-900 p-6 rounded-lg pixel-border">
+                        <button class="faq-toggle w-full flex justify-between items-center retro-font text-xl text-left">
+                        <span>How can I report a bug in your games?</span>
+                        <i class="fas fa-chevron-down text-purple-400 transition-transform"></i>
+                    </button>
+                        <div class="faq-content mt-4 retro-font text-lg hidden">
+                            <p>You can report bugs by emailing our support team at support@Jupiter LightHouse.com. Please include as much detail as possible about the issue, including screenshots if applicable, the device you're using, and steps to reproduce
+                                the bug.</p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 2 -->
+                    <div class="bg-gray-900 p-6 rounded-lg pixel-border">
+                        <button class="faq-toggle w-full flex justify-between items-center retro-font text-xl text-left">
+                        <span>Do you accept game ideas from fans?</span>
+                        <i class="fas fa-chevron-down text-purple-400 transition-transform"></i>
+                    </button>
+                        <div class="faq-content mt-4 retro-font text-lg hidden">
+                            <p>We love hearing creative ideas from our community! While we can't promise to implement every suggestion, we do review all submissions. Please send your ideas to ideas@Jupiter LightHouse.com with "Game Idea" in the subject line.</p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 3 -->
+                    <div class="bg-gray-900 p-6 rounded-lg pixel-border">
+                        <button class="faq-toggle w-full flex justify-between items-center retro-font text-xl text-left">
+                        <span>How can I join the Jupiter LightHouse team?</span>
+                        <i class="fas fa-chevron-down text-purple-400 transition-transform"></i>
+                    </button>
+                        <div class="faq-content mt-4 retro-font text-lg hidden">
+                            <p>Check our Careers page for open positions. We're always looking for talented pixel artists, developers, and game designers who share our passion for retro gaming. Even if we don't have an open position that matches your skills,
+                                feel free to send us your portfolio at careers@Jupiter LightHouse.com.</p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 4 -->
+                    <div class="bg-gray-900 p-6 rounded-lg pixel-border">
+                        <button class="faq-toggle w-full flex justify-between items-center retro-font text-xl text-left">
+                        <span>When will your next game be released?</span>
+                        <i class="fas fa-chevron-down text-purple-400 transition-transform"></i>
+                    </button>
+                        <div class="faq-content mt-4 retro-font text-lg hidden">
+                            <p>We announce release dates on our social media channels and newsletter when we're confident about them. Game development is unpredictable, and we prefer to take the time needed to polish our games rather than rush them out.
+                                Subscribe to our newsletter to be the first to know!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter Section -->
+        <section class="py-16 bg-gradient-to-r from-purple-900 to-blue-900">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="pixel-font text-3xl md:text-4xl mb-6 text-white">JOIN OUR NEWSLETTER</h2>
+                <p class="retro-font text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
+                    Get exclusive updates, behind-the-scenes content, and special offers straight to your inbox.
+                </p>
+                <form class="max-w-md mx-auto flex flex-col sm:flex-row gap-4">
+                    <input type="email" placeholder="Your email address" class="flex-grow pixel-input retro-font px-4 py-3">
+                    <button type="submit" class="btn-pixel bg-white text-purple-900 retro-font">
+                    SUBSCRIBE <i class="fas fa-envelope-open-text ml-2"></i>
+                </button>
+                </form>
+            </div>
+        </section>
+
+
+        <!-- Status Message -->
+        <div id="statusMessage" class="status-message bg-gray-900 p-4 rounded-lg pixel-border retro-font text-lg">
+            Message sent successfully! We'll get back to you soon.
+        </div>
+
+        <!-- Audio elements -->
+        <audio id="hoverSound" src="https://www.free-stock-music.com/download/coin.mp3"></audio>
+        <audio id="selectSound" src="https://freesound.org/data/previews/342/342756_3248244-lq.mp3"></audio>
+        <audio id="confirmSound" src="https://freesound.org/data/previews/146/146730_2337296-lq.mp3"></audio>
+
+    </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Footer -->
+    <footer class="bg-black py-8">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <div class="flex items-center">
+                        <div class="w-15 h-15 bg-purple-600 rounded-full flex items-center justify-center mr-3 hover:animate-spin" onclick="playSound('select')">
+                            <img src="images/jup1.png" alt="Gamepad" class="w-[80px] sm:w-[80px] md:w-[130px] lg:w-[100px] object-contain rounded-full border-4 border-purple-500">
+                            <!-- <img sec="images/jup1.png" class="w-full h-auto"> -->
+                        </div>
+                        <h2 class="pixel-font text-xl">Jupiter Lighthouse</h2>
+                    </div>
+                </div>
+
+                <div class="flex space-x-6 mb-6 md:mb-0">
+                    <a href="#" class="text-2xl hover:text-purple-400 transition hover:scale-125" onclick="playSound('select')"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-2xl hover:text-purple-400 transition hover:scale-125" onclick="playSound('select')"><i class="fab fa-facebook"></i></a>
+                    <a href="#" class="text-2xl hover:text-purple-400 transition hover:scale-125" onclick="playSound('select')"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-2xl hover:text-purple-400 transition hover:scale-125" onclick="playSound('select')"><i class="fab fa-discord"></i></a>
+                    <a href="#" class="text-2xl hover:text-purple-400 transition hover:scale-125" onclick="playSound('select')"><i class="fab fa-youtube"></i></a>
+                </div>
+
+                <div class="retro-font text-sm">
+                    <p>&copy; 2023 Jupiter Lighthouse Games. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Audio elements -->
+    <audio id="hoverSound" src="https://assets.mixkit.co/sfx/preview/mixkit-arcade-game-jump-coin-216.mp3"></audio>
+    <audio id="selectSound" src="https://assets.mixkit.co/sfx/preview/mixkit-select-click-1109.mp3"></audio>
+    <audio id="confirmSound" src="https://assets.mixkit.co/sfx/preview/mixkit-quick-jump-arcade-game-239.mp3"></audio>
+    <audio id="coinSound" src="https://opengameart.org/sites/default/files/coin.wav"></audio>
+    <audio id="gameOverSound" src="https://assets.mixkit.co/sfx/preview/mixkit-retro-arcade-lose-2027.mp3"></audio>
+    <audio id="jumpSound" src="https://assets.mixkit.co/sfx/preview/mixkit-arcade-game-jump-coin-216.mp3"></audio>
+    <audio id="glitchSound" src="https://assets.mixkit.co/sfx/preview/mixkit-arcade-glitch-767.mp3"></audio>
+    <audio id="explosionSound" src="https://assets.mixkit.co/sfx/preview/mixkit-8-bit-arcade-explosion-2791.mp3"></audio>
+
+    <script>
+    </script>
+
+
+    <script src="js/index.js"></script>
+    <script src="js/gallery.js"></script>
+</body>
+
+</html>

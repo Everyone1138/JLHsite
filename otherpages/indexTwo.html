@@ -1,0 +1,2460 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jupiter LightHouse Games | 32-bit Gaming Specialists</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
+        .pixel-font {
+            font-family: 'Press Start 2P', cursive;
+        }
+        
+        .retro-font {
+            font-family: 'VT323', monospace;
+        }
+        
+        .carousel-item {
+            transition: transform 0.5s ease, opacity 0.5s ease;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        .game-card {
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .game-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .game-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .game-card:hover::before {
+            left: 100%;
+        }
+        
+        .pixel-border {
+            border: 4px solid #000;
+            position: relative;
+            box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.2);
+        }
+        
+        .pixel-border::before {
+            content: "";
+            position: absolute;
+            top: -8px;
+            left: -8px;
+            right: -8px;
+            bottom: -8px;
+            border: 2px solid #fff;
+            z-index: -1;
+        }
+        
+        .btn-pixel {
+            position: relative;
+            border: 4px solid #000;
+            background: #ff3366;
+            color: white;
+            padding: 12px 24px;
+            font-family: 'Press Start 2P', cursive;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.1s;
+            box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+        
+        .btn-pixel:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0 #000;
+        }
+        
+        .btn-pixel:active {
+            transform: translate(0, 0);
+            box-shadow: 2px 2px 0 #000;
+        }
+        
+        .btn-pixel::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(-100%);
+            transition: 0.3s;
+        }
+        
+        .btn-pixel:hover::after {
+            transform: translateX(100%);
+        }
+        /* Pixel art cursor */
+        
+        body {
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><rect x="4" y="4" width="8" height="8" fill="%23ff3366"/><rect x="2" y="2" width="12" height="12" fill="none" stroke="%23000" stroke-width="2"/></svg>'), auto;
+        }
+        
+        a,
+        button {
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><rect x="4" y="4" width="8" height="8" fill="%23ff3366"/><rect x="2" y="2" width="12" height="12" fill="none" stroke="%23000" stroke-width="2"/></svg>'), auto;
+        }
+        /* 8-bit animation */
+        
+        @keyframes pixel-bounce {
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+        
+        .pixel-bounce {
+            animation: pixel-bounce 2s infinite;
+        }
+        /* CRT screen effect */
+        
+        .crt-effect::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            background-size: 100% 2px, 3px 100%;
+            pointer-events: none;
+            z-index: 10;
+        }
+        /* Loading bar */
+        
+        .loading-bar {
+            height: 8px;
+            background: #333;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .loading-bar::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+            background: #ff3366;
+            animation: loading 2s linear infinite;
+        }
+        
+        @keyframes loading {
+            0% {
+                transform: translateX(-100%);
+            }
+            100% {
+                transform: translateX(100%);
+            }
+        }
+        /* Retro checkbox */
+        
+        .retro-checkbox {
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #000;
+            position: relative;
+            background: #fff;
+        }
+        
+        .retro-checkbox:checked::after {
+            content: "✓";
+            position: absolute;
+            top: -5px;
+            left: 2px;
+            font-size: 20px;
+            color: #000;
+        }
+        /* Gameboy-style notification */
+        
+        .gameboy-notification {
+            position: fixed;
+            bottom: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #fff;
+            color: #000;
+            border: 4px solid #000;
+            padding: 10px 20px;
+            font-family: 'VT323', monospace;
+            font-size: 1.5rem;
+            z-index: 1000;
+            transition: bottom 0.5s ease;
+            box-shadow: 0 0 0 4px #fff, 0 0 0 8px #000;
+        }
+        /* Pixelated scrollbar */
+        
+         ::-webkit-scrollbar {
+            width: 12px;
+        }
+        
+         ::-webkit-scrollbar-track {
+            background: #222;
+        }
+        
+         ::-webkit-scrollbar-thumb {
+            background: #ff3366;
+            border: 2px solid #000;
+        }
+        /* 8-bit character */
+        
+        .pixel-character {
+            width: 32px;
+            height: 32px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect x="8" y="4" width="16" height="8" fill="%23ff3366"/><rect x="4" y="12" width="24" height="12" fill="%23ff3366"/><rect x="8" y="24" width="4" height="8" fill="%23ff3366"/><rect x="20" y="24" width="4" height="8" fill="%23ff3366"/><rect x="12" y="8" width="2" height="2" fill="%23000"/><rect x="18" y="8" width="2" height="2" fill="%23000"/><rect x="14" y="12" width="4" height="2" fill="%23000"/></svg>') no-repeat;
+            image-rendering: pixelated;
+        }
+        /* Pixel rain effect */
+        
+        .pixel-rain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 100;
+            display: none;
+        }
+        
+        .pixel {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #ff3366;
+            opacity: 0.7;
+        }
+        /* Glitch effect */
+        
+        .glitch {
+            position: relative;
+        }
+        
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.8;
+        }
+        
+        .glitch::before {
+            color: #0ff;
+            z-index: -1;
+            animation: glitch-effect 3s infinite;
+        }
+        
+        .glitch::after {
+            color: #f0f;
+            z-index: -2;
+            animation: glitch-effect 2s infinite reverse;
+        }
+        
+        @keyframes glitch-effect {
+            0% {
+                transform: translate(0);
+            }
+            20% {
+                transform: translate(-3px, 3px);
+            }
+            40% {
+                transform: translate(-3px, -3px);
+            }
+            60% {
+                transform: translate(3px, 3px);
+            }
+            80% {
+                transform: translate(3px, -3px);
+            }
+            100% {
+                transform: translate(0);
+            }
+        }
+        /* Retro scanlines */
+        
+        .scanlines {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .scanlines::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient( to bottom, transparent 50%, rgba(0, 0, 0, 0.3) 51%);
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 1;
+        }
+        /* Pixel explosion */
+        
+        .pixel-explosion {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 50;
+        }
+        
+        .explosion-particle {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background-color: #ff3366;
+            border-radius: 50%;
+            opacity: 0;
+        }
+        /* Typewriter effect */
+        
+        .typewriter {
+            overflow: hidden;
+            border-right: 3px solid #ff3366;
+            white-space: nowrap;
+            margin: 0 auto;
+            letter-spacing: 2px;
+            animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+        
+        @keyframes typing {
+            from {
+                width: 0
+            }
+            to {
+                width: 100%
+            }
+        }
+        
+        @keyframes blink-caret {
+            from,
+            to {
+                border-color: transparent
+            }
+            50% {
+                border-color: #ff3366
+            }
+        }
+        /* Retro TV noise */
+        
+        .tv-noise {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient( 0deg, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15) 1px, transparent 1px, transparent 2px);
+            pointer-events: none;
+            z-index: 99;
+            opacity: 0.05;
+            animation: noise 0.1s infinite;
+            display: none;
+        }
+        
+        @keyframes noise {
+            0% {
+                transform: translateY(0);
+            }
+            10% {
+                transform: translateY(-5px);
+            }
+            20% {
+                transform: translateY(-10px);
+            }
+            30% {
+                transform: translateY(5px);
+            }
+            40% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-5px);
+            }
+            60% {
+                transform: translateY(10px);
+            }
+            70% {
+                transform: translateY(5px);
+            }
+            80% {
+                transform: translateY(-15px);
+            }
+            90% {
+                transform: translateY(10px);
+            }
+            100% {
+                transform: translateY(5px);
+            }
+        }
+        /* Retro button press effect */
+        
+        .btn-retro:active {
+            transform: translateY(4px);
+            box-shadow: 0 0 0 #000;
+        }
+        /* Floating pixels */
+        
+        .floating-pixels {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .floating-pixel {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background-color: rgba(255, 51, 102, 0.5);
+            border-radius: 50%;
+            animation: float 15s linear infinite;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(20px);
+                opacity: 0;
+            }
+        }
+        /* Retro input focus */
+        
+        .retro-input:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(255, 51, 102, 0.5);
+            animation: input-pulse 1.5s infinite;
+        }
+        
+        @keyframes input-pulse {
+            0% {
+                box-shadow: 0 0 0 3px rgba(255, 51, 102, 0.5);
+            }
+            50% {
+                box-shadow: 0 0 0 6px rgba(255, 51, 102, 0.2);
+            }
+            100% {
+                box-shadow: 0 0 0 3px rgba(255, 51, 102, 0.5);
+            }
+        }
+        /* Game cartridge tilt effect */
+        
+        .cartridge-tilt {
+            transition: transform 0.3s ease;
+        }
+        
+        .cartridge-tilt:hover {
+            transform: rotate(5deg) scale(1.05);
+        }
+        /* 8-bit parallax effect */
+        
+        .parallax-container {
+            perspective: 1000px;
+            height: 100vh;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+        
+        .parallax-layer {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+        /* Retro progress bar */
+        
+        .retro-progress {
+            height: 20px;
+            background-color: #333;
+            border: 3px solid #000;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .retro-progress-fill {
+            height: 100%;
+            background-color: #ff3366;
+            position: relative;
+            transition: width 0.5s ease;
+        }
+        
+        .retro-progress-fill::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient( to right, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0.3) 100%);
+            animation: progress-shine 2s infinite;
+        }
+        
+        @keyframes progress-shine {
+            0% {
+                transform: translateX(-100%);
+            }
+            100% {
+                transform: translateX(100%);
+            }
+        }
+        
+        .active-menu-link {
+            color: #ec4899 !important;
+            /* Tailwind pink-400 */
+            font-weight: bold;
+            transform: scale(1.05);
+        }
+        
+        #right-menu {
+            right: 0;
+            left: auto !important;
+        }
+        /* These must be in your CSS if you use Tailwind JIT or CDN */
+        
+        .translate-x-0 {
+            transform: translateX(0);
+        }
+        
+        .translate-x-full {
+            transform: translateX(100%);
+        }
+    </style>
+</head>
+
+
+
+<body class="bg-gray-900 text-white crt-effect">
+    <!-- TV Noise Effect -->
+    <div class="tv-noise" id="tvNoise"></div>
+
+    <!-- Floating Pixels Background -->
+    <div class="floating-pixels" id="floatingPixels"></div>
+
+    <!-- Pixel Rain Effect -->
+    <div class="pixel-rain" id="pixelRain"></div>
+
+    <!-- Loading screen -->
+    <div id="loading-screen" class="fixed inset-0 bg-black z-50 flex flex-col items-center justify-center">
+        <div class="pixel-character mb-8"></div>
+        <h2 class="pixel-font text-2xl mb-4 text-purple-400">LOADING Jupiter LightHouse...</h2>
+        <div class="loading-bar w-64 mb-8"></div>
+        <p class="retro-font text-xl">We can build the video game you want!</p>
+    </div>
+
+    <!-- Gameboy notification -->
+    <div id="notification" class="gameboy-notification">
+        Welcome to Jupiter LightHouse Games!
+    </div>
+
+    <!-- Easter egg character -->
+    <div id="easter-egg" class="fixed bottom-4 left-4 w-16 h-16 bg-transparent z-40 cursor-pointer" onclick="collectCoin()">
+        <div class="pixel-character"></div>
+    </div>
+
+    <!-- Coin counter -->
+    <div id="coin-counter" class="fixed top-4 right-4 bg-black text-white px-3 py-1 retro-font text-xl border-2 border-white hidden">
+        Coins: <span id="coin-count">0</span>
+    </div>
+
+    <!-- Header -->
+    <header class="bg-black py-4 px-6 border-b-4 border-purple-600 sticky top-0 z-30">
+        <div class="container mx-auto flex justify-between items-center gap-4">
+            <div class="flex items-center">
+                <div class="w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center mr-4 hover:animate-spin" onclick="playSound('select')">
+                    <i class="fas fa-gamepad text-2xl"></i>
+                </div>
+                <h1 class="pixel-font text-2xl md:text-3xl text-purple-400 hover:text-pink-400 transition-colors glitch" data-text="Jupiter LightHouse">Jupiter LightHouse</h1>
+            </div>
+            <nav class="hidden md:block ml-auto lg:mr-4">
+                <ul class="flex space-x-6 retro-font text-xl">
+                    <li><a href="index.html" class="hover:text-purple-400 transition hover:underline hover:underline-offset-4" onclick="playSound('select')">Home</a></li>
+                    <li><a href="gallery.html" class="hover:text-purple-400 transition hover:underline hover:underline-offset-4" onclick="playSound('select')">Games</a></li>
+                    <li><a href="missionstatment.html" class="hover:text-purple-400 transition hover:underline hover:underline-offset-4" onclick="playSound('select')">About</a></li>
+                    <li><a href="contactus.html" class="hover:text-purple-400 transition hover:underline hover:underline-offset-4" onclick="playSound('select')">Contact</a></li>
+                </ul>
+            </nav>
+
+            <!-- Always-visible pixel hamburger -->
+            <button class="text-2xl btn-retro pixel-border p-2 bg-purple-600 hover:bg-pink-600 transition" onclick="toggleRightMenu()">
+  <i class="fas fa-bars text-white"></i>
+</button>
+
+
+        </div>
+    </header>
+
+
+
+
+
+    <div>
+
+        <!-- Right menu overlay -->
+        <div id="right-menu-overlay" class="fixed inset-0 z-40 bg-black bg-opacity-50 hidden" onclick="closeRightMenu()">
+            <!-- Right slide-out menu -->
+            <div id="right-menu" class="fixed top-0 right-0 h-full w-80 bg-black text-white z-50 transform translate-x-full transition-transform duration-300 shadow-lg border-l-4 border-purple-600 pixel-border" onclick="event.stopPropagation()">
+                <!-- Menu Header -->
+                <div class="flex justify-between items-center px-6 py-4 border-b-2 border-purple-600">
+                    <h2 class="pixel-font text-2xl text-pink-400">Menu</h2>
+                    <button onclick="toggleRightMenu()" class="text-white text-2xl hover:text-red-500 transition">
+        <i class="fas fa-times"></i>
+      </button>
+                </div>
+
+                <!-- Menu Links -->
+                <ul class="p-6 space-y-6 retro-font text-xl">
+
+                    <!-- HOME DROPDOWN -->
+                    <li>
+                        <button onclick="toggleSubmenu('home-submenu', 'chevron-home')" class="flex justify-between w-full hover:text-pink-400">
+          Home
+          <i id="chevron-home" class="fas fa-chevron-down ml-2 transition-transform duration-300"></i>
+        </button>
+                        <ul id="home-submenu" class="pl-4 space-y-2 text-base text-gray-300 hidden">
+                            <li><a href="#home" class="menu-link" onclick="toggleRightMenu(); playSound('select')">Hero Section</a></li>
+                            <li><a href="#clients" class="menu-link" onclick="toggleRightMenu(); playSound('select')">Client Carousel</a></li>
+                            <li><a href="#clientApproach" class="menu-link" onclick="toggleRightMenu(); playSound('select')">Collaboration</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- GAMES DROPDOWN -->
+                    <li>
+                        <button onclick="toggleSubmenu('games-submenu', 'chevron-games')" class="flex justify-between w-full hover:text-pink-400">
+          Games
+          <i id="chevron-games" class="fas fa-chevron-down ml-2 transition-transform duration-300"></i>
+        </button>
+                        <ul id="games-submenu" class="pl-4 space-y-2 text-base text-gray-300 hidden">
+                            <li><a href="#games" class="menu-link" onclick="toggleRightMenu(); playSound('select')">32-Bit Collection</a></li>
+                            <li><a href="#glitch-lab" class="menu-link" onclick="toggleRightMenu(); playSound('select')">Glitch Lab</a></li>
+                            <li><a href="#mini-game" class="menu-link" onclick="toggleRightMenu(); playSound('select')">Demo Game</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- ABOUT DROPDOWN -->
+                    <li>
+                        <button onclick="toggleSubmenu('about-submenu', 'chevron-about')" class="flex justify-between w-full hover:text-pink-400">
+          About
+          <i id="chevron-about" class="fas fa-chevron-down ml-2 transition-transform duration-300"></i>
+        </button>
+                        <ul id="about-submenu" class="pl-4 space-y-2 text-base text-gray-300 hidden">
+                            <li><a href="#about" class="menu-link" onclick="toggleRightMenu(); playSound('select')">Our Story</a></li>
+                            <li><a href="#clientApproach" class="menu-link" onclick="toggleRightMenu(); playSound('select')">Work With Us</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- CONTACT LINK -->
+                    <li>
+                        <a href="#contact" class="menu-link block text-white hover:text-pink-400 hover:scale-105 transition-all duration-200" onclick="toggleRightMenu(); playSound('select')">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- Hero Carousel -->
+    <section id="home" class="relative overflow-hidden">
+        <div class="carousel-container relative min-h-[30rem] md:min-h-[80vh] w-full py-10 px-4 flex items-center">
+
+            <!-- Carousel Items -->
+            <!-- Slide 1 -->
+            <!-- Slide 1 -->
+            <div class="carousel-item absolute inset-0 flex items-center justify-center bg-gradient-to-br from-gray-900 to-green-900 opacity-0 transition-opacity duration-500">
+                <div class="container mx-auto px-4 flex flex-col-reverse md:flex-row items-center justify-center gap-6 text-center">
+                    <div class="md:w-1/2">
+                        <h2 class="pixel-font text-xl sm:text-2xl md:text-4xl lg:text-6xl mb-4 text-purple-400">RETRO REBORN</h2>
+                        <p class="retro-font text-sm sm:text-base md:text-xl mb-4">Experience the golden age of gaming with modern polish. Our 32-bit masterpieces bring back the magic.</p>
+                        <button class="btn-pixel retro-font" onclick="playSound('confirm'); startPixelRain()">Explore Games</button>
+                    </div>
+                    <div class="md:w-1/2 flex justify-center">
+                        <div class="pixel-border w-full max-w-sm sm:max-w-md md:max-w-xl lg:max-w-2xl xl:max-w-3xl aspect-video bg-gray-800 hover:animate-pulse cartridge-tilt">
+                            <video autoplay loop muted playsinline class="w-full h-full object-cover">
+          <source src="images/mansion.webm" type="video/mp4" />
+        </video>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <!-- Slide 2 -->
+            <!-- Slide 2 -->
+            <div class="carousel-item absolute inset-0 flex items-center justify-center bg-gradient-to-br from-gray-900 to-green-900 opacity-0 transition-opacity duration-500">
+                <div class="container mx-auto px-4 flex flex-col-reverse md:flex-row items-center justify-center gap-6 text-center">
+                    <div class="md:w-1/2">
+                        <h2 class="pixel-font text-xl sm:text-2xl md:text-4xl lg:text-6xl mb-4 text-blue-400">NOSTALGIA UNLEASHED</h2>
+                        <p class="retro-font text-sm sm:text-base md:text-xl mb-4">Authentic 32-bit experiences crafted with love by veteran developers who grew up with the classics.</p>
+                        <button class="btn-pixel bg-blue-600 retro-font" onclick="playSound('confirm'); showGlitchEffect(this)">Our Story</button>
+                    </div>
+                    <div class="md:w-1/2 flex justify-center">
+                        <div class="pixel-border w-full max-w-sm sm:max-w-md md:max-w-xl lg:max-w-2xl xl:max-w-3xl aspect-video bg-gray-800 hover:animate-pulse cartridge-tilt">
+
+                            <video autoplay loop muted playsinline class="w-full h-full object-cover">
+          <source src="images/gardenVariety.webm" type="video/mp4" />
+        </video>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!--slide 3-->
+        <div class="carousel-item absolute inset-0 flex items-center justify-center bg-gradient-to-br from-gray-900 to-green-900 opacity-0 transition-opacity duration-500">
+            <div class="container mx-auto px-4 flex flex-col-reverse md:flex-row items-center justify-center gap-6 text-center">
+                <div class="md:w-1/2">
+                    <h2 class="pixel-font text-xl sm:text-2xl md:text-4xl lg:text-6xl mb-4 text-green-400">LIMITED EDITION</h2>
+                    <p class="retro-font text-sm sm:text-base md:text-xl leading-snug mb-4">Collect physical releases with exclusive content, just like the good old days.</p>
+                    <button class="btn-pixel bg-green-600 retro-font" onclick="playSound('confirm'); showExplosion(this)">Pre-order Now</button>
+                </div>
+                <div class="md:w-1/2 flex justify-center">
+                    <div class="pixel-border w-full max-w-sm sm:max-w-md md:max-w-xl lg:max-w-2xl xl:max-w-3xl aspect-video bg-gray-800 hover:animate-pulse cartridge-tilt">
+
+                        <video autoplay loop muted playsinline class="w-full h-full object-cover">
+          <source src="images/wreckageIntro.webm" type="video/mp4" />
+        </video>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+        <!-- Carousel Controls -->
+        <div class="absolute bottom-8 left-0 right-0 flex justify-center space-x-4">
+            <button onclick="showSlide(0); playSound('select')" class="carousel-indicator w-4 h-4 rounded-full bg-purple-400 focus:outline-none hover:scale-125 transition"></button>
+            <button onclick="showSlide(1); playSound('select')" class="carousel-indicator w-4 h-4 rounded-full bg-gray-600 focus:outline-none hover:scale-125 transition"></button>
+            <button onclick="showSlide(2); playSound('select')" class="carousel-indicator w-4 h-4 rounded-full bg-gray-600 focus:outline-none hover:scale-125 transition"></button>
+            <!-- <button onclick="showSlide(); playSound('select')" class="carousel-indicator w-4 h-4 rounded-full bg-gray-600 focus:outline-none hover:scale-125 transition"></button> -->
+        </div>
+    </section>
+
+    <!-- Featured Games -->
+    <section id="games" class="py-16 bg-gray-800">
+        <div class="container mx-auto px-6">
+            <h2 class="pixel-font text-3xl md:text-4xl mb-12 text-center text-purple-400 pixel-bounce">OUR 32-BIT COLLECTION</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Game 1 -->
+                <div class="game-card bg-gray-900 rounded-lg overflow-hidden" onmouseenter="playSound('hover')">
+                    <div class="relative">
+                        <img src="https://placehold.co/600x400/purple/white?text=Pixel+Adventure" alt="Pixel Adventure" class="w-full h-48 object-cover">
+                        <div class="absolute top-2 right-2 bg-purple-600 px-2 py-1 retro-font text-sm">NEW</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="pixel-font text-xl mb-2">Pixel Adventure</h3>
+                        <p class="retro-font text-gray-400 mb-4">A platformer that takes you back to the golden age of gaming with modern twists.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="retro-font text-purple-400">$14.99</span>
+                            <button class="retro-font bg-purple-600 hover:bg-purple-700 px-4 py-2 rounded transition btn-retro" onclick="playSound('confirm'); showProgressBar(this)">BUY</button>
+                        </div>
+                        <div class="retro-progress mt-2 hidden">
+                            <div class="retro-progress-fill" style="width: 0%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Game 2 -->
+                <div class="game-card bg-gray-900 rounded-lg overflow-hidden" onmouseenter="playSound('hover')">
+                    <div class="relative">
+                        <img src="https://placehold.co/600x400/blue/white?text=Retro+Racer" alt="Retro Racer" class="w-full h-48 object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="pixel-font text-xl mb-2">Retro Racer</h3>
+                        <p class="retro-font text-gray-400 mb-4">High-speed 32-bit racing with split-screen multiplayer support.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="retro-font text-blue-400">$19.99</span>
+                            <button class="retro-font bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded transition btn-retro" onclick="playSound('confirm'); showProgressBar(this)">BUY</button>
+                        </div>
+                        <div class="retro-progress mt-2 hidden">
+                            <div class="retro-progress-fill" style="width: 0%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Game 3 -->
+                <div class="game-card bg-gray-900 rounded-lg overflow-hidden" onmouseenter="playSound('hover')">
+                    <div class="relative">
+                        <img src="https://placehold.co/600x400/green/white?text=Space+Legends" alt="Space Legends" class="w-full h-48 object-cover">
+                        <div class="absolute top-2 right-2 bg-green-600 px-2 py-1 retro-font text-sm">BESTSELLER</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="pixel-font text-xl mb-2">Space Legends</h3>
+                        <p class="retro-font text-gray-400 mb-4">A shoot 'em up that pays homage to the arcade classics.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="retro-font text-green-400">$12.99</span>
+                            <button class="retro-font bg-green-600 hover:bg-green-700 px-4 py-2 rounded transition btn-retro" onclick="playSound('confirm'); showProgressBar(this)">BUY</button>
+                        </div>
+                        <div class="retro-progress mt-2 hidden">
+                            <div class="retro-progress-fill" style="width: 0%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-12">
+                <button class="retro-font border-2 border-purple-600 hover:bg-purple-600 hover:text-white px-8 py-3 rounded-lg transition text-xl btn-retro" onclick="playSound('confirm'); toggleTVNoise()">VIEW ALL GAMES</button>
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
+        .pixel-font {
+            font-family: 'Press Start 2P', cursive;
+        }
+        
+        .retro-font {
+            font-family: 'VT323', monospace;
+        }
+        
+        .pixel-border {
+            border: 4px solid #000;
+            position: relative;
+            box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.2);
+        }
+        
+        .pixel-border::before {
+            content: "";
+            position: absolute;
+            top: -8px;
+            left: -8px;
+            right: -8px;
+            bottom: -8px;
+            border: 2px solid #fff;
+            z-index: -1;
+        }
+        
+        .btn-pixel {
+            position: relative;
+            border: 4px solid #000;
+            background: #ff3366;
+            color: white;
+            padding: 12px 24px;
+            font-family: 'Press Start 2P', cursive;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.1s;
+            box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+        
+        .btn-pixel:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0 #000;
+        }
+        
+        .btn-pixel:active {
+            transform: translate(0, 0);
+            box-shadow: 2px 2px 0 #000;
+        }
+        
+        .btn-pixel::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(-100%);
+            transition: 0.3s;
+        }
+        
+        .btn-pixel:hover::after {
+            transform: translateX(100%);
+        }
+        /* CRT screen effect */
+        
+        .crt-effect::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            background-size: 100% 2px, 3px 100%;
+            pointer-events: none;
+            z-index: 10;
+        }
+        /* Floating pixels */
+        
+        .floating-pixels {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .floating-pixel {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background-color: rgba(255, 51, 102, 0.5);
+            border-radius: 50%;
+            animation: float 15s linear infinite;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(20px);
+                opacity: 0;
+            }
+        }
+        /* Game cards */
+        
+        .game-card {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            background-size: cover;
+            background-position: center;
+            height: 300px;
+        }
+        
+        .game-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(255, 51, 102, 0.4);
+        }
+        
+        .game-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.7) 100%);
+            z-index: 1;
+        }
+        
+        .game-card:hover::before {
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.8) 100%);
+        }
+        
+        .game-card-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 20px;
+            z-index: 2;
+        }
+        
+        .game-tag {
+            display: inline-block;
+            padding: 4px 8px;
+            margin-right: 8px;
+            margin-bottom: 8px;
+            background-color: rgba(255, 51, 102, 0.8);
+            color: white;
+            font-size: 0.8rem;
+            border-radius: 4px;
+        }
+        /* Pixel cursor */
+        
+        body {
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><rect x="4" y="4" width="8" height="8" fill="%23ff3366"/><rect x="2" y="2" width="12" height="12" fill="none" stroke="%23000" stroke-width="2"/></svg>'), auto;
+        }
+        
+        a,
+        button {
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><rect x="4" y="4" width="8" height="8" fill="%23ff3366"/><rect x="2" y="2" width="12" height="12" fill="none" stroke="%23000" stroke-width="2"/></svg>'), auto;
+        }
+        /* Modal */
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 100;
+            overflow-y: auto;
+        }
+        
+        .modal-content {
+            background-color: #1a1a1a;
+            margin: 5% auto;
+            padding: 30px;
+            width: 80%;
+            max-width: 900px;
+            position: relative;
+            border: 6px solid #000;
+            box-shadow: 0 0 0 3px #fff;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            color: #fff;
+            font-size: 28px;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        
+        .close-modal:hover {
+            color: #ff3366;
+        }
+        /* Filter buttons */
+        
+        .filter-btn {
+            background-color: #333;
+            color: white;
+            border: 2px solid #000;
+            padding: 8px 16px;
+            margin: 0 5px 10px 0;
+            font-family: 'VT323', monospace;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+        }
+        
+        .filter-btn:hover,
+        .filter-btn.active {
+            background-color: #ff3366;
+            color: white;
+            transform: translateY(-2px);
+        }
+        /* Screenshot gallery */
+        
+        .screenshot {
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .screenshot:hover {
+            transform: scale(1.03);
+            box-shadow: 0 5px 15px rgba(255, 51, 102, 0.5);
+        }
+    </style>
+
+
+    <body class="bg-gray-900 text-white crt-effect">
+        <!-- Floating Pixels Background -->
+        <div class="floating-pixels" id="floatingPixels"></div>
+
+
+        <!-- Hero Section -->
+        <section class="relative bg-gradient-to-b from-gray-900 to-purple-900 py-20">
+            <div class="container mx-auto px-6 text-center">
+                <h1 class="pixel-font text-4xl md:text-6xl mb-6 text-purple-400">GAME GALLERY</h1>
+                <p class="retro-font text-xl md:text-2xl max-w-3xl mx-auto">
+                    Explore our collection of pixel-perfect games. Each one crafted with love and 8-bit nostalgia.
+                </p>
+            </div>
+        </section>
+
+        <!-- Game Filters -->
+        <section class="py-10 bg-gray-800">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-8">
+                    <h2 class="pixel-font text-2xl mb-4 text-purple-400">FILTER GAMES</h2>
+                    <div class="flex flex-wrap justify-center">
+                        <button class="filter-btn active" data-filter="all">ALL</button>
+                        <button class="filter-btn" data-filter="action">ACTION</button>
+                        <button class="filter-btn" data-filter="adventure">ADVENTURE</button>
+                        <button class="filter-btn" data-filter="rpg">RPG</button>
+                        <button class="filter-btn" data-filter="puzzle">PUZZLE</button>
+                        <button class="filter-btn" data-filter="platformer">PLATFORMER</button>
+                        <button class="filter-btn" data-filter="new">NEW RELEASES</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Games Grid -->
+        <section class="py-12 bg-black">
+            <div class="container mx-auto px-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Game 1 -->
+                    <div class="game-card pixel-border rounded-lg" data-category="action platformer new" style="background-image: url('https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80')">
+                        <div class="game-card-content">
+                            <div>
+                                <span class="game-tag">ACTION</span>
+                                <span class="game-tag">PLATFORMER</span>
+                                <span class="game-tag">NEW</span>
+                            </div>
+                            <h3 class="pixel-font text-xl mb-2">NINJA QUEST</h3>
+                            <p class="retro-font text-lg mb-4">Slice through enemies in this fast-paced platformer</p>
+                            <button class="btn-pixel retro-font game-details" data-game="1">
+                            VIEW DETAILS <i class="fas fa-arrow-right ml-2"></i>
+                        </button>
+                        </div>
+                    </div>
+
+                    <!-- Game 2 -->
+                    <div class="game-card pixel-border rounded-lg" data-category="rpg adventure" style="background-image: url('https://images.unsplash.com/photo-1560253023-3ec5d502959f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80')">
+                        <div class="game-card-content">
+                            <div>
+                                <span class="game-tag">RPG</span>
+                                <span class="game-tag">ADVENTURE</span>
+                            </div>
+                            <h3 class="pixel-font text-xl mb-2">CHRONO PIXELS</h3>
+                            <p class="retro-font text-lg mb-4">An epic time-traveling adventure</p>
+                            <button class="btn-pixel retro-font game-details" data-game="2">
+                            VIEW DETAILS <i class="fas fa-arrow-right ml-2"></i>
+                        </button>
+                        </div>
+                    </div>
+
+                    <!-- Game 3 -->
+                    <div class="game-card pixel-border rounded-lg" data-category="puzzle" style="background-image: url('https://images.unsplash.com/photo-1585238342024-78d80f7c1b8e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80')">
+                        <div class="game-card-content">
+                            <div>
+                                <span class="game-tag">PUZZLE</span>
+                            </div>
+                            <h3 class="pixel-font text-xl mb-2">BLOCK MATRIX</h3>
+                            <p class="retro-font text-lg mb-4">Match colors and solve the mystery</p>
+                            <button class="btn-pixel retro-font game-details" data-game="3">
+                            VIEW DETAILS <i class="fas fa-arrow-right ml-2"></i>
+                        </button>
+                        </div>
+                    </div>
+
+                    <!-- Game 4 -->
+                    <div class="game-card pixel-border rounded-lg" data-category="action adventure new" style="background-image: url('https://images.unsplash.com/photo-1547036967-23d11aacaee0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80')">
+                        <div class="game-card-content">
+                            <div>
+                                <span class="game-tag">ACTION</span>
+                                <span class="game-tag">ADVENTURE</span>
+                                <span class="game-tag">NEW</span>
+                            </div>
+                            <h3 class="pixel-font text-xl mb-2">SPACE RANGERS</h3>
+                            <p class="retro-font text-lg mb-4">Defend the galaxy from alien invaders</p>
+                            <button class="btn-pixel retro-font game-details" data-game="4">
+                            VIEW DETAILS <i class="fas fa-arrow-right ml-2"></i>
+                        </button>
+                        </div>
+                    </div>
+
+                    <!-- Game 5 -->
+                    <div class="game-card pixel-border rounded-lg" data-category="rpg" style="background-image: url('https://images.unsplash.com/photo-1511512578047-dba367496ab6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80')">
+                        <div class="game-card-content">
+                            <div>
+                                <span class="game-tag">RPG</span>
+                            </div>
+                            <h3 class="pixel-font text-xl mb-2">DRAGON REALM</h3>
+                            <p class="retro-font text-lg mb-4">Build your legend in a world of magic</p>
+                            <button class="btn-pixel retro-font game-details" data-game="5">
+                            VIEW DETAILS <i class="fas fa-arrow-right ml-2"></i>
+                        </button>
+                        </div>
+                    </div>
+
+                    <!-- Game 6 -->
+                    <div class="game-card pixel-border rounded-lg" data-category="platformer" style="background-image: url('https://images.unsplash.com/photo-1551103782-8ab07afd45c1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80')">
+                        <div class="game-card-content">
+                            <div>
+                                <span class="game-tag">PLATFORMER</span>
+                            </div>
+                            <h3 class="pixel-font text-xl mb-2">JUMPY SQUIRREL</h3>
+                            <p class="retro-font text-lg mb-4">Collect acorns in this high-flying adventure</p>
+                            <button class="btn-pixel retro-font game-details" data-game="6">
+                            VIEW DETAILS <i class="fas fa-arrow-right ml-2"></i>
+                        </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Coming Soon Section -->
+        <section class="py-16 bg-gray-800">
+            <div class="container mx-auto px-6">
+                <h2 class="pixel-font text-3xl mb-12 text-center text-purple-400">COMING SOON</h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Coming Soon 1 -->
+                    <div class="bg-gray-900 p-8 rounded-lg pixel-border flex items-center">
+                        <div class="w-24 h-24 bg-purple-600 rounded-full flex items-center justify-center mr-6">
+                            <i class="fas fa-question text-3xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="pixel-font text-xl mb-2">MYSTERY PROJECT X</h3>
+                            <p class="retro-font text-lg">Something amazing is coming soon...</p>
+                        </div>
+                    </div>
+
+                    <!-- Coming Soon 2 -->
+                    <div class="bg-gray-900 p-8 rounded-lg pixel-border flex items-center">
+                        <div class="w-24 h-24 bg-blue-600 rounded-full flex items-center justify-center mr-6">
+                            <i class="fas fa-robot text-3xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="pixel-font text-xl mb-2">ROBOT REBELLION</h3>
+                            <p class="retro-font text-lg">Fight against the machine uprising</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter Section -->
+        <section class="py-16 bg-gradient-to-r from-purple-900 to-blue-900">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="pixel-font text-3xl md:text-4xl mb-6 text-white">GET UPDATES</h2>
+                <p class="retro-font text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
+                    Be the first to know about new releases, updates, and special offers.
+                </p>
+                <form class="max-w-md mx-auto flex flex-col sm:flex-row gap-4">
+                    <input type="email" placeholder="Your email address" class="flex-grow pixel-input retro-font px-4 py-3">
+                    <button type="submit" class="btn-pixel bg-white text-purple-900 retro-font">
+                    SUBSCRIBE <i class="fas fa-envelope-open-text ml-2"></i>
+                </button>
+                </form>
+            </div>
+        </section>
+
+
+        <!-- Game Details Modal -->
+        <div id="gameModal" class="modal">
+            <div class="modal-content retro-font">
+                <span class="close-modal">&times;</span>
+                <div id="modalContent">
+                    <!-- Content will be loaded here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Audio elements -->
+        <audio id="hoverSound" src="https://assets.mixkit.co/sfx/preview/mixkit-arcade-game-jump-coin-216.mp3"></audio>
+        <audio id="selectSound" src="https://assets.mixkit.co/sfx/preview/mixkit-select-click-1109.mp3"></audio>
+        <audio id="confirmSound" src="https://assets.mixkit.co/sfx/preview/mixkit-quick-jump-arcade-game-239.mp3"></audio>
+
+
+
+
+
+
+
+
+
+        <!-- About Section -->
+        <section id="about" class="py-16 bg-black">
+            <div class="container mx-auto px-6">
+                <div class="flex flex-col md:flex-row items-center">
+                    <div class="md:w-1/2 mb-10 md:mb-0 md:pr-10">
+                        <h2 class="pixel-font text-3xl md:text-4xl mb-6 text-purple-400">PIXEL PERFECT PASSION</h2>
+                        <p class="retro-font text-xl mb-6">Founded in 2010 by a group of veteran game developers who grew up with the 16-bit and 32-bit eras, Jupiter LightHouse is dedicated to keeping the spirit of classic gaming alive.</p>
+                        <p class="retro-font text-xl mb-6">We combine modern development techniques with authentic pixel art and chiptune music to create experiences that feel both nostalgic and fresh.</p>
+                        <p class="retro-font text-xl mb-8">All our games are developed with genuine 32-bit architecture limitations in mind, ensuring authentic performance across all platforms.</p>
+                        <button class="btn-pixel retro-font" onclick="playSound('confirm')">MEET THE TEAM</button>
+                    </div>
+                    <div class="md:w-1/2">
+                        <div class="pixel-border p-2 bg-gray-800 hover:rotate-1 transition-transform">
+                            <img src="https://placehold.co/600x400/black/purple?text=Our+Studio" alt="Jupiter LightHouse Studio" class="w-full h-auto">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--  new section with cards  -->
+        <section id="devlog" class="py-16 bg-gray-900 text-white">
+            <div class="container mx-auto px-6">
+                <h2 class="pixel-font text-3xl md:text-4xl mb-10 text-center text-green-400 pixel-bounce">DEV LOG: UNDER THE HOOD</h2>
+                <div class="grid md:grid-cols-2 gap-12">
+                    <div class="pixel-border p-6 bg-gray-800 cartridge-tilt">
+                        <h3 class="pixel-font text-xl text-pink-400 mb-2">🧠 AI-Powered Enemies</h3>
+                        <p class="retro-font text-lg text-gray-300 mb-4">
+                            We're integrating procedural enemy AI that adapts to your playstyle. Your enemies will learn... fast.
+                        </p>
+                        <button class="btn-pixel retro-font" onclick="playSound('confirm'); showGlitchEffect()">See Demo</button>
+                    </div>
+                    <div class="pixel-border p-6 bg-gray-800 cartridge-tilt">
+                        <h3 class="pixel-font text-xl text-blue-400 mb-2">🌌 New Level Editor</h3>
+                        <p class="retro-font text-lg text-gray-300 mb-4">
+                            Design your own pixel-perfect levels in a fully retro 32-bit environment. Share, play, and remix.
+                        </p>
+                        <button class="btn-pixel retro-font bg-blue-600" onclick="playSound('confirm'); toggleTVNoise()">Preview Mode</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- clients -->
+
+        <section id="clients" class="py-16 bg-gray-800 text-white">
+            <div class="container mx-auto px-6">
+                <h2 class="pixel-font text-3xl md:text-4xl mb-12 text-center text-pink-400 pixel-bounce">OUR AWESOME CLIENTS</h2>
+
+                <div class="relative overflow-hidden pixel-border bg-black py-6">
+                    <div id="clientCarousel" class="flex transition-transform duration-700 ease-in-out space-x-12 px-4">
+                        <!-- Client 1 -->
+                        <div class="flex-shrink-0 w-80 p-4 bg-gray-900 rounded-lg text-center hover:scale-105 transition">
+                            <img src="https://placehold.co/120x120/ff3366/fff?text=👾" alt="Client 1" class="mx-auto mb-4 rounded-full border-4 border-pink-400">
+                            <h3 class="pixel-font text-lg text-pink-400">PixelWorks Studio</h3>
+                            <p class="retro-font text-gray-300 mt-2">"Working with Jupiter LightHouse was a blast. Their 32-bit engine helped us ship our game 3x faster."</p>
+                        </div>
+                        <!-- Client 2 -->
+                        <div class="flex-shrink-0 w-80 p-4 bg-gray-900 rounded-lg text-center hover:scale-105 transition">
+                            <img src="https://placehold.co/120x120/3399ff/fff?text=🕹️" alt="Client 2" class="mx-auto mb-4 rounded-full border-4 border-blue-400">
+                            <h3 class="pixel-font text-lg text-blue-400">Chiptune Labs</h3>
+                            <p class="retro-font text-gray-300 mt-2">"Their custom tools and music support took our audio-based puzzle game to the next level."</p>
+                        </div>
+                        <!-- Client 3 -->
+                        <div class="flex-shrink-0 w-80 p-4 bg-gray-900 rounded-lg text-center hover:scale-105 transition">
+                            <img src="https://placehold.co/120x120/00ff99/fff?text=🎮" alt="Client 3" class="mx-auto mb-4 rounded-full border-4 border-green-400">
+                            <h3 class="pixel-font text-lg text-green-400">BitRealm Games</h3>
+                            <p class="retro-font text-gray-300 mt-2">"We keep coming back. Their passion for pixel art is unmatched in the indie dev world."</p>
+                        </div>
+                        <!-- Client 1 -->
+                        <div class="flex-shrink-0 w-80 p-4 bg-gray-900 rounded-lg text-center hover:scale-105 transition">
+                            <img src="https://placehold.co/120x120/ff3366/fff?text=👾" alt="Client 1" class="mx-auto mb-4 rounded-full border-4 border-pink-400">
+                            <h3 class="pixel-font text-lg text-pink-400">PixelWorks Studio</h3>
+                            <p class="retro-font text-gray-300 mt-2">"Working with Jupiter LightHouse was a blast. Their 32-bit engine helped us ship our game 3x faster."</p>
+                        </div>
+                        <!-- Client 2 -->
+                        <div class="flex-shrink-0 w-80 p-4 bg-gray-900 rounded-lg text-center hover:scale-105 transition">
+                            <img src="https://placehold.co/120x120/3399ff/fff?text=🕹️" alt="Client 2" class="mx-auto mb-4 rounded-full border-4 border-blue-400">
+                            <h3 class="pixel-font text-lg text-blue-400">Chiptune Labs</h3>
+                            <p class="retro-font text-gray-300 mt-2">"Their custom tools and music support took our audio-based puzzle game to the next level."</p>
+                        </div>
+                        <!-- Client 3 -->
+                        <div class="flex-shrink-0 w-80 p-4 bg-gray-900 rounded-lg text-center hover:scale-105 transition">
+                            <img src="https://placehold.co/120x120/00ff99/fff?text=🎮" alt="Client 3" class="mx-auto mb-4 rounded-full border-4 border-green-400">
+                            <h3 class="pixel-font text-lg text-green-400">BitRealm Games</h3>
+                            <p class="retro-font text-gray-300 mt-2">"We keep coming back. Their passion for pixel art is unmatched in the indie dev world."</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <script>
+            const carousel = document.getElementById('clientCarousel');
+            let scrollAmount = 0;
+            let scrollInterval;
+
+            function startClientCarousel() {
+                scrollInterval = setInterval(() => {
+                    scrollAmount += 1;
+                    if (scrollAmount >= carousel.scrollWidth / 3) scrollAmount = 0;
+                    carousel.style.transform = `translateX(-${scrollAmount}px)`;
+                }, 20);
+            }
+
+            function stopClientCarousel() {
+                clearInterval(scrollInterval);
+            }
+
+            carousel.addEventListener('mouseenter', stopClientCarousel);
+            carousel.addEventListener('mouseleave', startClientCarousel);
+            startClientCarousel();
+        </script>
+
+
+        <!--  extra section for future styling 
+
+    <section id="clientApproach" class="py-16 bg-black text-white">
+        <div class="container mx-auto px-6 md:flex items-center gap-12">
+            <div class="md:w-1/2 mb-8 md:mb-0">
+                <h2 class="pixel-font text-3xl md:text-4xl text-blue-400 mb-6">COLLABORATE & CREATE</h2>
+                <p class="retro-font text-xl mb-4 text-gray-300">
+                    At Jupiter LightHouse, collaboration isn't a feature — it's a philosophy. We work closely with indie studios, musicians, and pixel wizards to bring authentic 32-bit visions to life.
+                </p>
+                <p class="retro-font text-xl mb-4 text-gray-300">
+                    Whether you're building a one-level demo or a full saga, we plug into your creative pipeline and power it with our retro engine, toolsets, and visual design expertise.
+                </p>
+                <button class="btn-pixel retro-font" onclick="playSound('confirm'); document.getElementById('contact').scrollIntoView({behavior: 'smooth'})">Start a Project</button>
+            </div>
+            <div class="md:w-1/2">
+                <div class="pixel-border bg-gray-800 p-2 hover:rotate-1 transition-transform">
+                    <img src="https://placehold.co/600x400/0000ff/ffffff?text=Client+Workshop" alt="Client Collaboration" class="w-full h-auto">
+                </div>
+            </div>
+        </div>
+    </section> -->
+
+
+
+
+        <!--new section-->
+        <section id="clientApproach" class="py-16 bg-black text-white">
+            <div class="container mx-auto px-6 md:flex items-center gap-12">
+                <!-- Image Left -->
+                <div class="md:w-1/2 mb-8 md:mb-0">
+                    <div class="pixel-border bg-gray-800 p-2 hover:rotate-1 transition-transform">
+                        <img src="https://placehold.co/600x400/0000ff/ffffff?text=Client+Workshop" alt="Client Collaboration" class="w-full h-auto">
+                    </div>
+                </div>
+                <!-- Text Right -->
+                <div class="md:w-1/2">
+                    <h2 class="pixel-font text-3xl md:text-4xl text-blue-400 mb-6">COLLABORATE & CREATE</h2>
+                    <p class="retro-font text-xl mb-4 text-gray-300">
+                        At Jupiter LightHouse, collaboration isn't a feature — it's a philosophy. We work closely with indie studios, musicians, and pixel wizards to bring authentic 32-bit visions to life.
+                    </p>
+                    <p class="retro-font text-xl mb-4 text-gray-300">
+                        Whether you're building a one-level demo or a full saga, we plug into your creative pipeline and power it with our retro engine, toolsets, and visual design expertise.
+                    </p>
+                    <button class="btn-pixel retro-font" onclick="playSound('confirm'); document.getElementById('contact').scrollIntoView({behavior: 'smooth'})">Start a Project</button>
+                </div>
+            </div>
+        </section>
+
+
+
+        <!-- Mini Game Section -->
+        <section class="py-16 bg-purple-900">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="pixel-font text-3xl md:text-4xl mb-8 text-white">TRY OUR DEMO</h2>
+                <div class="max-w-2xl mx-auto bg-black p-4 pixel-border">
+                    <canvas id="gameCanvas" width="640" height="360" class="w-full h-auto bg-gray-900"></canvas>
+                    <div class="mt-4 flex justify-center space-x-4">
+                        <button id="startBtn" class="btn-pixel retro-font" onclick="startGame()">START</button>
+                        <button id="jumpBtn" class="btn-pixel bg-green-600 retro-font hidden" onclick="jump()">JUMP</button>
+                    </div>
+                    <p class="retro-font text-xl mt-4">Use arrow keys or tap JUMP to avoid obstacles!</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-16 bg-gray-800">
+            <div class="container mx-auto px-6">
+                <h2 class="pixel-font text-3xl md:text-4xl mb-12 text-center text-purple-400">JOIN OUR QUEST</h2>
+
+                <div class="max-w-3xl mx-auto bg-gray-900 rounded-lg overflow-hidden">
+                    <div class="p-8">
+                        <form id="contactForm" onsubmit="submitForm(event)">
+                            <div class="mb-6">
+                                <label for="name" class="retro-font block text-lg mb-2">YOUR NAME</label>
+                                <input type="text" id="name" class="w-full px-4 py-3 bg-gray-800 border-2 border-purple-600 rounded retro-font focus:outline-none retro-input" required>
+                            </div>
+
+                            <div class="mb-6">
+                                <label for="email" class="retro-font block text-lg mb-2">EMAIL ADDRESS</label>
+                                <input type="email" id="email" class="w-full px-4 py-3 bg-gray-800 border-2 border-purple-600 rounded retro-font focus:outline-none retro-input" required>
+                            </div>
+
+                            <div class="mb-6">
+                                <label for="message" class="retro-font block text-lg mb-2">YOUR MESSAGE</label>
+                                <textarea id="message" rows="5" class="w-full px-4 py-3 bg-gray-800 border-2 border-purple-600 rounded retro-font focus:outline-none retro-input" required></textarea>
+                            </div>
+
+                            <div class="mb-6 flex items-center">
+                                <input type="checkbox" id="newsletter" class="retro-checkbox mr-2">
+                                <label for="newsletter" class="retro-font">Subscribe to our newsletter</label>
+                            </div>
+
+                            <button type="submit" class="btn-pixel w-full retro-font" onclick="playSound('confirm')">SEND MESSAGE</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="flex flex-col md:flex-row justify-center mt-12 space-y-6 md:space-y-0 md:space-x-12">
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-4 hover:animate-bounce" onclick="playSound('select')">
+                            <i class="fas fa-envelope text-2xl"></i>
+                        </div>
+                        <h3 class="pixel-font text-xl mb-2">EMAIL</h3>
+                        <p class="retro-font">contact@Jupiter LightHouse.com</p>
+                    </div>
+
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-4 hover:animate-bounce" onclick="playSound('select')">
+                            <i class="fas fa-phone text-2xl"></i>
+                        </div>
+                        <h3 class="pixel-font text-xl mb-2">PHONE</h3>
+                        <p class="retro-font">+1 (555) 123-4567</p>
+                    </div>
+
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-4 hover:animate-bounce" onclick="playSound('select')">
+                            <i class="fas fa-map-marker-alt text-2xl"></i>
+                        </div>
+                        <h3 class="pixel-font text-xl mb-2">ADDRESS</h3>
+                        <p class="retro-font">123 Pixel Ave, Game City</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="bg-black py-8">
+            <div class="container mx-auto px-6">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <div class="mb-6 md:mb-0">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 bg-purple-600 rounded-full flex items-center justify-center mr-3 hover:animate-spin" onclick="playSound('select')">
+                                <i class="fas fa-gamepad"></i>
+                            </div>
+                            <h2 class="pixel-font text-xl">Jupiter LightHouse</h2>
+                        </div>
+                    </div>
+
+                    <div class="flex space-x-6 mb-6 md:mb-0">
+                        <a href="#" class="text-2xl hover:text-purple-400 transition hover:scale-125" onclick="playSound('select')"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-2xl hover:text-purple-400 transition hover:scale-125" onclick="playSound('select')"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="text-2xl hover:text-purple-400 transition hover:scale-125" onclick="playSound('select')"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-2xl hover:text-purple-400 transition hover:scale-125" onclick="playSound('select')"><i class="fab fa-discord"></i></a>
+                        <a href="#" class="text-2xl hover:text-purple-400 transition hover:scale-125" onclick="playSound('select')"><i class="fab fa-youtube"></i></a>
+                    </div>
+
+                    <div class="retro-font text-sm">
+                        <p>&copy; 2023 Jupiter LightHouse Games. All rights reserved.</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <!-- Audio elements -->
+        <audio id="hoverSound" src="https://assets.mixkit.co/sfx/preview/mixkit-arcade-game-jump-coin-216.mp3"></audio>
+        <audio id="selectSound" src="https://assets.mixkit.co/sfx/preview/mixkit-select-click-1109.mp3"></audio>
+        <audio id="confirmSound" src="https://assets.mixkit.co/sfx/preview/mixkit-quick-jump-arcade-game-239.mp3"></audio>
+        <audio id="coinSound" src="https://assets.mixkit.co/sfx/preview/mixkit-coin-win-notification-919.mp3"></audio>
+        <audio id="gameOverSound" src="https://assets.mixkit.co/sfx/preview/mixkit-retro-arcade-lose-2027.mp3"></audio>
+        <audio id="jumpSound" src="https://assets.mixkit.co/sfx/preview/mixkit-arcade-game-jump-coin-216.mp3"></audio>
+        <audio id="glitchSound" src="https://assets.mixkit.co/sfx/preview/mixkit-arcade-glitch-767.mp3"></audio>
+        <audio id="explosionSound" src="https://assets.mixkit.co/sfx/preview/mixkit-8-bit-arcade-explosion-2791.mp3"></audio>
+
+        <script>
+            function toggleRightMenu() {
+                const menu = document.getElementById('right-menu');
+                const overlay = document.getElementById('right-menu-overlay');
+
+                const isOpen = menu.classList.contains('translate-x-0');
+                if (isOpen) {
+                    menu.classList.remove('translate-x-0');
+                    menu.classList.add('translate-x-full');
+                    overlay.classList.add('hidden');
+                } else {
+                    menu.classList.remove('translate-x-full');
+                    menu.classList.add('translate-x-0');
+                    overlay.classList.remove('hidden');
+                }
+
+                // Optional sound
+                if (typeof playSound === 'function') {
+                    playSound('select');
+                }
+            }
+
+            function closeRightMenu() {
+                const menu = document.getElementById('right-menu');
+                const overlay = document.getElementById('right-menu-overlay');
+                menu.classList.remove('translate-x-0');
+                menu.classList.add('translate-x-full');
+                overlay.classList.add('hidden');
+            }
+
+            function toggleSubmenu(menuId, chevronId) {
+                const submenu = document.getElementById(menuId);
+                const chevron = document.getElementById(chevronId);
+                submenu.classList.toggle('hidden');
+                chevron.classList.toggle('rotate-180');
+            }
+
+            // Highlight active menu link
+            document.querySelectorAll('.menu-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    document.querySelectorAll('.menu-link').forEach(l => l.classList.remove('active-menu-link'));
+                    link.classList.add('active-menu-link');
+                });
+            });
+
+
+
+
+            // Loading screen
+            window.addEventListener('load', function() {
+                createFloatingPixels();
+
+                setTimeout(function() {
+                    document.getElementById('loading-screen').style.opacity = '0';
+                    setTimeout(function() {
+                        document.getElementById('loading-screen').style.display = 'none';
+                        showNotification();
+                    }, 500);
+                }, 2000);
+            });
+
+            // Create floating pixels background
+            function createFloatingPixels() {
+                const container = document.getElementById('floatingPixels');
+                const colors = ['#ff3366', '#00ff99', '#3399ff', '#ffcc00', '#9966ff'];
+
+                for (let i = 0; i < 50; i++) {
+                    const pixel = document.createElement('div');
+                    pixel.className = 'floating-pixel';
+                    pixel.style.left = Math.random() * 100 + '%';
+                    pixel.style.top = Math.random() * 100 + '%';
+                    pixel.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    pixel.style.animationDuration = (Math.random() * 10 + 5) + 's';
+                    pixel.style.animationDelay = (Math.random() * 5) + 's';
+                    pixel.style.opacity = Math.random() * 0.7 + 0.3;
+                    pixel.style.width = (Math.random() * 8 + 4) + 'px';
+                    pixel.style.height = pixel.style.width;
+                    container.appendChild(pixel);
+                }
+            }
+
+            // Show notification
+            function showNotification() {
+                const notification = document.getElementById('notification');
+                notification.style.bottom = '20px';
+
+                setTimeout(function() {
+                    notification.style.bottom = '-100px';
+                }, 3000);
+            }
+
+            // Sound effects
+            function playSound(type) {
+                let sound;
+                switch (type) {
+                    case 'hover':
+                        sound = document.getElementById('hoverSound');
+                        break;
+                    case 'select':
+                        sound = document.getElementById('selectSound');
+                        break;
+                    case 'confirm':
+                        sound = document.getElementById('confirmSound');
+                        break;
+                    case 'coin':
+                        sound = document.getElementById('coinSound');
+                        break;
+                    case 'gameover':
+                        sound = document.getElementById('gameOverSound');
+                        break;
+                    case 'jump':
+                        sound = document.getElementById('jumpSound');
+                        break;
+                    case 'glitch':
+                        sound = document.getElementById('glitchSound');
+                        break;
+                    case 'explosion':
+                        sound = document.getElementById('explosionSound');
+                        break;
+                }
+
+                sound.currentTime = 0;
+                sound.play();
+            }
+
+            // Carousel functionality
+            let currentSlide = 0;
+            const slides = document.querySelectorAll('.carousel-item');
+            const indicators = document.querySelectorAll('.carousel-indicator');
+
+            function showSlide(index) {
+                // Hide all slides
+                slides.forEach(slide => {
+                    slide.style.opacity = '0';
+                });
+
+                // Reset all indicators
+                indicators.forEach(indicator => {
+                    indicator.classList.remove('bg-purple-400');
+                    indicator.classList.add('bg-gray-600');
+                });
+
+                // Show selected slide
+                slides[index].style.opacity = '1';
+
+                // Highlight selected indicator
+                indicators[index].classList.remove('bg-gray-600');
+                indicators[index].classList.add('bg-purple-400');
+
+                currentSlide = index;
+            }
+
+            // Auto-advance carousel
+            function nextSlide() {
+                currentSlide = (currentSlide + 1) % slides.length;
+                showSlide(currentSlide);
+            }
+
+            // Initialize carousel
+            showSlide(0);
+
+            // Auto-advance every 5 seconds
+            setInterval(nextSlide, 5000);
+
+            // Mobile menu toggle
+            //   function toggleMobileMenu() {
+            //      const menu = document.getElementById('mobile-menu');
+            //      menu.classList.toggle('hidden');
+            //     playSound('select');
+            //  }
+
+            // Easter egg - coin collection
+            let coins = 0;
+            const coinCounter = document.getElementById('coin-counter');
+
+            function collectCoin() {
+                coins++;
+                document.getElementById('coin-count').textContent = coins;
+                coinCounter.classList.remove('hidden');
+                playSound('coin');
+
+                // Move the character to a new random position
+                const egg = document.getElementById('easter-egg');
+                egg.style.left = Math.random() * 80 + 5 + '%';
+                egg.style.bottom = Math.random() * 20 + 5 + '%';
+
+                // Show confetti if collected 5 coins
+                if (coins % 5 === 0) {
+                    showConfetti();
+                }
+            }
+
+            // Confetti effect
+            function showConfetti() {
+                const confetti = document.createElement('div');
+                confetti.className = 'fixed inset-0 z-50 pointer-events-none';
+                confetti.innerHTML = `
+                <canvas id="confetti-canvas" class="w-full h-full"></canvas>
+            `;
+                document.body.appendChild(confetti);
+
+                const canvas = document.getElementById('confetti-canvas');
+                const ctx = canvas.getContext('2d');
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+
+                const pieces = [];
+                const colors = ['#ff3366', '#00ff99', '#3399ff', '#ffcc00', '#9966ff'];
+
+                for (let i = 0; i < 100; i++) {
+                    pieces.push({
+                        x: Math.random() * canvas.width,
+                        y: Math.random() * canvas.height - canvas.height,
+                        size: Math.random() * 10 + 5,
+                        color: colors[Math.floor(Math.random() * colors.length)],
+                        speed: Math.random() * 3 + 2,
+                        rotation: Math.random() * 360,
+                        rotationSpeed: Math.random() * 5 - 2.5
+                    });
+                }
+
+                function animate() {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                    let stillActive = false;
+
+                    pieces.forEach(piece => {
+                        piece.y += piece.speed;
+                        piece.rotation += piece.rotationSpeed;
+
+                        if (piece.y < canvas.height) {
+                            stillActive = true;
+                        }
+
+                        ctx.save();
+                        ctx.translate(piece.x, piece.y);
+                        ctx.rotate(piece.rotation * Math.PI / 180);
+                        ctx.fillStyle = piece.color;
+                        ctx.fillRect(-piece.size / 2, -piece.size / 2, piece.size, piece.size);
+                        ctx.restore();
+                    });
+
+                    if (stillActive) {
+                        requestAnimationFrame(animate);
+                    } else {
+                        confetti.remove();
+                    }
+                }
+
+                animate();
+            }
+
+            // Pixel rain effect
+            function startPixelRain() {
+                const rain = document.getElementById('pixelRain');
+                rain.style.display = 'block';
+
+                // Create pixels
+                for (let i = 0; i < 200; i++) {
+                    const pixel = document.createElement('div');
+                    pixel.className = 'pixel';
+                    pixel.style.left = Math.random() * 100 + '%';
+                    pixel.style.top = Math.random() * -100 + '%';
+                    pixel.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+                    pixel.style.animation = `fall ${Math.random() * 2 + 1}s linear infinite`;
+                    pixel.style.animationDelay = Math.random() * 5 + 's';
+                    rain.appendChild(pixel);
+                }
+
+                // Add animation
+                const style = document.createElement('style');
+                style.innerHTML = `
+                @keyframes fall {
+                    to {
+                        transform: translateY(100vh);
+                    }
+                }
+            `;
+                document.head.appendChild(style);
+
+                setTimeout(() => {
+                    rain.style.display = 'none';
+                    while (rain.firstChild) {
+                        rain.removeChild(rain.firstChild);
+                    }
+                }, 3000);
+            }
+
+            // Glitch effect
+            function showGlitchEffect() {
+                playSound('glitch');
+
+                // Add glitch class to body
+                document.body.classList.add('glitch-effect');
+
+                // Create glitch elements
+                const glitch1 = document.createElement('div');
+                glitch1.className = 'glitch-layer';
+                glitch1.style.background = 'url(https://placehold.co/600x400/blue/white?text=GLITCH)';
+                glitch1.style.animation = 'glitch-anim-1 2s infinite linear';
+
+                const glitch2 = document.createElement('div');
+                glitch2.className = 'glitch-layer';
+                glitch2.style.background = 'url(https://placehold.co/600x400/red/white?text=GLITCH)';
+                glitch2.style.animation = 'glitch-anim-2 2s infinite linear';
+
+                const glitchContainer = document.createElement('div');
+                glitchContainer.className = 'glitch-container';
+                glitchContainer.style.position = 'fixed';
+                glitchContainer.style.top = '0';
+                glitchContainer.style.left = '0';
+                glitchContainer.style.width = '100%';
+                glitchContainer.style.height = '100%';
+                glitchContainer.style.zIndex = '9999';
+                glitchContainer.style.pointerEvents = 'none';
+
+                glitchContainer.appendChild(glitch1);
+                glitchContainer.appendChild(glitch2);
+                document.body.appendChild(glitchContainer);
+
+                // Add glitch animation styles
+                const style = document.createElement('style');
+                style.innerHTML = `
+                .glitch-container {
+                    overflow: hidden;
+                }
+                
+                .glitch-layer {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-size: cover;
+                    opacity: 0.7;
+                }
+                
+                @keyframes glitch-anim-1 {
+                    0% { transform: translateX(0) translateY(0); opacity: 1; }
+                    20% { transform: translateX(-10px) translateY(10px); opacity: 0.8; }
+                    40% { transform: translateX(10px) translateY(-10px); opacity: 0.6; }
+                    60% { transform: translateX(-10px) translateY(10px); opacity: 0.8; }
+                    80% { transform: translateX(10px) translateY(-10px); opacity: 0.6; }
+                    100% { transform: translateX(0) translateY(0); opacity: 1; }
+                }
+                
+                @keyframes glitch-anim-2 {
+                    0% { transform: translateX(0) translateY(0); opacity: 0.6; }
+                    20% { transform: translateX(10px) translateY(-10px); opacity: 0.8; }
+                    40% { transform: translateX(-10px) translateY(10px); opacity: 1; }
+                    60% { transform: translateX(10px) translateY(-10px); opacity: 0.8; }
+                    80% { transform: translateX(-10px) translateY(10px); opacity: 1; }
+                    100% { transform: translateX(0) translateY(0); opacity: 0.6; }
+                }
+            `;
+                document.head.appendChild(style);
+
+                setTimeout(() => {
+                    document.body.removeChild(glitchContainer);
+                    document.body.classList.remove('glitch-effect');
+                }, 1000);
+            }
+
+            // Pixel explosion effect
+            function showExplosion(button) {
+                playSound('explosion');
+
+                const rect = button.getBoundingClientRect();
+                const explosion = document.createElement('div');
+                explosion.className = 'pixel-explosion';
+                explosion.style.position = 'absolute';
+                explosion.style.left = rect.left + 'px';
+                explosion.style.top = rect.top + 'px';
+                explosion.style.width = rect.width + 'px';
+                explosion.style.height = rect.height + 'px';
+                document.body.appendChild(explosion);
+
+                // Create particles
+                const colors = ['#ff3366', '#00ff99', '#3399ff', '#ffcc00', '#9966ff'];
+
+                for (let i = 0; i < 30; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'explosion-particle';
+                    particle.style.left = '50%';
+                    particle.style.top = '50%';
+                    particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+
+                    // Random direction
+                    const angle = Math.random() * Math.PI * 2;
+                    const distance = Math.random() * 100 + 50;
+
+                    explosion.appendChild(particle);
+
+                    // Animate particle
+                    setTimeout(() => {
+                        particle.style.transition = `all ${Math.random() * 0.5 + 0.5}s ease-out`;
+                        particle.style.opacity = '1';
+                        particle.style.transform = `translate(${Math.cos(angle) * distance}px, ${Math.sin(angle) * distance}px)`;
+                        particle.style.opacity = '0';
+
+                        setTimeout(() => {
+                            particle.remove();
+                        }, 1000);
+                    }, 0);
+                }
+
+                setTimeout(() => {
+                    explosion.remove();
+                }, 1500);
+            }
+
+            // Progress bar for game purchase
+            function showProgressBar(button) {
+                const card = button.closest('.game-card');
+                const progressBar = card.querySelector('.retro-progress');
+                const progressFill = card.querySelector('.retro-progress-fill');
+
+                progressBar.classList.remove('hidden');
+
+                let progress = 0;
+                const interval = setInterval(() => {
+                    progress += 5;
+                    progressFill.style.width = progress + '%';
+
+                    if (progress >= 100) {
+                        clearInterval(interval);
+                        setTimeout(() => {
+                            progressBar.classList.add('hidden');
+                            showNotification();
+                            document.getElementById('notification').textContent = 'Purchase complete! Thank you!';
+                        }, 500);
+                    }
+                }, 100);
+            }
+
+            // TV noise effect toggle
+            function toggleTVNoise() {
+                const noise = document.getElementById('tvNoise');
+                if (noise.style.display === 'none') {
+                    noise.style.display = 'block';
+                    setTimeout(() => {
+                        noise.style.display = 'none';
+                    }, 2000);
+                } else {
+                    noise.style.display = 'block';
+                    setTimeout(() => {
+                        noise.style.display = 'none';
+                    }, 2000);
+                }
+            }
+
+            // Form submission
+            function submitForm(e) {
+                e.preventDefault();
+                playSound('confirm');
+
+                // Show success message
+                const notification = document.getElementById('notification');
+                notification.textContent = 'Message sent successfully!';
+                notification.style.bottom = '20px';
+
+                setTimeout(function() {
+                    notification.style.bottom = '-100px';
+                }, 3000);
+
+                // Reset form
+                document.getElementById('contactForm').reset();
+            }
+
+            // Mini game
+            const canvas = document.getElementById('gameCanvas');
+            const ctx = canvas.getContext('2d');
+            const startBtn = document.getElementById('startBtn');
+            const jumpBtn = document.getElementById('jumpBtn');
+
+            let gameRunning = false;
+            let player = {
+                x: 50,
+                y: canvas.height - 60,
+                width: 30,
+                height: 30,
+                speed: 0,
+                gravity: 0.5,
+                jumpPower: -10,
+                grounded: false
+            };
+
+            let obstacles = [];
+            let score = 0;
+            let gameSpeed = 3;
+            let animationId;
+
+            function startGame() {
+                if (gameRunning) return;
+
+                gameRunning = true;
+                player = {
+                    x: 50,
+                    y: canvas.height - 60,
+                    width: 30,
+                    height: 30,
+                    speed: 0,
+                    gravity: 0.5,
+                    jumpPower: -10,
+                    grounded: false
+                };
+
+                obstacles = [];
+                score = 0;
+                gameSpeed = 3;
+
+                startBtn.classList.add('hidden');
+                jumpBtn.classList.remove('hidden');
+
+                // Touch controls for mobile
+                if ('ontouchstart' in window) {
+                    document.addEventListener('touchstart', jump);
+                }
+
+                // Keyboard controls
+                document.addEventListener('keydown', function(e) {
+                    if (e.code === 'Space' || e.key === 'ArrowUp') {
+                        jump();
+                    }
+                });
+
+                gameLoop();
+            }
+
+            function jump() {
+                if (player.grounded) {
+                    player.speed = player.jumpPower;
+                    player.grounded = false;
+                    playSound('jump');
+                }
+            }
+
+            function gameLoop() {
+                // Clear canvas
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                // Update player
+                player.speed += player.gravity;
+                player.y += player.speed;
+
+                // Ground collision
+                if (player.y > canvas.height - player.height) {
+                    player.y = canvas.height - player.height;
+                    player.speed = 0;
+                    player.grounded = true;
+                }
+
+                // Draw player
+                ctx.fillStyle = '#ff3366';
+                ctx.fillRect(player.x, player.y, player.width, player.height);
+
+                // Generate obstacles
+                if (Math.random() < 0.02) {
+                    obstacles.push({
+                        x: canvas.width,
+                        width: 20,
+                        height: Math.random() * 30 + 30,
+                        speed: gameSpeed
+                    });
+                }
+
+                // Update and draw obstacles
+                for (let i = obstacles.length - 1; i >= 0; i--) {
+                    obstacles[i].x -= obstacles[i].speed;
+
+                    ctx.fillStyle = '#3399ff';
+                    ctx.fillRect(obstacles[i].x, canvas.height - obstacles[i].height, obstacles[i].width, obstacles[i].height);
+
+                    // Collision detection
+                    if (
+                        player.x < obstacles[i].x + obstacles[i].width &&
+                        player.x + player.width > obstacles[i].x &&
+                        player.y < canvas.height &&
+                        player.y + player.height > canvas.height - obstacles[i].height
+                    ) {
+                        gameOver();
+                        return;
+                    }
+
+                    // Remove off-screen obstacles
+                    if (obstacles[i].x + obstacles[i].width < 0) {
+                        obstacles.splice(i, 1);
+                        score++;
+
+                        // Increase difficulty
+                        if (score % 5 === 0) {
+                            gameSpeed += 0.5;
+                        }
+                    }
+                }
+
+                // Draw score
+                ctx.fillStyle = '#ffffff';
+                ctx.font = '20px "Press Start 2P"';
+                ctx.fillText('SCORE: ' + score, 20, 30);
+
+                animationId = requestAnimationFrame(gameLoop);
+            }
+
+            function gameOver() {
+                cancelAnimationFrame(animationId);
+                gameRunning = false;
+
+                playSound('gameover');
+
+                // Draw game over screen
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                ctx.fillStyle = '#ff3366';
+                ctx.font = '30px "Press Start 2P"';
+                ctx.textAlign = 'center';
+                ctx.fillText('GAME OVER', canvas.width / 2, canvas.height / 2 - 20);
+
+                ctx.fillStyle = '#ffffff';
+                ctx.font = '20px "Press Start 2P"';
+                ctx.fillText('FINAL SCORE: ' + score, canvas.width / 2, canvas.height / 2 + 20);
+
+                startBtn.textContent = 'PLAY AGAIN';
+                startBtn.classList.remove('hidden');
+                jumpBtn.classList.add('hidden');
+
+                // Remove event listeners
+                document.removeEventListener('keydown', jump);
+                document.removeEventListener('touchstart', jump);
+            }
+
+
+
+            // Initialize floating pixels background
+            function createFloatingPixels() {
+                const container = document.getElementById('floatingPixels');
+                const colors = ['#ff3366', '#00ff99', '#3399ff', '#ffcc00', '#9966ff'];
+
+                for (let i = 0; i < 50; i++) {
+                    const pixel = document.createElement('div');
+                    pixel.className = 'floating-pixel';
+                    pixel.style.left = Math.random() * 100 + '%';
+                    pixel.style.top = Math.random() * 100 + '%';
+                    pixel.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    pixel.style.animationDuration = (Math.random() * 10 + 5) + 's';
+                    pixel.style.animationDelay = (Math.random() * 5) + 's';
+                    pixel.style.opacity = Math.random() * 0.7 + 0.3;
+                    pixel.style.width = (Math.random() * 8 + 4) + 'px';
+                    pixel.style.height = pixel.style.width;
+                    container.appendChild(pixel);
+                }
+            }
+
+            // Sound effects
+            function playSound(type) {
+                let sound;
+                switch (type) {
+                    case 'hover':
+                        sound = document.getElementById('hoverSound');
+                        break;
+                    case 'select':
+                        sound = document.getElementById('selectSound');
+                        break;
+                    case 'confirm':
+                        sound = document.getElementById('confirmSound');
+                        break;
+                }
+
+                sound.currentTime = 0;
+                sound.play();
+            }
+
+            // Filter games
+            function setupGameFilters() {
+                const filterBtns = document.querySelectorAll('.filter-btn');
+                const gameCards = document.querySelectorAll('.game-card');
+
+                filterBtns.forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        playSound('select');
+
+                        // Update active button
+                        filterBtns.forEach(b => b.classList.remove('active'));
+                        this.classList.add('active');
+
+                        const filter = this.dataset.filter;
+
+                        // Filter games
+                        gameCards.forEach(card => {
+                            if (filter === 'all' || card.dataset.category.includes(filter)) {
+                                card.style.display = 'block';
+                            } else {
+                                card.style.display = 'none';
+                            }
+                        });
+                    });
+                });
+            }
+
+            // Game details modal
+            function setupGameModals() {
+                const modal = document.getElementById('gameModal');
+                const modalContent = document.getElementById('modalContent');
+                const closeBtn = document.querySelector('.close-modal');
+                const gameBtns = document.querySelectorAll('.game-details');
+
+                // Game data
+                const games = {
+                    1: {
+                        title: "NINJA QUEST",
+                        description: "Slice through enemies in this fast-paced platformer with fluid combat mechanics and challenging levels. Master the art of the ninja as you traverse through beautifully crafted pixel environments.",
+                        tags: ["ACTION", "PLATFORMER", "NEW"],
+                        screenshots: [
+                            "https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+                            "https://images.unsplash.com/photo-1547036967-23d11aacaee0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80",
+                            "https://images.unsplash.com/photo-1551103782-8ab07afd45c1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                        ],
+                        release: "June 2023",
+                        platforms: ["PC", "Switch", "PlayStation", "Xbox"]
+                    },
+                    2: {
+                        title: "CHRONO PIXELS",
+                        description: "An epic time-traveling adventure where your choices shape the future. Explore different eras, meet historical figures, and unravel the mysteries of time itself in this pixel-perfect RPG.",
+                        tags: ["RPG", "ADVENTURE"],
+                        screenshots: [
+                            "https://images.unsplash.com/photo-1560253023-3ec5d502959f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+                            "https://images.unsplash.com/photo-1511512578047-dba367496ab6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80",
+                            "https://images.unsplash.com/photo-1585238342024-78d80f7c1b8e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80"
+                        ],
+                        release: "March 2023",
+                        platforms: ["PC", "Switch"]
+                    },
+                    3: {
+                        title: "BLOCK MATRIX",
+                        description: "Match colors and solve the mystery in this mind-bending puzzle game. With over 100 levels of increasing difficulty, Block Matrix will challenge your pattern recognition and problem-solving skills.",
+                        tags: ["PUZZLE"],
+                        screenshots: [
+                            "https://images.unsplash.com/photo-1585238342024-78d80f7c1b8e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80",
+                            "https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+                            "https://images.unsplash.com/photo-1560253023-3ec5d502959f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                        ],
+                        release: "January 2023",
+                        platforms: ["PC", "Mobile"]
+                    }
+                };
+
+                // Open modal
+                gameBtns.forEach(btn => {
+                            btn.addEventListener('click', function() {
+                                        playSound('confirm');
+                                        const gameId = this.dataset.game;
+                                        const game = games[gameId];
+
+                                        // Build modal content
+                                        let content = `
+                        <div class="pixel-font text-3xl mb-6 text-purple-400">${game.title}</div>
+                        <div class="mb-6">
+                            ${game.tags.map(tag => `<span class="game-tag">${tag}</span>`).join('')}
+                        </div>
+                        <p class="text-lg mb-6">${game.description}</p>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                            <div>
+                                <h3 class="pixel-font text-xl mb-4">DETAILS</h3>
+                                <p><strong>Release Date:</strong> ${game.release}</p>
+                                <p><strong>Platforms:</strong> ${game.platforms.join(', ')}</p>
+                            </div>
+                            <div>
+                                <h3 class="pixel-font text-xl mb-4">FEATURES</h3>
+                                <ul class="list-disc pl-5">
+                                    <li>Beautiful pixel art graphics</li>
+                                    <li>Engaging storyline</li>
+                                    <li>Multiple difficulty levels</li>
+                                    <li>Original chiptune soundtrack</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <h3 class="pixel-font text-xl mb-4">SCREENSHOTS</h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+                            ${game.screenshots.map(img => `
+                                <div class="screenshot pixel-border">
+                                    <img src="${img}" alt="${game.title} screenshot" class="w-full h-auto">
+                                </div>
+                            `).join('')}
+                        </div>
+                        
+                        <div class="text-center">
+                            <button class="btn-pixel bg-purple-600 retro-font">
+                                BUY NOW <i class="fas fa-shopping-cart ml-2"></i>
+                            </button>
+                        </div>
+                    `;
+                    
+                    modalContent.innerHTML = content;
+                    modal.style.display = "block";
+                    
+                    // Add click event to screenshots
+                    document.querySelectorAll('.screenshot').forEach(screenshot => {
+                        screenshot.addEventListener('click', function() {
+                            // You could implement a lightbox here
+                            playSound('select');
+                        });
+                    });
+                });
+            });
+            
+            // Close modal
+            closeBtn.addEventListener('click', function() {
+                playSound('select');
+                modal.style.display = "none";
+            });
+            
+            // Close when clicking outside
+            window.addEventListener('click', function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            });
+        }
+
+        // Initialize on load
+        window.addEventListener('load', function() {
+            createFloatingPixels();
+            setupGameFilters();
+            setupGameModals();
+            
+            // Add hover effects to buttons and cards
+            const buttons = document.querySelectorAll('button');
+            buttons.forEach(button => {
+                button.addEventListener('mouseenter', () => playSound('hover'));
+            });
+            
+            const cards = document.querySelectorAll('.game-card');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', () => playSound('hover'));
+            });
+        });
+
+
+        // filter section pick 
+
+        document.addEventListener("DOMContentLoaded", function () {
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const gameCards = document.querySelectorAll('.game-card');
+
+    filterButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            // Play sound effect (optional)
+            playSound('select');
+
+            // Mark this button active and remove from others
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+
+            const filter = button.getAttribute('data-filter');
+
+            gameCards.forEach(card => {
+                const categories = card.getAttribute('data-category').split(' ');
+
+                if (filter === 'all' || categories.includes(filter)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    });
+});
+        </script>
+    </body>
+
+</html>
