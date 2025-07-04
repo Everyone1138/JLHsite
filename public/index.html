@@ -237,24 +237,33 @@
 
 
     <!-- About Section -->
-    <section id="about" class="py-16 ">
+    <section id="about" class="py-16">
         <div class="container mx-auto px-6">
             <div class="flex flex-col md:flex-row items-center">
+                <!-- Video goes first now -->
                 <div class="md:w-1/2 mb-10 md:mb-0 md:pr-10">
+                    <div class="pixel-border p-2 bg-gray-800 hover:rotate-1 transition-transform">
+                        <video width="100%" height="100%" controls autoplay muted loop>
+                        <source src="https://video.akamai.steamstatic.com/store_trailers/257047294/movie480_vp9.webm?t=1725465704" type="video/webm">
+                        Your browser does not support the video tag.
+                    </video>
+                    </div>
+                </div>
+                <!-- Text goes second now -->
+                <div class="md:w-1/2">
                     <h2 class="pixel-font text-3xl md:text-4xl mb-6 text-purple-400">About JLH</h2>
                     <p class="retro-font text-xl mb-6">Founded in 2014 by a group of veteran game developers who grew up with the 16-bit and 32-bit eras, Jupiter Lighthouse is dedicated to keeping the spirit of classic gaming alive.</p>
                     <p class="retro-font text-xl mb-6">We combine modern development techniques with authentic pixel art and chiptune music to create experiences that feel both nostalgic and fresh.</p>
                     <p class="retro-font text-xl mb-8">All our games are developed with genuine 32-bit architecture limitations in mind, ensuring authentic performance across all platforms.</p>
-                    <button class="btn-pixel bg-green-500 retro-font" onclick="playSound('confirm')">Contact Us!</button>
-                </div>
-                <div class="md:w-1/2">
-                    <div class="pixel-border p-2 bg-gray-800 hover:rotate-1 transition-transform">
-                        <img src="https://placehold.co/600x400/black/purple?text=Our+Studio" alt="Jupiter Lighthouse Studio" class="w-full h-auto">
+                    <div class="flex justify-end">
+                        <button class="btn-pixel bg-green-500 retro-font" onclick="playSound('confirm')">
+            Contact Us!
+        </button>
                     </div>
                 </div>
             </div>
-        </div>
     </section>
+
 
 
     <!--Gallery Section -->
@@ -296,12 +305,12 @@
                 <div class="game-card pixel-border rounded-lg" data-category="action platformer new" style="background-image: url('images/ss_38ab89bf9645f851f7aef18b6400b42e2f7309f0.600x338.jpg')">
                     <div class="game-card-content">
                         <div>
-                            <span class="game-tag">ACTION</span>
-                            <span class="game-tag">PLATFORMER</span>
-                            <span class="game-tag">NEW</span>
+                            <span class="game-tag tag-action">ACTION</span>
+                            <span class="game-tag">TPS</span>
+
                         </div>
                         <h3 class="pixel-font text-xl mb-2">WRECKAGE</h3>
-                        <p class="retro-font text-lg mb-4">Slice through enemies in this fast-paced platformer</p>
+                        <p class="retro-font text-lg mb-4">Slice through enemies in this fast-paced car shooter.</p>
                         <button class="btn-pixel retro-font game-details" data-game="1">
                             VIEW DETAILS <i class="fas fa-arrow-right ml-2"></i>
                         </button>
@@ -309,10 +318,10 @@
                 </div>
 
                 <!-- Game 2 -->
-                <div class="game-card pixel-border rounded-lg" data-category="rpg adventure" style="background-image: url('https://images.unsplash.com/photo-1560253023-3ec5d502959f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80')">
+                <div class="game-card pixel-border rounded-lg" data-category="rpg adventure" style="background-image: url('images/trellis4.jpg')">
                     <div class="game-card-content">
                         <div>
-                            <span class="game-tag">RPG</span>
+                            <span class="game-tag">PUZZLE</span>
                             <span class="game-tag">ADVENTURE</span>
                         </div>
                         <h3 class="pixel-font text-xl mb-2">TRELLIS</h3>
@@ -324,12 +333,12 @@
                 </div>
 
                 <!-- Game 3 -->
-                <div class="game-card pixel-border rounded-lg" data-category="puzzle" style="background-image: url('https://images.unsplash.com/photo-1585238342024-78d80f7c1b8e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80')">
+                <div class="game-card pixel-border rounded-lg" data-category="puzzle" style="background-image: url('images/PROTOMAN4.png')">
                     <div class="game-card-content">
                         <div>
-                            <span class="game-tag">PUZZLE</span>
+                            <span class="game-tag">RPG</span>
                         </div>
-                        <h3 class="pixel-font text-xl mb-2">BLOCK MATRIX</h3>
+                        <h3 class="pixel-font text-xl mb-2">Prototype Mansion - Used No Cover</h3>
                         <p class="retro-font text-lg mb-4">Match colors and solve the mystery</p>
                         <button class="btn-pixel retro-font game-details" data-game="3">
                             VIEW DETAILS <i class="fas fa-arrow-right ml-2"></i>
@@ -338,15 +347,15 @@
                 </div>
 
                 <!-- Game 4 -->
-                <div class="game-card pixel-border rounded-lg" data-category="action adventure new" style="background-image: url('https://images.unsplash.com/photo-1547036967-23d11aacaee0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80')">
+                <div class="game-card pixel-border rounded-lg" data-category="action adventure new" style="background-image: url('images/seehowcow.jpg')">
                     <div class="game-card-content">
                         <div>
-                            <span class="game-tag">ACTION</span>
-                            <span class="game-tag">ADVENTURE</span>
-                            <span class="game-tag">NEW</span>
+                            <span class="game-tag">PUZZLE</span>
+                            <!-- <span class="game-tag">ADVENTURE</span>
+                            <span class="game-tag">NEW</span> -->
                         </div>
-                        <h3 class="pixel-font text-xl mb-2">SPACE RANGERS</h3>
-                        <p class="retro-font text-lg mb-4">Defend the galaxy from alien invaders</p>
+                        <h3 class="pixel-font text-xl mb-2">HOW NOW, SEA COW?</h3>
+                        <p class="retro-font text-lg mb-4">A game about a girl and her aquatic mammal friend.</p>
                         <button class="btn-pixel retro-font game-details" data-game="4">
                             VIEW DETAILS <i class="fas fa-arrow-right ml-2"></i>
                         </button>
@@ -354,13 +363,13 @@
                 </div>
 
                 <!-- Game 5 -->
-                <div class="game-card pixel-border rounded-lg" data-category="rpg" style="background-image: url('https://images.unsplash.com/photo-1511512578047-dba367496ab6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80')">
+                <div class="game-card pixel-border rounded-lg" data-category="rpg" style="background-image: url('images/EP2_Store_CDFront.jpg')">
                     <div class="game-card-content">
                         <div>
                             <span class="game-tag">RPG</span>
                         </div>
-                        <h3 class="pixel-font text-xl mb-2">DRAGON REALM</h3>
-                        <p class="retro-font text-lg mb-4">Build your legend in a world of magic</p>
+                        <h3 class="pixel-font text-xl mb-2">Garden Variety Body Horror - Rare Import</h3>
+                        <p class="retro-font text-lg mb-4">HANK MAKER is separated from his partner and hopelessly alone while on call to a foggy island.</p>
                         <button class="btn-pixel retro-font game-details" data-game="5">
                             VIEW DETAILS <i class="fas fa-arrow-right ml-2"></i>
                         </button>
@@ -519,34 +528,71 @@
         startClientCarousel();
     </script>
 
-
-
-    <!--new section-->
+    <!-- new section -->
     <section id="clientApproach" class="py-16 bg-black text-white">
-        <div class="container mx-auto px-6 md:flex items-center gap-12">
-            <!-- Image Left -->
+        <div class="container mx-auto px-6 md:flex md:flex-row-reverse items-center gap-12">
+
+            <!-- Media box (GIF ⬌ Video) -->
             <div class="md:w-1/2 mb-8 md:mb-0">
                 <div class="pixel-border bg-gray-800 p-2 hover:rotate-1 transition-transform">
-                    <video width="100%" height="100%" controls autoplay muted loop>
-  <source src="https://video.akamai.steamstatic.com/store_trailers/257047294/movie480_vp9.webm?t=1725465704" type="video/webm">
-  Your browser does not support the video tag.
-</video>
-                    <!-- <img src="https://placehold.co/600x400/0000ff/ffffff?text=Client+Workshop" alt="Client Collaboration" class="w-full h-auto"> -->
+                    <div class="w-full overflow-hidden">
+
+                        <!-- GIF (starts visible) -->
+                        <img id="mediaGif" src="https://img.itch.zone/aW1nLzEzMTU3MjQuZ2lm/original/QBw9Ks.gif" alt="Gameplay preview" class="w-full h-auto object-contain" />
+
+                        <!-- Video (starts hidden) -->
+                        <video id="mediaVideo" class="w-full h-auto object-contain hidden" autoplay muted loop playsinline>
+            <source src="https://video.akamai.steamstatic.com/store_trailers/256727705/movie480.webm?t=1541486431"
+                    type="video/webm">
+            Your browser does not support the video tag.
+          </video>
+
+                    </div>
                 </div>
             </div>
-            <!-- Text Right -->
+
+            <!-- Text -->
             <div class="md:w-1/2">
-                <h2 class="pixel-font text-3xl md:text-4xl text-blue-400 mb-6">COLLABORATE & CREATE</h2>
+                <h2 class="pixel-font text-3xl md:text-4xl text-blue-400 mb-6">
+                    COLLABORATE &amp; CREATE
+                </h2>
                 <p class="retro-font text-xl mb-4 text-gray-300">
                     At Jupiter Lighthouse, collaboration isn't a feature — it's a philosophy. We work closely with indie studios, musicians, and pixel wizards to bring authentic 32-bit visions to life.
                 </p>
                 <p class="retro-font text-xl mb-4 text-gray-300">
                     Whether you're building a one-level demo or a full saga, we plug into your creative pipeline and power it with our retro engine, toolsets, and visual design expertise.
                 </p>
-                <button class="btn-pixel retro-font" onclick="playSound('confirm'); document.getElementById('contact').scrollIntoView({behavior: 'smooth'})">Start a Project</button>
+                <button class="btn-pixel retro-font" onclick="playSound('confirm'); document.getElementById('contact').scrollIntoView({behavior: 'smooth'})">
+        Start a Project
+      </button>
             </div>
+
         </div>
     </section>
+
+    <!-- swap script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const gif = document.getElementById('mediaGif');
+            const vid = document.getElementById('mediaVideo');
+            let showGif = true;
+
+            setInterval(() => {
+                if (showGif) {
+                    gif.classList.add('hidden');
+                    vid.classList.remove('hidden');
+                    vid.currentTime = 0; // start video from the beginning
+                    vid.play();
+                } else {
+                    vid.classList.add('hidden');
+                    gif.classList.remove('hidden');
+                }
+                showGif = !showGif;
+            }, 8000); // ⏱ change this value to adjust interval
+        });
+    </script>
+
+
 
 
 
@@ -556,7 +602,7 @@
             <h2 class="pixel-font text-3xl mb-12 text-center text-purple-400">MEET THE TEAM</h2>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Founder 1 -->
+                <!-- team 1 -->
                 <div class="team-card pixel-border rounded-lg overflow-hidden">
                     <img src="images/meinglasses.jpg" alt="Dylan" class="w-full h-64 object-cover">
                     <div class="p-6">
@@ -568,7 +614,7 @@
                     </div>
                 </div>
 
-                <!-- Founder 2 -->
+                <!-- team 2 -->
                 <div class="team-card pixel-border rounded-lg overflow-hidden">
                     <img src="images/DSC_0393.jpg" alt="Andy" class="w-full h-64 object-cover">
                     <div class="p-6">
@@ -581,7 +627,7 @@
                     </div>
                 </div>
 
-                <!-- Founder 3 -->
+                <!-- team 3 -->
                 <div class="team-card pixel-border rounded-lg overflow-hidden">
                     <img src="images/64525155226__1143598F-077D-42C5-A01D-40D056ED588C.jpeg" alt="Santi" class="w-full h-64 object-cover">
                     <div class="p-6">
@@ -910,9 +956,8 @@
     </script>
 
 
-    <script src="js/index.js">
-    <script src="js/gallery.js">
-    <script src="server.js">
+    <script src="js/index.js"></script>
+    <script src="js/gallery.js"></script>
 </body>
 
 </html>

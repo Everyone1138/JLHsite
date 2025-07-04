@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "type": "module",
     "description": "Game Development Company: Jupiter LightHouse",
-    "main": "public/index.html",
+    "main": "index.html",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "start": "node server.js"
@@ -27,9 +27,9 @@
     },
     "homepage": "https://github.com/Everyone1138/JLHSite#readme",
     "dependencies": {
-        "express": "^4",
-        "nodemailer": "^6",
-        "cors": "^2",
-        "dotenv": "^16"
+        "cors": "^2.8.5",
+        "dotenv": "^16.6.1",
+        "express": "^4.21.2",
+        "nodemailer": "^6.10.1"
     }
 }

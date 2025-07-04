@@ -750,3 +750,15 @@
                 document.removeEventListener('keydown', jump);
                 document.removeEventListener('touchstart', jump);
             }
+
+
+
+            const transporter = nodemailer.createTransport({
+                host: 'smtp.dreamhost.com', // or 'smtp.gmail.com'
+                port: 465,
+                secure: true,
+                auth: {
+                    user: process.env.SMTP_USER,
+                    pass: process.env.SMTP_PASS,
+                },
+            });

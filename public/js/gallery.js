@@ -43,71 +43,136 @@ function setupGameModals() {
                 "images/ss_481423be16736fc3bd29b52597eaa50b2e7e2745.600x338.jpg",
                 "images/ss_476f0e0861133246d994adca30bf4323014e3d11.600x338.jpg",
             ],
-            release: "June 2023",
-            platforms: ["PC", "Switch", "PlayStation", "Xbox"],
-            page: ["https://store.steampowered.com/app/2444530/Wreckage/"]
+            release: "2026",
+            platforms: ["PC"],
+            page: ["https://store.steampowered.com/app/2444530/Wreckage/"],
+            feature: ["car shooter"],
+            feature1: ["third person"],
+            feature2: ["multi player"],
         },
         2: {
-            title: "CHRONO PIXELS",
-            description: "An epic time-traveling adventure where your choices shape the future. Explore different eras, meet historical figures, and unravel the mysteries of time itself in this pixel-perfect RPG.",
-            tags: ["RPG", "ADVENTURE"],
+            title: "TRELLIS",
+            description: "TRELLIS is a puzzle/adventure game featuring Fig, a robot caretaker tending to its plant. Shine the Spotlight to guide Fig and solve dozens of unique puzzles, uncovering the mysteries of an ancient alien temple long forgotten… but not abandoned.",
+            tags: ["PUZZLE", "ADVENTURE"],
             screenshots: [
-                "https://images.unsplash.com/photo-1560253023-3ec5d502959f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
-                "https://images.unsplash.com/photo-1511512578047-dba367496ab6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80",
-                "https://images.unsplash.com/photo-1585238342024-78d80f7c1b8e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80"
+                "images/trellis11.jpg",
+                "images/trellis12.jpg",
+                "images/trellis10.jpg"
+
             ],
-            release: "March 2023",
-            platforms: ["PC", "Switch"]
+            release: "TBA",
+            platforms: ["PC"],
+            page: ["https://store.steampowered.com/app/3140710/Trellis/"],
+            feature: ["car shooter"],
+            feature1: ["third person"],
+            feature2: ["multi player"],
         },
         3: {
-            title: "BLOCK MATRIX",
-            description: "Match colors and solve the mystery in this mind-bending puzzle game. With over 100 levels of increasing difficulty, Block Matrix will challenge your pattern recognition and problem-solving skills.",
-            tags: ["PUZZLE"],
+            title: "PROTOTYPE MANSION-Used No Cover",
+            description: "A classic 32-bit Survival-Horror found in a bargain bin. Disc no scratches, good condition.",
+            tags: ["RPG"],
             screenshots: [
-                "https://images.unsplash.com/photo-1585238342024-78d80f7c1b8e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80",
-                "https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
-                "https://images.unsplash.com/photo-1560253023-3ec5d502959f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                "images/PROTOMAN.JPG",
+                "images/PROTOMAN2.JPG",
+                "images/PROTOMAN1.JPG"
             ],
-            release: "January 2023",
-            platforms: ["PC", "Mobile"]
+            release: "2017",
+            platforms: ["PC"],
+
+            pages: ["https://store.steampowered.com/app/868570/Prototype_Mansion__Used_No_Cover/"],
+            pagetwo: ["https://jupiterlighthousestudio.itch.io/prototype-mansion"],
+            feature: ["car shooter"],
+            feature1: ["third person"],
+            feature2: ["multi player"],
         },
         4: {
-            title: "BLOCK MATRIX",
-            description: "Match colors and solve the mystery in this mind-bending puzzle game. With over 100 levels of increasing difficulty, Block Matrix will challenge your pattern recognition and problem-solving skills.",
+            title: "HOW NOW,SEA COW?",
+            description: "Solve puzzles, feed your beastie, and enjoy the slow coastal vibe. Five levels in total.Made in a little over a week for an in-house game-jam. We wanted to focus on simple mechanics, clarity, and setting a clear and definitive tone.The idea was to make a version of Flipper that featured a painfully slow manatee instead of a dolphin. While we were going for slow torment.. it ended up a bit endearing, somehow.",
             tags: ["PUZZLE"],
             screenshots: [
-                "https://images.unsplash.com/photo-1585238342024-78d80f7c1b8e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80",
-                "https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
-                "https://images.unsplash.com/photo-1560253023-3ec5d502959f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                "images/seehowcow1.jpg",
+                "images/seehowcow2.jpg",
+                "images/seehowcow3.jpg"
             ],
-            release: "January 2023",
-            platforms: ["PC", "Mobile"]
+            release: "2015",
+            platforms: ["PC"],
+            feature: ["car shooter"],
+            feature1: ["third person"],
+            feature2: ["multi player"],
         },
         5: {
-            title: "BLOCK MATRIX",
-            description: "Match colors and solve the mystery in this mind-bending puzzle game. With over 100 levels of increasing difficulty, Block Matrix will challenge your pattern recognition and problem-solving skills.",
-            tags: ["PUZZLE"],
+            title: "Garden Variety Body Horror - Rare Import",
+            description: " GARDEN VARIETY BODY HORROR is the bloody disgusting, unsanctioned followup to last years sleeper non-hit PROTOTYPE MANSION. In this all new survival/adventure you play as HANK, the idiot B-story partner who must SOLVE, PUNCH and HEAL his way through an unimaginable garden-themed existential nightmare. Investigate a fog filled estate, solve puzzles, fight horrific monsters, and enjoy the relaxing sounds of bad Japanese dub. (English subtitles included)Back of CD case reads:HANK MAKER is separated from his partner and hopelessly alone while on call to a foggy island. He must now shovel his way through an existential crisis of guts, gore, and gardening. What other nightmares await our idiot cop from disc 1?Find out! In...GARDEN VARIETY BODY HORROR!",
+            tags: ["RPG", "PUZZLE"],
             screenshots: [
-                "https://images.unsplash.com/photo-1585238342024-78d80f7c1b8e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80",
-                "https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
-                "https://images.unsplash.com/photo-1560253023-3ec5d502959f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                "images/ss_811ccffee751fd98585d12c7abd3181843f9ad62.600x338.jpg",
+                "images/ss_0c1bd54d09cf8b7e745839fafef003812d7a47ac.600x338.jpg",
+                "images/ss_4b372b007e0e384979aa065f1390507a862f9ca7.600x338.jpg"
             ],
-            release: "January 2023",
-            platforms: ["PC", "Mobile"]
+            release: "2018",
+            platforms: ["PC", "Mobile"],
+            feature: ["Japanese dubs and English subs"],
+            feature1: ["Classic style survival-horror gameplay => tank controls optional"],
+            feature2: ["Puzzles of the cryptic kind"],
         },
         6: {
-            title: "CHRONO PIXELS",
+            title: "Paranormal Precinct - Last Copy of '99",
             description: "An epic time-traveling adventure where your choices shape the future. Explore different eras, meet historical figures, and unravel the mysteries of time itself in this pixel-perfect RPG.",
             tags: ["RPG", "ADVENTURE"],
             screenshots: [
-                "https://images.unsplash.com/photo-1560253023-3ec5d502959f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
-                "https://images.unsplash.com/photo-1511512578047-dba367496ab6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80",
-                "https://images.unsplash.com/photo-1585238342024-78d80f7c1b8e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80"
+                "images/paranormal1.jpg",
+                "images/paranormal2.jpg",
+                "images/paranormal3.jpg"
             ],
-            release: "March 2023",
-            platforms: ["PC", "Switch"]
+            release: "TBA",
+            platforms: ["PC"],
+            feature: ["car shooter"],
+            feature1: ["third person"],
+            feature2: ["multi player"],
         }
     };
+
+    function renderGameButtons(game) {
+        let html = '';
+
+        // If `pages` exists and is an array
+        if (Array.isArray(game.pages) && game.pages.length > 0) {
+            html += `
+      <button onclick="window.location.href='${game.pages[0]}'" 
+              class="btn-pixel bg-blue-600 retro-font mx-2 my-2">
+        STEAM <i class="fas fa-shopping-cart ml-2"></i>
+      </button>
+    `;
+        }
+
+        // If `page` exists and is an array
+        if (Array.isArray(game.page) && game.page.length > 0) {
+            html += `
+      <button onclick="window.location.href='${game.page[0]}'" 
+              class="btn-pixel bg-purple-600 retro-font mx-2 my-2">
+        WISH LIST ON STEAM <i class="fas fa-star ml-2"></i>
+      </button>
+    `;
+        }
+
+
+
+        // If `page` exists and is an array
+        if (Array.isArray(game.pagetwo) && game.pagetwo.length > 0) {
+            html += `
+      <button onclick="window.location.href='${game.pagetwo[0]}'" 
+              class="btn-pixel bg-red-600 retro-font mx-2 my-2">
+        ITCHI.IO <i class="fas fa-shopping-cart ml-2"></i>
+      </button>
+    `;
+        }
+
+        return html;
+    }
+
+
+
+    //helper 
 
     // Open modal
     gameBtns.forEach(btn => {
@@ -133,10 +198,10 @@ function setupGameModals() {
                             <div>
                                 <h3 class="pixel-font text-xl mb-4">FEATURES</h3>
                                 <ul class="list-disc pl-5">
-                                    <li>Beautiful pixel art graphics</li>
-                                    <li>Engaging storyline</li>
-                                    <li>Multiple difficulty levels</li>
-                                    <li>Original chiptune soundtrack</li>
+                                    <li>${game.feature}</li>
+                                    <li>${game.feature1}</li>
+                                    <li>${game.feature2}</li>
+                                   
                                 </ul>
                             </div>
                         </div>
@@ -150,11 +215,10 @@ function setupGameModals() {
                             `).join('')}
                         </div>
                         
-                        <div class="text-center">
-                            <button onclick="window.location.href='${game.page}'" class="btn-pixel bg-purple-600 retro-font">
-                            WISH LIST ON STEAM <i class="fas fa-shopping-cart ml-2"></i>
-                            </button>
-                        </div>
+
+<div class="text-center flex flex-wrap justify-center">
+  ${renderGameButtons(game)}
+</div>
                         
                     `;
                     
